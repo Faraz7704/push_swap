@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.properties": "properties",
+        "push_swap.h": "c",
+        "sstream": "c",
+        "ratio": "c",
+        "__locale": "c"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
+}
