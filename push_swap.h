@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/04 11:51:01 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/03/04 14:35:00 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 
 void	push_swap(int *lst);
 int		*ft_numchr(const int *num, int c);
-size_t  ft_numlen(const int *num);
+size_t	ft_numlen(const int *num);
 
 #endif

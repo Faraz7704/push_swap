@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/04 12:30:15 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/03/04 14:32:41 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int	rotate(int *a)
 	len = ft_numlen(a);
 	if (len < 2)
 		return (0);
-	temp = a[0];
 	i = 0;
+	temp = a[i];
 	while (i < len - 1)
 		a[i] = a[++i];
 	a[i] = temp;
@@ -76,10 +76,10 @@ int	rrotate(int *a)
 	len = ft_numlen(a);
 	if (len < 2)
 		return (0);
-	temp = a[0];
-	i = 0;
-	while (i < len - 1)
-		a[i] = a[++i];
+	i = len - 1;
+	temp = a[i];
+	while (i > 0)
+		a[i] = a[--i];
 	a[i] = temp;
 	return (1);
 }

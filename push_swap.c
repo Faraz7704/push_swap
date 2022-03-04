@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/04 11:44:50 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/03/04 17:19:55 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ static int	parse_arg(int ac, char **av, int *lst)
 	return (1);
 }
 
-void	push_swap(int *a)
+void	push_swap(int *a, int n)
 {
 	int	i;
-	int	*b;
+	// int	*b;
 
 	i = 0;
 	while (a[i])
@@ -44,21 +44,17 @@ void	push_swap(int *a)
 int	main(int ac, char **av)
 {
 	int	*lst;
-	int	result;
 
 	if (ac < 2)
 		return (0);
 	lst = ft_calloc(sizeof(int), ac - 1);
 	if (!lst)
-		return (0);
-	result = parse_arg(ac, av, lst);
-	// ft_printf("result: %d\n", result);
-	if (!result)
 	{
-		free(lst);
+		ft_printf("Error\n");
 		return (0);
 	}
-	push_swap(lst);
+	if (parse_arg(ac, av, lst))
+		push_swap(lst, ac - 1);
 	free(lst);
 	return (0);
 }
