@@ -4,7 +4,9 @@
         "push_swap.h": "c",
         "sstream": "c",
         "ratio": "c",
-        "__locale": "c"
+        "__locale": "c",
+        "libft.h": "c",
+        "algorithm": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

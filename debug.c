@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faraz <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 23:57:08 by faraz             #+#    #+#             */
-/*   Updated: 2022/01/06 18:34:07 by faraz            ###   ########.fr       */
+/*   Created: 2022/03/05 12:57:52 by fkhan             #+#    #+#             */
+/*   Updated: 2022/03/06 15:01:32 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	print_stack(int *a, int *b, int n)
 {
-	size_t	i;
+	ft_printf("a: ");
+	print_numarr(a, n);
+	ft_printf("b: ");
+	print_numarr(b, n);
+}
 
-	if (!dest && !src)
-		return (0);
+void	print_numarr(int *a, int n)
+{
+	int	i;
+
 	i = 0;
 	while (i < n)
-	{
-		((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
-		i++;
-	}
-	return (dest);
+		ft_printf("%-5d", a[i++]);
+	ft_printf("\n");
 }
