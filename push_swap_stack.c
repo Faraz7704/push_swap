@@ -6,97 +6,95 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/06 14:58:19 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/03/13 13:03:20 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	swap(int *a, int n)
+static int	swap(t_stack *a)
 {
-	if (n < 2)
+	if (a->size < 2)
 		return (0);
-	ft_numswap(&a[0], &a[1]);
+	ft_numswap(&a->value[0], &a->value[1]);
 	return (1);
 }
 
-static int	push(int *a, int *b)
+static int	push(t_stack *a, t_stack *b)
 {
 	int	i;
-	int	alen;
-	int	blen;
 
-	blen = ft_numlen(b);
-	if (!blen)
+	if (!b->size)
 		return (0);
-	alen = ft_numlen(a);
-	if (alen)
+	if (a->size)
 	{
-		i = alen;
+		i = a->size;
 		while (i > 0)
 		{
-			a[i] = a[i - 1];
+			a->value[i] = a->value[i - 1];
 			i--;
 		}
 	}
-	a[0] = b[0];
+	a->value[0] = b->value[0];
+	a->size++;
 	i = 0;
-	while (i < blen - 1)
+	while (i < b->size - 1)
 	{
-		b[i] = b[i + 1];
+		b->value[i] = b->value[i + 1];
 		i++;
 	}
-	b[i] = 0;
+	b->value[i] = 0;
+	b->size--;
 	return (1);
 }
 
-static int	rot(int *a)
+static int	rot(t_stack *a)
 {
 	int	i;
 	int	len;
 	int	temp;
 
-	len = ft_numlen(a);
+	len = a->size;
 	if (len < 2)
 		return (0);
 	i = 0;
-	temp = a[i];
+	temp = a->value[i];
 	while (i < len - 1)
 	{
-		a[i] = a[i + 1];
+		a->value[i] = a->value[i + 1];
 		i++;
 	}
-	a[i] = temp;
+	a->value[i] = temp;
 	return (1);
 }
 
-static int	rrot(int *a)
+static int	rrot(t_stack *a)
 {
 	int	i;
 	int	len;
 	int	temp;
 
-	len = ft_numlen(a);
+	len = a->size;
 	if (len < 2)
 		return (0);
 	i = len - 1;
-	temp = a[i];
+	temp = a->value[i];
 	while (i > 0)
 	{
-		a[i] = a[i - 1];
+		a->value[i] = a->value[i - 1];
 		i--;
 	}
-	a[i] = temp;
+	a->value[i] = temp;
 	return (1);
 }
 
-int	run_inst(char *f, int *a, int *b, int n)
+int	run_inst(char *f, t_stack *a, t_stack *b)
 {
-	if (!ft_strncmp(f, "sa", 2) && !swap(a, n))
+	if (!ft_strncmp(f, "sa", 2) && !swap(a))
 		return (0);
-	else if (!ft_strncmp(f, "sb", 2) && !swap(b, n))
+	else if (!ft_strncmp(f, "sb", 2) && !swap(b))
 		return (0);
-	else if (!ft_strncmp(f, "ss", 2) && (!swap(a, n) || !swap(b, n)))
+	else if (!ft_strncmp(f, "ss", 2) && !swap(a) && !swap(b))
 		return (0);
 	else if (!ft_strncmp(f, "pa", 2) && !push(a, b))
 		return (0);
@@ -110,9 +108,9 @@ int	run_inst(char *f, int *a, int *b, int n)
 		return (0);
 	else if (!ft_strncmp(f, "rrb", 3) && !rrot(b))
 		return (0);
-	else if (!ft_strncmp(f, "rrr", 3) && (!rrot(a) || !rrot(b)))
+	else if (!ft_strncmp(f, "rrr", 3) && !rrot(a) && !rrot(b))
 		return (0);
-	else if (!ft_strncmp(f, "rr", ft_strlen(f)) && (!rot(a) || !rot(b)))
+	else if (!ft_strncmp(f, "rr", ft_strlen(f)) && !rot(a) && !rot(b))
 		return (0);
 	ft_printf("%s\n", f);
 	return (1);

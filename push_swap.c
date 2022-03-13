@@ -6,11 +6,20 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/06 14:52:20 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/03/13 13:17:11 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static t_stack	init_stack(int *a, int n)
+{
+	t_stack	new;
+
+	new.value = a;
+	new.size = n;
+	return (new);
+}
 
 static int	parse_arg(int ac, char **av, int *lst)
 {
@@ -35,25 +44,20 @@ static int	parse_arg(int ac, char **av, int *lst)
 
 void	push_swap(int *a, int n)
 {
-	int	*b;
+	int		*b;
+	t_stack	stacka;
+	t_stack	stackb;
 
 	if (issorted(a, n))
 		return ;
 	b = ft_calloc(sizeof(int), n);
 	if (!b)
 		return ;
-	print_stack(a, b, n);
-	//sort_big_stack(a, b, n);
-	run_inst("ra", a, b, n);
-	print_stack(a, b, n);
-	run_inst("pb", a, b, n);
-	print_stack(a, b, n);
-	run_inst("pb", a, b, n);
-	print_stack(a, b, n);
-	run_inst("pa", a, b, n);
-	print_stack(a, b, n);
-	run_inst("ss", a, b, n);
-	print_stack(a, b, n);
+	stacka = init_stack(a, n);
+	stackb = init_stack(b, 0);
+	print_stack(stacka, stackb);
+	sort_big_stack(&stacka, &stackb);
+	print_stack(stacka, stackb);
 	free(b);
 }
 
