@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/06 13:45:22 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/03/14 18:19:36 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_numncmp(const int *num, int c, int n)
 	if (!n)
 		return (0);
 	i = 0;
-	while (num[i] && c != num[i] && i < n -1)
+	while (num[i] && c != num[i] && i < n - 1)
 		i++;
 	return (c == num[i]);
 }

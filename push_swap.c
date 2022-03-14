@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/13 13:17:11 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/03/14 17:35:52 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ void	push_swap(int *a, int n)
 	stacka = init_stack(a, n);
 	stackb = init_stack(b, 0);
 	print_stack(stacka, stackb);
-	sort_big_stack(&stacka, &stackb);
-	print_stack(stacka, stackb);
+	sort_stack(&stacka, &stackb);
 	free(b);
 }
 

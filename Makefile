@@ -6,7 +6,7 @@
 #    By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/07 11:40:15 by fkhan             #+#    #+#              #
-#    Updated: 2022/03/06 14:19:40 by fkhan            ###   ########.fr        #
+#    Updated: 2022/03/14 17:00:07 by fkhan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ LIB 			= ar -rcs
 RM				= rm -f
 
 SRCS 			= push_swap.c push_swap_utils.c quick_sort.c sort_stack.c \
-				  push_swap_stack.c \
+				  push_swap_stack.c sort_stack_utils.c \
 				  debug.c
 
 OBJS 			= $(SRCS:.c=.o)

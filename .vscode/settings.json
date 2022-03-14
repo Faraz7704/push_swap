@@ -21,7 +21,10 @@
         "tuple": "c",
         "type_traits": "c",
         "vector": "c",
-        "memory": "c"
+        "memory": "c",
+        "__string": "c",
+        "ios": "c",
+        "string": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

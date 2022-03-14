@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/13 13:10:23 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/03/14 17:13:23 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,12 @@ int		*ft_numdup(const int *src, int n);
 int		run_inst(char *inst, t_stack *a, t_stack *b);
 
 // sort_stack
-void	sort_big_stack(t_stack *a, t_stack *b);
+void	sort_stack(t_stack *a, t_stack *b);
+
+// sort_stack_utils
+int		min_index_stack(t_stack *a);
+int		max_index_stack(t_stack *a);
+void	move_top_stack(int index, t_stack *a, t_stack *b);
 
 // quick_sort
 void	quicksort(int *a, int start, int end);
