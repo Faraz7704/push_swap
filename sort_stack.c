@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/14 18:18:41 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/03/15 19:22:47 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,40 +48,15 @@ static void	sort_five_stack(t_stack *a, t_stack *b)
 
 static void	sort_big_stack(t_stack *a, t_stack *b)
 {
-	int	i;
-	int	j;
-	int	maxnum;
-	int	maxbits;
-
-	maxnum = a->size - 1;
-	maxbits = 0;
-	while ((maxnum >> maxbits) != 0)
-		++maxbits;
-	i = 0;
-	while (i < maxbits)
-	{
-		j = 0;
-		while (j < a->size)
-		{
-			if (((a->value[0] >> i) & 1) == 1)
-				run_inst("ra", a, b);
-			else
-				run_inst("pb", a, b);
-			j++;
-		}
-		i++;
-	}
-	i = 0;
-	while (i < a->size)
-	{
-		run_inst("pa", a, b);
-		i++;
-	}
+	a->value[0] = 1;
+	b->value[0] = 1;
 }
 
 void	sort_stack(t_stack *a, t_stack *b)
 {
-	if (a->size <= 3)
+	if (a->size == 2)
+		run_inst("sa", a, b);
+	else if (a->size == 3)
 		sort_three_stack(a, b);
 	else if (a->size <= 5)
 		sort_five_stack(a, b);

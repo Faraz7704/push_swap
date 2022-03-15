@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 15:04:26 by faraz             #+#    #+#             */
-/*   Updated: 2022/02/16 19:18:21 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/03/15 15:16:13 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,11 @@ static int	strdigitlen(const char *str)
 
 int	ft_atoi(const char *str)
 {
-	int	i;
-	int	sign;
-	int	result;
-	int	len;
+	int		i;
+	int		sign;
+	int		result;
+	int		len;
+	char	c;
 
 	i = 0;
 	sign = 1;
@@ -48,14 +49,12 @@ int	ft_atoi(const char *str)
 	if (str[i] == '-' || str[i] == '+')
 		i++;
 	len = strdigitlen(&str[i]);
-	if (sign > 0 && (len > 10 || (len == 10 && str[i + len] > '7')))
+	c = str[i + len - 1];
+	if (sign > 0 && (len > 10 || (len == 10 && str[i] > '1' && c > '7')))
 		return (-1);
-	else if (sign < 0 && (len > 10 || (len == 10 && str[i + len] > '8')))
+	else if (sign < 0 && (len > 10 || (len == 10 && str[i] > '1' && c > '8')))
 		return (0);
 	while (str[i] != '\0' && ft_isdigit(str[i]))
-	{
-		result = (result * 10) + (str[i] - '0');
-		i++;
-	}
+		result = (result * 10) + (str[i++] - '0');
 	return (result * sign);
 }
