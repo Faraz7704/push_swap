@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/14 17:13:23 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/03/16 01:50:32 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int		run_inst(char *inst, t_stack *a, t_stack *b);
 void	sort_stack(t_stack *a, t_stack *b);
 
 // sort_stack_utils
-int		min_index_stack(t_stack *a);
-int		max_index_stack(t_stack *a);
+int		min_index_stack(int *a, int start, int n);
+int		max_index_stack(int *a, int start, int n);
 void	move_top_stack(int index, t_stack *a, t_stack *b);
 
 // quick_sort

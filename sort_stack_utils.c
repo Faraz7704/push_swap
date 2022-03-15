@@ -6,38 +6,38 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/14 18:19:21 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/03/16 01:49:57 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	min_index_stack(t_stack *a)
+int	min_index_stack(int *a, int start, int n)
 {
 	int	i;
 	int	min;
 
-	i = 1;
-	min = 0;
-	while (i < a->size)
+	i = start + 1;
+	min = start;
+	while (i < n)
 	{
-		if (a->value[i] < a->value[min])
+		if (a[i] < a[min])
 			min = i;
 		i++;
 	}
 	return (min);
 }
 
-int	max_index_stack(t_stack *a)
+int	max_index_stack(int *a, int start, int n)
 {
 	int	i;
 	int	max;
 
-	i = 1;
-	max = 0;
-	while (i < a->size)
+	i = start + 1;
+	max = start;
+	while (i < n)
 	{
-		if (a->value[i] > a->value[max])
+		if (a[i] > a[max])
 			max = i;
 		i++;
 	}
