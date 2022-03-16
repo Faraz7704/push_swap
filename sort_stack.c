@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/16 02:01:43 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/03/16 17:33:31 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,25 +47,6 @@ static void	sort_five(t_stack *a, t_stack *b)
 	i = 0;
 	while (i++ < len)
 		run_inst("pa", a, b);
-}
-
-static void	sort_big(t_stack *a, t_stack *b, int *sort, int set_size)
-{
-	int	i;
-	int	elem_size;
-	int	min_index;
-	int	temp;
-
-	elem_size = a->size / set_size;
-	i = 0;
-	while (i < set_size)
-	{
-		while (b->size < elem_size * (i + 1))
-		{
-			min_index = min_index_stack(a->value[0], 0, a->size);
-		}
-		i++;
-	}
 }
 
 void	sort_stack(t_stack *a, t_stack *b)

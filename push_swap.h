@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/16 01:50:32 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/03/16 17:33:17 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ int		run_inst(char *inst, t_stack *a, t_stack *b);
 
 // sort_stack
 void	sort_stack(t_stack *a, t_stack *b);
+
+// sort_big_stack
+void	sort_big(t_stack *a, t_stack *b, int *sort, int set_size);
 
 // sort_stack_utils
 int		min_index_stack(int *a, int start, int n);
