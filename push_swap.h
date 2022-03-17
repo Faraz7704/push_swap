@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/16 17:33:17 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/03/17 13:13:01 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ typedef struct stack
 	int	*value;
 	int	size;
 }	t_stack;
+
+typedef struct sset
+{
+	t_stack	*stack;
+	int		total_moves;
+	int		size;
+}	t_sset;
+
 
 // main
 void	push_swap(int *lst, int n);
@@ -43,9 +51,13 @@ void	sort_stack(t_stack *a, t_stack *b);
 void	sort_big(t_stack *a, t_stack *b, int *sort, int set_size);
 
 // sort_stack_utils
+int		find_index_stack(int *a, int value, int n);
 int		min_index_stack(int *a, int start, int n);
 int		max_index_stack(int *a, int start, int n);
 void	move_top_stack(int index, t_stack *a, t_stack *b);
+
+// stack_set
+
 
 // quick_sort
 void	quicksort(int *a, int start, int end);

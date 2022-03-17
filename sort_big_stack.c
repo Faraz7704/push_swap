@@ -6,16 +6,11 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/16 18:33:01 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/03/17 12:24:54 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	find_distri(t_stack *a, t_stack *b)
-{
-
-}
 
 void	sort_big(t_stack *a, t_stack *b, int *sort, int set_size)
 {

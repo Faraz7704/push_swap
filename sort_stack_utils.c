@@ -6,11 +6,24 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/16 01:49:57 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/03/17 13:12:51 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	find_index_stack(int *a, int value, int n)
+{
+	int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		if (a[i] == value)
+			return (i);
+	}
+	return (-1);
+}
 
 int	min_index_stack(int *a, int start, int n)
 {
