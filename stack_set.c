@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/22 22:15:46 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/03/24 12:36:40 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	init_set(t_sset	*set, t_stack *a, int size)
 	return (1);
 }
 
-static t_sset	*init_sets(t_stack *a, int *sort, int set_size)
+static t_sset	*create_sets(t_stack *a, int *sort, int set_size)
 {
 	int		i;
 	int		j;
@@ -50,9 +50,9 @@ static t_sset	*init_sets(t_stack *a, int *sort, int set_size)
 		j = 0;
 		while (j < sets[i].size)
 		{
-			sets[i].index = find_index_stack(a, sort[j], a->size);
-			if (sets[i].index >= 0)
-				sets[i].total_moves += setval_moves(a, sets[i].index);
+			sets[i].index[j] = find_index_stack(a->value, sort[j], a->size);
+			if (sets[i].index[j] >= 0)
+				sets[i].total_moves += setval_moves(a, sets[i].index[j]);
 			j++;
 		}
 		i++;
@@ -60,14 +60,14 @@ static t_sset	*init_sets(t_stack *a, int *sort, int set_size)
 	return (sets);
 }
 
-t_sset	find_set(t_stack *a, t_stack *b, int *sort, int set_size)
+t_sset	find_set(t_stack *a, int *sort, int set_size)
 {
 	static t_sset	*sets;
 	int				i;
 	int				min_index;
 
 	if (!sets)
-		sets = init_sets(a, sort, set_size);
+		sets = create_sets(a, sort, set_size);
 	i = 1;
 	min_index = 0;
 	while (sets[i].stack)

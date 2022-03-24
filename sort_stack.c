@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/16 17:33:31 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/03/24 12:32:45 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	sort_five(t_stack *a, t_stack *b)
 		move_top_stack(min_index, a, b);
 		run_inst("pb", a, b);
 	}
-	sort_three_stack(a, b);
+	sort_three(a, b);
 	i = 0;
 	while (i++ < len)
 		run_inst("pa", a, b);
@@ -62,7 +62,7 @@ void	sort_stack(t_stack *a, t_stack *b)
 		sort_five(a, b);
 	else
 	{
-		sorta = ft_numdup(a, a->size);
+		sorta = ft_numdup(a->value, a->size);
 		quicksort(sorta, 0, a->size - 1);
 		if (a->size <= 500)
 			set_size = 5;
