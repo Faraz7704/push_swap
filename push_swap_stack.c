@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/16 01:04:58 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/04 18:32:20 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	run_inst(char *f, t_stack *a, t_stack *b)
 		return (0);
 	else if (!ft_strncmp(f, "rr", ft_strlen(f)) && !rot(a) && !rot(b))
 		return (0);
-	ft_printf("%s\n", f);
-	print_stack(a[0], b[0]);
+	// ft_printf("%s\n", f);
+	// print_stack(a[0], b[0]);
 	return (1);
 }

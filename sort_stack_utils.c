@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/17 13:12:51 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/04 14:26:57 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	find_index_stack(int *a, int value, int n)
 	{
 		if (a[i] == value)
 			return (i);
+		i++;
 	}
 	return (-1);
 }

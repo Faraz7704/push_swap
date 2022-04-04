@@ -6,11 +6,34 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:57:52 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/13 12:41:43 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/04 15:39:49 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	print_sets(t_sset *sets, int *sort, int set_size)
+{
+	int		i;
+	int		j;
+	int		c;
+
+	c = 0;
+	i = 0;
+	while (i < set_size)
+	{
+		ft_printf("set id: %d total_moves: %d\n", i, sets[i].total_moves);
+		j = 0;
+		while (j < sets[i].size)
+		{
+			ft_printf("(%d) %d, ", sets[i].index[j], sort[c]);
+			j++;
+			c++;
+		}
+		ft_printf("\n----------------\n");
+		i++;
+	}
+}
 
 void	print_stack(t_stack a, t_stack b)
 {

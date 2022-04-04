@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/24 12:36:54 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/04 18:28:23 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct stack
 
 typedef struct sset
 {
-	t_stack	*stack;
+	int		id;
 	int		*index;
 	int		total_moves;
 	int		size;
@@ -59,13 +59,20 @@ int		max_index_stack(int *a, int start, int n);
 void	move_top_stack(int index, t_stack *a, t_stack *b);
 
 // stack_set
-t_sset	find_set(t_stack *a, int *sort, int set_size);
+t_sset	*create_sets(t_stack *a, int *sort, int set_size);
+int		find_min_set(t_sset *sets, int set_size, t_sset **res);
+
+// stack_set_utils
+void	cal_sets_moves(t_sset *sets, t_stack *a, int *sort, int set_size);
+void	cal_set_moves(t_sset *set, t_stack *a, int value);
+void	free_sets(t_sset *sets, int set_size);
 
 // quick_sort
 void	quicksort(int *a, int start, int end);
 int		issorted(int *a, int n);
 
 // debug
+void	print_sets(t_sset *sets, int *sort, int set_size);
 void	print_stack(t_stack a, t_stack b);
 void	print_numarr(t_stack a);
 
