@@ -6,7 +6,7 @@
 #    By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/07 11:40:15 by fkhan             #+#    #+#              #
-#    Updated: 2022/04/04 17:43:24 by fkhan            ###   ########.fr        #
+#    Updated: 2022/04/05 16:54:39 by fkhan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,9 +30,10 @@ $(NAME): 		$(OBJS)
 				cp $(PRINTFPATH)/$(LIBFTPRINTF) .
 				mv $(LIBFTPRINTF) $(NAME)
 				$(LIB) $(NAME) $(OBJS)
+				$(CC) -g $(NAME) -o push_swap
 
 %.o: 			%.c
-				$(CC) $(CFLAGS) -c $< -o $@		
+				$(CC) $(CFLAGS) -c $< -o $@	
 
 all: 			$(NAME)
 

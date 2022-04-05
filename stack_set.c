@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/05 14:55:25 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/05 23:07:04 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ static int	init_set(t_sset	*set, int id, int size)
 	set->total_moves = 0;
 	set->index = malloc(sizeof(int) * size);
 	if (!set->index)
+		return (0);
+	set->moves = malloc(sizeof(int) * size);
+	if (!set->moves)
 		return (0);
 	return (1);
 }
@@ -40,7 +43,7 @@ t_sset	*create_sets(t_stack *a, int *sort, int set_size)
 		if (!init_set(&sets[i], i + 1, a->size / set_size))
 			return (0);
 		sets[i].values = &sort[index];
-		cal_set_moves(&sets[i], a);
+		cal_set(&sets[i], a);
 		index += sets[i].size;
 		i++;
 	}
