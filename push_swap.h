@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/04 18:28:23 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/05 14:40:33 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ typedef struct sset
 {
 	int		id;
 	int		*index;
+	int		*values;
 	int		total_moves;
 	int		size;
 	int		used;
 }	t_sset;
-
 
 // main
 void	push_swap(int *lst, int n);
@@ -63,8 +63,8 @@ t_sset	*create_sets(t_stack *a, int *sort, int set_size);
 int		find_min_set(t_sset *sets, int set_size, t_sset **res);
 
 // stack_set_utils
-void	cal_sets_moves(t_sset *sets, t_stack *a, int *sort, int set_size);
-void	cal_set_moves(t_sset *set, t_stack *a, int value);
+void	cal_sets_moves(t_sset *sets, t_stack *a, int set_size);
+void	cal_set_moves(t_sset *set, t_stack *a);
 void	free_sets(t_sset *sets, int set_size);
 
 // quick_sort

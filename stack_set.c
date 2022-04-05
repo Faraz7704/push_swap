@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/04 18:30:54 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/05 14:55:25 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,30 +39,31 @@ t_sset	*create_sets(t_stack *a, int *sort, int set_size)
 	{
 		if (!init_set(&sets[i], i + 1, a->size / set_size))
 			return (0);
-		cal_set_moves(&sets[i], a, sort[index]);
+		sets[i].values = &sort[index];
+		cal_set_moves(&sets[i], a);
 		index += sets[i].size;
 		i++;
 	}
 	return (sets);
 }
 
-int	find_min_set(t_sset *sets, int set_size, t_sset **res)
+int	find_min_set(t_sset *s, int set_size, t_sset **res)
 {
 	int		i;
-	int		min_index;
+	int		m;
 
-	if (set_size < 0)
+	if (set_size <= 0)
 		return (0);
-	min_index = 0;
-	i = 1;
+	m = -1;
+	i = 0;
 	while (i < set_size)
 	{
-		if (sets[min_index].total_moves > sets[i].total_moves && !sets[i].used)
-			min_index = i;
+		if (!s[i].used && (m == -1 || s[m].total_moves > s[i].total_moves))
+			m = i;
 		i++;
 	}
-	if (!min_index && set_size >= 1 && sets[i].used)
+	if (m == -1)
 		return (0);
-	res[0] = &sets[min_index];
+	res[0] = &s[m];
 	return (1);
 }
