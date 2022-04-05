@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/05 23:37:24 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/06 03:00:29 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	min_moves_stack(t_sset *set)
 	int	i;
 	int	m;
 
-	i = 1;
+	i = 0;
 	m = -1;
 	while (i < set->size)
 	{
