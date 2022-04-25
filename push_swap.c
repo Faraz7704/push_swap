@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/06 03:08:23 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/25 18:09:18 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,32 @@ static t_stack	init_stack(int *a, int n)
 	return (new);
 }
 
-static int	parse_arg(int ac, char **av, int *lst)
+static int	*parse_arg(char **av, int n)
 {
-	int	i;
+	int		i;
+	int		len;
+	char	**args;
+	int		*lst;
 
-	i = 1;
-	while (i < ac)
+	args = ft_argsplit(av, n, ' ');
+	len = ft_argitemlen(args);
+	lst = ft_calloc(sizeof(int), len);
+	if (!lst)
+		return (0);
+	i = 0;
+	while (i < len)
 	{
-		if (!av[i])
+		lst[i] = ft_atoi(args[i]);
+		if (lst[i] == 0 && !ft_isdigit(args[i][0]))
 			return (0);
-		lst[i - 1] = ft_atoi(av[i]);
-		if (lst[i - 1] == 0 && !ft_isdigit(av[i][0]))
+		if ((lst[i] == -1 || lst[i] == 0) && ft_strlen(args[i]) >= 10)
 			return (0);
-		if ((lst[i - 1] == -1 || lst[i - 1] == 0) && ft_strlen(av[i]) >= 10)
-			return (0);
-		if (ft_numncmp(lst, lst[i - 1], i - 1))
+		if (ft_numncmp(lst, lst[i], i))
 			return (0);
 		i++;
 	}
-	return (1);
+	ft_freearg(args);
+	return (lst);
 }
 
 void	push_swap(int *a, int n)
@@ -67,13 +74,13 @@ int	main(int ac, char **av)
 
 	if (ac < 2)
 		return (0);
-	lst = ft_calloc(sizeof(int), ac - 1);
+	lst = parse_arg(av + 1, ac - 1);
 	if (!lst)
-		return (0);
-	if (parse_arg(ac, av, lst))
-		push_swap(lst, ac - 1);
-	else
+	{
 		ft_printf("Error\n");
+		return (0);
+	}
+	push_swap(lst, ac - 1);
 	free(lst);
 	return (0);
 }

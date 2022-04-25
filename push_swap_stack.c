@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/06 03:07:17 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/25 15:47:41 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	rrot(t_stack *a)
 	return (1);
 }
 
-static int	g_c = 0;
+// static int	g_c = 0;
 
 int	run_inst(char *f, t_stack *a, t_stack *b)
 {
@@ -114,8 +114,8 @@ int	run_inst(char *f, t_stack *a, t_stack *b)
 		return (0);
 	else if (!ft_strncmp(f, "rr", ft_strlen(f)) && !rot(a) && !rot(b))
 		return (0);
-	// ft_printf("%s\n", f);
-	ft_printf("TOTAL: %d\n", ++g_c);
+	ft_printf("%s\n", f);
+	// ft_printf("TOTAL: %d\n", ++g_c);
 	// print_stack(a[0], b[0]);
 	return (1);
 }

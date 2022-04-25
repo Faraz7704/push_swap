@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/05 23:37:46 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/25 18:08:30 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@ void	ft_numswap(int *a, int *b);
 void	ft_numlcpy(int *dest, const int *src, int n);
 int		*ft_numdup(const int *src, int n);
 
+// arg_utils
+int		ft_arglen(char **args, int n);
+int		ft_argitemlen(char **args);
+char	**ft_argjoin(char **s1, char **s2);
+char	**ft_argsplit(char **args, int n, char sep);
+void	ft_freearg(char **args);
+
 // push_swap_stack
 int		run_inst(char *inst, t_stack *a, t_stack *b);
 
@@ -65,6 +72,7 @@ t_sset	*create_sets(t_stack *a, int *sort, int set_size);
 int		find_min_set(t_sset *sets, int set_size, t_sset **res);
 
 // stack_set_utils
+int		get_moves(t_stack *a, int index);
 void	cal_sets(t_sset *sets, t_stack *a, int set_size);
 void	cal_set(t_sset *set, t_stack *a);
 void	free_sets(t_sset *sets, int set_size);

@@ -6,21 +6,24 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/06 03:09:21 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/25 15:44:56 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+// static void
+
 static void	sort_set(t_sset *set, t_stack *a, t_stack *b)
 {
-	int	i;
-	int	min_index;
+	int		i;
+	int		min_index;
 
 	i = 0;
 	while (i < set->size)
 	{
 		min_index = min_moves_stack(set);
+		// _run_inst(min_index, a, b);
 		move_top_stack(set->index[min_index], a, b);
 		run_inst("pb", a, b);
 		cal_set(set, a);

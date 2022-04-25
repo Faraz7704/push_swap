@@ -6,13 +6,13 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/05 23:08:41 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/06 14:32:14 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	setval_moves(t_stack *a, int index)
+int	get_moves(t_stack *a, int index)
 {
 	if (index < 0 || index >= a->size)
 		return (0);
@@ -45,7 +45,7 @@ void	cal_set(t_sset *set, t_stack *a)
 		set->index[i] = find_index_stack(a->value, set->values[i], a->size);
 		if (set->index[i] >= 0)
 		{
-			set->moves[i] = setval_moves(a, set->index[i]);
+			set->moves[i] = get_moves(a, set->index[i]);
 			set->total_moves += set->moves[i];
 		}
 		else
@@ -65,4 +65,5 @@ void	free_sets(t_sset *sets, int set_size)
 		free(sets[i].moves);
 		i++;
 	}
+	free(sets);
 }

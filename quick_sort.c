@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/03/05 15:04:45 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/25 16:31:51 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ int	issorted(int *a, int n)
 	while (i < n)
 	{
 		if (a[i] != sorta[i])
+		{
+			free(sorta);
 			return (0);
+		}
 		i++;
 	}
 	free(sorta);
