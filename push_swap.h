@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/25 18:08:30 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/26 15:31:44 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ typedef struct sset
 	int		used;
 }	t_sset;
 
-// main
-void	push_swap(int *lst, int n);
-
 // utils
 int		ft_numncmp(const int *num, int c, int n);
 size_t	ft_numlen(const int *num);
@@ -45,8 +42,7 @@ void	ft_numlcpy(int *dest, const int *src, int n);
 int		*ft_numdup(const int *src, int n);
 
 // arg_utils
-int		ft_arglen(char **args, int n);
-int		ft_argitemlen(char **args);
+int		ft_arglen(char **args);
 char	**ft_argjoin(char **s1, char **s2);
 char	**ft_argsplit(char **args, int n, char sep);
 void	ft_freearg(char **args);
@@ -68,7 +64,7 @@ int		min_moves_stack(t_sset *set);
 void	move_top_stack(int index, t_stack *a, t_stack *b);
 
 // stack_set
-t_sset	*create_sets(t_stack *a, int *sort, int set_size);
+t_sset	*create_sets(t_stack *a, int *sort, int set_size, int *reflen);
 int		find_min_set(t_sset *sets, int set_size, t_sset **res);
 
 // stack_set_utils

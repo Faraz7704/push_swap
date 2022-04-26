@@ -6,11 +6,11 @@
 #    By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/07 11:40:15 by fkhan             #+#    #+#              #
-#    Updated: 2022/04/25 17:54:16 by fkhan            ###   ########.fr        #
+#    Updated: 2022/04/26 13:56:41 by fkhan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 			= push_swap.a
+NAME 			= push_swap
 LIBFTPRINTF		= libftprintf.a
 PRINTFPATH		= lib
 CC				= gcc
@@ -27,10 +27,7 @@ OBJS 			= $(SRCS:.c=.o)
 
 $(NAME): 		$(OBJS)
 				make -C $(PRINTFPATH)
-				cp $(PRINTFPATH)/$(LIBFTPRINTF) .
-				mv $(LIBFTPRINTF) $(NAME)
-				$(LIB) $(NAME) $(OBJS)
-				$(CC) -g $(NAME) -o push_swap
+				$(CC) -g $(OBJS) $(PRINTFPATH)/$(LIBFTPRINTF) -o $(NAME)
 
 %.o: 			%.c
 				$(CC) $(CFLAGS) -c $< -o $@	

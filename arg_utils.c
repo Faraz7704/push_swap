@@ -6,13 +6,13 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/25 18:09:52 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/26 14:25:56 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_argitemlen(char **args)
+int	ft_arglen(char **args)
 {
 	int		i;
 	int		len;
@@ -26,21 +26,16 @@ int	ft_argitemlen(char **args)
 	return (len);
 }
 
-int	ft_arglen(char **args, int n)
+void	ft_freearg(char **args)
 {
 	int		i;
-	int		len;
-	char	**temp;
 
-	len = 0;
+	if (!args)
+		return ;
 	i = 0;
-	while (i < n)
-	{
-		temp = ft_split(args[i], ' ');
-		len += ft_argitemlen(temp);
-		i++;
-	}
-	return (len);
+	while (args[i])
+		free(args[i++]);
+	free(args);
 }
 
 char	**ft_argjoin(char **s1, char **s2)
@@ -52,7 +47,7 @@ char	**ft_argjoin(char **s1, char **s2)
 
 	i = 0;
 	j = 0;
-	total_size = ft_argitemlen(s1) + ft_argitemlen(s2) + 1;
+	total_size = ft_arglen(s1) + ft_arglen(s2) + 1;
 	if (total_size == 1)
 		return (0);
 	result = (char **)malloc(sizeof(char *) * total_size);
@@ -75,6 +70,7 @@ char	**ft_argsplit(char **args, int n, char sep)
 	char	**res;
 	char	**temp;
 
+	res = NULL;
 	i = 0;
 	while (i < n)
 	{
@@ -84,14 +80,4 @@ char	**ft_argsplit(char **args, int n, char sep)
 		i++;
 	}
 	return (res);
-}
-
-void	ft_freearg(char **args)
-{
-	int		i;
-
-	i = 0;
-	while (args[i])
-		free(args[i++]);
-	free(args);
 }

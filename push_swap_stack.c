@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/25 15:47:41 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/26 20:13:58 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ static int	rrot(t_stack *a)
 
 int	run_inst(char *f, t_stack *a, t_stack *b)
 {
+	// ft_printf("-----------------------------\n");
+	// print_stack(a[0], b[0]);
 	if (!ft_strncmp(f, "sa", 2) && !swap(a))
 		return (0);
 	else if (!ft_strncmp(f, "sb", 2) && !swap(b))
@@ -115,6 +117,8 @@ int	run_inst(char *f, t_stack *a, t_stack *b)
 	else if (!ft_strncmp(f, "rr", ft_strlen(f)) && !rot(a) && !rot(b))
 		return (0);
 	ft_printf("%s\n", f);
+	// print_stack(a[0], b[0]);
+	// ft_printf("-----------------------------\n");
 	// ft_printf("TOTAL: %d\n", ++g_c);
 	// print_stack(a[0], b[0]);
 	return (1);

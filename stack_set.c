@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/05 23:07:04 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/26 20:11:08 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,28 @@ static int	init_set(t_sset	*set, int id, int size)
 	return (1);
 }
 
-t_sset	*create_sets(t_stack *a, int *sort, int set_size)
+t_sset	*create_sets(t_stack *a, int *sort, int set_size, int *reflen)
 {
 	int		i;
+	int		temp;
 	int		index;
 	t_sset	*sets;
 
-	sets = malloc(sizeof(t_sset) * set_size);
+	*reflen = set_size;
+	if (a->size % set_size)
+		*reflen += 1;
+	sets = malloc(sizeof(t_sset) * *reflen);
 	if (!sets)
 		return (0);
 	index = 0;
 	i = 0;
-	while (i < set_size)
+	while (i < *reflen)
 	{
-		if (!init_set(&sets[i], i + 1, a->size / set_size))
+		if (i == *reflen - 1)
+			temp = a->size % set_size;
+		else
+			temp = a->size / set_size;
+		if (!init_set(&sets[i], i + 1, temp))
 			return (0);
 		sets[i].values = &sort[index];
 		cal_set(&sets[i], a);
