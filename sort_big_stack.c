@@ -6,13 +6,13 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/27 17:40:00 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/27 22:21:36 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	sort_set(t_sset *set, t_sset *prev_set, t_stack *a, t_stack *b)
+static void	sort_set(t_sset *set, t_stack *a, t_stack *b)
 {
 	int		i;
 	int		min_index;
@@ -23,7 +23,7 @@ static void	sort_set(t_sset *set, t_sset *prev_set, t_stack *a, t_stack *b)
 	{
 		min_index = min_moves_stack(set);
 		min_index = set->index[min_index];
-		if (prev_set)
+		if (set->id > 1)
 		{
 			max_index = max_index_stack(b->value, 0, b->size);
 			run_multi_inst(min_index, max_index, a, b);
@@ -50,10 +50,7 @@ void	sort_big(t_stack *a, t_stack *b, int *sort, int set_size)
 	while (i < actual_set_size)
 	{
 		// ft_printf("set selected: %d\n", min_set->id);
-		if (i > 0)
-			sort_set(&sets[i], &sets[i - 1], a, b);
-		else
-			sort_set(&sets[i], NULL, a, b);
+		sort_set(&sets[i], a, b);
 		// ft_printf("\nb: ");
 		// print_numarr(*b);
 		cal_sets(sets, a, actual_set_size);
