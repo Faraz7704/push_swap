@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/06 03:00:29 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/27 17:13:45 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,20 +74,18 @@ int	max_index_stack(int *a, int start, int n)
 	return (max);
 }
 
-void	move_top_stack(int index, t_stack *a, t_stack *b)
+int	max_moves_stack(t_sset *set)
 {
 	int	i;
+	int	m;
 
-	if (index <= (a->size / 2))
+	i = 0;
+	m = -1;
+	while (i < set->size)
 	{
-		i = 0;
-		while (i++ < index)
-			run_inst("ra", a, b);
+		if (set->index[i] != -1 && (m == -1 || set->moves[i] > set->moves[m]))
+			m = i;
+		i++;
 	}
-	else
-	{
-		i = a->size - 1;
-		while (i-- >= index)
-			run_inst("rra", a, b);
-	}
+	return (m);
 }

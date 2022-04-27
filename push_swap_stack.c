@@ -5,88 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/26 20:13:58 by fkhan            ###   ########.fr       */
+/*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
+/*   Updated: 2022/04/27 17:40:35 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static int	swap(t_stack *a)
-{
-	if (a->size < 2)
-		return (0);
-	ft_numswap(&a->value[0], &a->value[1]);
-	return (1);
-}
-
-static int	push(t_stack *a, t_stack *b)
-{
-	int	i;
-
-	if (!b->size)
-		return (0);
-	if (a->size)
-	{
-		i = a->size;
-		while (i > 0)
-		{
-			a->value[i] = a->value[i - 1];
-			i--;
-		}
-	}
-	a->value[0] = b->value[0];
-	a->size++;
-	i = 0;
-	while (i < b->size - 1)
-	{
-		b->value[i] = b->value[i + 1];
-		i++;
-	}
-	b->value[i] = 0;
-	b->size--;
-	return (1);
-}
-
-static int	rot(t_stack *a)
-{
-	int	i;
-	int	len;
-	int	temp;
-
-	len = a->size;
-	if (len < 2)
-		return (0);
-	i = 0;
-	temp = a->value[i];
-	while (i < len - 1)
-	{
-		a->value[i] = a->value[i + 1];
-		i++;
-	}
-	a->value[i] = temp;
-	return (1);
-}
-
-static int	rrot(t_stack *a)
-{
-	int	i;
-	int	len;
-	int	temp;
-
-	len = a->size;
-	if (len < 2)
-		return (0);
-	i = len - 1;
-	temp = a->value[i];
-	while (i > 0)
-	{
-		a->value[i] = a->value[i - 1];
-		i--;
-	}
-	a->value[i] = temp;
-	return (1);
-}
 
 // static int	g_c = 0;
 
@@ -122,4 +46,101 @@ int	run_inst(char *f, t_stack *a, t_stack *b)
 	// ft_printf("TOTAL: %d\n", ++g_c);
 	// print_stack(a[0], b[0]);
 	return (1);
+}
+
+static char	**move_top_inst(int index, t_stack *a, char *rx, char *rrx)
+{
+	int		i;
+	int		len;
+	char	**res;
+
+	if (index <= (a->size / 2))
+		len = index;
+	else
+		len = a->size - index + 1;
+	res = (char **)ft_calloc(sizeof(char *), len + 1);
+	if (!res)
+		return (0);
+	if (index <= (a->size / 2))
+	{
+		i = 0;
+		while (i < index)
+			res[i++] = ft_strdup(rx);
+		res[i] = NULL;
+		return (res);
+	}
+	i = a->size - 1;
+	while (i >= index)
+		res[i-- - index] = ft_strdup(rrx);
+	res[i - index] = NULL;
+	return (res);
+}
+
+static void	freeinst(t_inst	*buff)
+{
+	int	i;
+
+	i = 0;
+	while (buff->a[i])
+		free(buff->a[i++]);
+	i = 0;
+	while (buff->b[i])
+		free(buff->b[i++]);
+}
+
+void	run_multi_inst(int aindex, int bindex, t_stack *a, t_stack *b)
+{
+	int		i;
+	int		j;
+	t_inst	buff;
+
+	buff.a = move_top_inst(aindex, a, "ra", "rra");
+	buff.b = move_top_inst(bindex, b, "rb", "rrb");
+	i = 0;
+	j = 0;
+	while (buff.a[i])
+	{
+		if (buff.b[j] && ft_strncmp(buff.a[i], "ra", 2) && ft_strncmp(buff.b[j], "rb", 2))
+		{
+			run_inst("rr", a, b);
+			j++;
+		}
+		else if (buff.b[j] && ft_strncmp(buff.a[i], "rra", 3) && ft_strncmp(buff.b[j], "rrb", 3))
+		{
+			run_inst("rrr", a, b);
+			j++;
+		}
+		else
+			run_inst(buff.a[i], a, b);
+		i++;
+	}
+	freeinst(&buff);
+}
+
+void	move_top_stack(int index, t_stack *a, t_stack *b, int onB)
+{
+	int		i;
+	char	*rx;
+	char	*rrx;
+	t_stack	*temp;
+
+	rx = "ra";
+	rrx = "rra";
+	temp = a;
+	if (onB)
+	{
+		rx = "rb";
+		rrx = "rrb";
+		temp = b;
+	}
+	if (index <= (temp->size / 2))
+	{
+		i = 0;
+		while (i++ < index)
+			run_inst(rx, a, b);
+		return ;
+	}
+	i = temp->size - 1;
+	while (i-- >= index)
+		run_inst(rrx, a, b);
 }

@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/26 20:11:08 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/27 13:38:03 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,9 @@ t_sset	*create_sets(t_stack *a, int *sort, int set_size, int *reflen)
 	i = 0;
 	while (i < *reflen)
 	{
-		if (i == *reflen - 1)
+		temp = a->size / set_size;
+		if (i == *reflen - 1 && a->size % set_size)
 			temp = a->size % set_size;
-		else
-			temp = a->size / set_size;
 		if (!init_set(&sets[i], i + 1, temp))
 			return (0);
 		sets[i].values = &sort[index];

@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/26 15:31:44 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/27 17:13:16 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ typedef struct sset
 	int		used;
 }	t_sset;
 
+typedef struct instructions
+{
+	char	**a;
+	char	**b;
+}	t_inst;
+
 // utils
 int		ft_numncmp(const int *num, int c, int n);
 size_t	ft_numlen(const int *num);
@@ -49,6 +55,14 @@ void	ft_freearg(char **args);
 
 // push_swap_stack
 int		run_inst(char *inst, t_stack *a, t_stack *b);
+void	run_multi_inst(int aindex, int bindex, t_stack *a, t_stack *b);
+void	move_top_stack(int index, t_stack *a, t_stack *b, int onB);
+
+// push_swap_stack_utils
+int		swap(t_stack *a);
+int		push(t_stack *a, t_stack *b);
+int		rot(t_stack *a);
+int		rrot(t_stack *a);
 
 // sort_stack
 void	sort_stack(t_stack *a, t_stack *b);
@@ -61,7 +75,7 @@ int		find_index_stack(int *a, int value, int n);
 int		min_index_stack(int *a, int start, int n);
 int		max_index_stack(int *a, int start, int n);
 int		min_moves_stack(t_sset *set);
-void	move_top_stack(int index, t_stack *a, t_stack *b);
+int		max_moves_stack(t_sset *set);
 
 // stack_set
 t_sset	*create_sets(t_stack *a, int *sort, int set_size, int *reflen);
