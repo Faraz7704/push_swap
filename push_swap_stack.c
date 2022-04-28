@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/27 22:35:05 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/28 15:41:21 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ int	run_inst(char *f, t_stack *a, t_stack *b)
 	// print_stack(a[0], b[0]);
 	// ft_printf("-----------------------------\n");
 	// ft_printf("TOTAL: %d\n", ++g_c);
-	print_stack(a[0], b[0]);
+	// print_stack(a[0], b[0]);
 	return (1);
 }
 
-static char	**move_top_inst(int index, t_stack *a, char *rx, char *rrx)
+static t_instdata	*move_top_inst(int index, t_stack *a, char *rx, char *rrx)
 {
 	int		i;
 	int		len;
@@ -70,7 +70,7 @@ static char	**move_top_inst(int index, t_stack *a, char *rx, char *rrx)
 		return (res);
 	}
 	i = a->size - 1;
-	while (i >= index) 
+	while (i >= index)
 	{
 		res[i - index] = ft_strdup(rrx);
 		i--;
@@ -93,22 +93,13 @@ static void	freeinst(t_inst	*buff)
 
 void	run_multi_inst(int aindex, int bindex, t_stack *a, t_stack *b)
 {
-	int		i;
-	int		j;
-	t_inst	buff;
+	int				i;
+	int				j;
+	static t_inst	inst;
+	t_inst			buff;
 
 	buff.a = move_top_inst(aindex, a, "ra", "rra");
 	buff.b = move_top_inst(bindex, b, "rb", "rrb");
-	i = 0;
-	ft_printf("-------------------------\n");
-	ft_printf("a: ");
-	while (buff.a[i])
-		ft_printf("%s ", buff.a[i++]);
-	i = 0;
-	ft_printf("\nb: ");
-	while (buff.b[i])
-		ft_printf("%s ", buff.b[i++]);
-	ft_printf("\n-------------------------\n");
 	i = 0;
 	j = 0;
 	while (buff.a[i])

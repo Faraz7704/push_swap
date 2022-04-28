@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/27 17:13:16 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/28 15:38:46 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,16 @@ typedef struct sset
 	int		used;
 }	t_sset;
 
+typedef struct instdata
+{
+	char		*data;
+	instdata	*next;
+}	t_instdata;
+
 typedef struct instructions
 {
-	char	**a;
-	char	**b;
+	t_instdata	*a;
+	t_instdata	*b;
 }	t_inst;
 
 // utils

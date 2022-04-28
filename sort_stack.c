@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/27 16:12:59 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/04/28 12:37:43 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	sort_stack(t_stack *a, t_stack *b)
 	{
 		sorta = ft_numdup(a->value, a->size);
 		quicksort(sorta, 0, a->size - 1);
-		if (a->size < 500)
+		if (a->size < 300)
 			set_size = 5;
 		else
 			set_size = 11;
