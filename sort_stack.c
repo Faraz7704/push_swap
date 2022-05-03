@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/28 12:37:43 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/01 21:12:29 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ static void	sort_three(t_stack *a, t_stack *b)
 
 	lst = a->value;
 	if (lst[0] > lst[1] && lst[1] < lst[2] && lst[2] > lst[0])
-		run_inst("sa", a, b);
+		run_inst("sa", a, b, 0);
 	else if (lst[0] < lst[1] && lst[1] > lst[2] && lst[2] > lst[0])
-		run_inst("sa", a, b);
+		run_inst("sa", a, b, 0);
 	else if (lst[0] > lst[1] && lst[1] > lst[2] && lst[2] < lst[0])
-		run_inst("sa", a, b);
+		run_inst("sa", a, b, 0);
 	if (lst[0] < lst[1] && lst[1] > lst[2] && lst[2] < lst[0])
-		run_inst("rra", a, b);
+		run_inst("rra", a, b, 0);
 	else if (lst[0] > lst[1] && lst[1] < lst[2] && lst[2] < lst[0])
-		run_inst("ra", a, b);
+		run_inst("ra", a, b, 0);
 }
 
 static void	sort_five(t_stack *a, t_stack *b)
@@ -41,12 +41,12 @@ static void	sort_five(t_stack *a, t_stack *b)
 	{
 		min_index = min_index_stack(a->value, 0, a->size);
 		move_top_stack(min_index, a, b, 0);
-		run_inst("pb", a, b);
+		run_inst("pb", a, b, 0);
 	}
 	sort_three(a, b);
 	i = 0;
 	while (i++ < len)
-		run_inst("pa", a, b);
+		run_inst("pa", a, b, 0);
 }
 
 void	sort_stack(t_stack *a, t_stack *b)
@@ -55,7 +55,7 @@ void	sort_stack(t_stack *a, t_stack *b)
 	int	set_size;
 
 	if (a->size == 2)
-		run_inst("sa", a, b);
+		run_inst("sa", a, b, 0);
 	else if (a->size == 3)
 		sort_three(a, b);
 	else if (a->size <= 5)

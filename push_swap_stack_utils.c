@@ -6,11 +6,20 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/27 17:41:49 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/01 21:04:19 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+t_stack	init_stack(int *a, int n)
+{
+	t_stack	new;
+
+	new.value = a;
+	new.size = n;
+	return (new);
+}
 
 int	swap(t_stack *a)
 {

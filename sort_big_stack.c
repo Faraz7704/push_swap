@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/28 15:34:32 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/03 12:40:33 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,25 @@ static void	sort_set(t_sset *set, t_stack *a, t_stack *b)
 {
 	int		i;
 	int		min_index;
-	int		max_index;
+	// int		max_index;
 
 	i = 0;
 	while (i < set->size)
 	{
 		min_index = min_moves_stack(set);
 		min_index = set->index[min_index];
-		if (set->id > 1)
-		{
-			max_index = max_index_stack(b->value, 0, b->size);
-			run_multi_inst(min_index, max_index, a, b);
-		}
-		else
-			move_top_stack(min_index, a, b, 0);
-		run_inst("pb", a, b);
+		// if (set->id > 1)
+		// {
+		// 	max_index = max_index_stack(b->value, 0, b->size);
+		// 	run_multi_inst(min_index, max_index, a, b);
+		// }
+		// else
+		// move_top_stack(min_index, a, b, 0);
+		run_multi_inst(min_index, i, a, b);
+		// min_index = min_moves_stack(set);
+		// min_index = set->index[min_index];
+		// move_top_stack(min_index, a, b, 0);
+		run_inst("pb", a, b, 0);
 		cal_set(set, a);
 		i++;
 	}
@@ -57,11 +61,12 @@ void	sort_big(t_stack *a, t_stack *b, int *sort, int set_size)
 		// print_sets(sets, sort, actual_set_size);
 		i++;
 	}
+	// ft_printf("*****************************\n");
 	while (b->size)
 	{
 		max_index = max_index_stack(b->value, 0, b->size);
 		move_top_stack(max_index, a, b, 1);
-		run_inst("pa", a, b);
+		run_inst("pa", a, b, 0);
 	}
 	free_sets(sets, actual_set_size);
 }

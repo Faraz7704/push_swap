@@ -6,20 +6,11 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/28 12:04:37 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/01 21:03:08 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static t_stack	init_stack(int *a, int n)
-{
-	t_stack	new;
-
-	new.value = a;
-	new.size = n;
-	return (new);
-}
 
 static int	isnumber(int num, char *str)
 {

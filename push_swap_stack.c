@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/28 15:41:21 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/03 12:42:17 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,23 @@
 
 // static int	g_c = 0;
 
-int	run_inst(char *f, t_stack *a, t_stack *b)
+int	run_inst(char *f, t_stack *a, t_stack *b, int test)
 {
+	int	flag1;
+	int	flag2;
 	// ft_printf("-----------------------------\n");
 	// print_stack(a[0], b[0]);
 	if (!ft_strncmp(f, "sa", 2) && !swap(a))
 		return (0);
 	else if (!ft_strncmp(f, "sb", 2) && !swap(b))
 		return (0);
-	else if (!ft_strncmp(f, "ss", 2) && !swap(a) && !swap(b))
-		return (0);
+	else if (!ft_strncmp(f, "ss", 2))
+	{
+		flag1 = !swap(a);
+		flag2 = !swap(b);
+		if (flag1 && flag2)
+			return (0);
+	}
 	else if (!ft_strncmp(f, "pa", 2) && !push(a, b))
 		return (0);
 	else if (!ft_strncmp(f, "pb", 2) && !push(b, a))
@@ -36,11 +43,22 @@ int	run_inst(char *f, t_stack *a, t_stack *b)
 		return (0);
 	else if (!ft_strncmp(f, "rrb", 3) && !rrot(b))
 		return (0);
-	else if (!ft_strncmp(f, "rrr", 3) && !rrot(a) && !rrot(b))
-		return (0);
-	else if (!ft_strncmp(f, "rr", ft_strlen(f)) && !rot(a) && !rot(b))
-		return (0);
-	ft_printf("%s\n", f);
+	else if (!ft_strncmp(f, "rrr", 3))
+	{
+		flag1 = !rrot(a);
+		flag2 = !rrot(b);
+		if (flag1 && flag2)
+			return (0);
+	}
+	else if (!ft_strncmp(f, "rr", ft_strlen(f)))
+	{
+		flag1 = !rot(a);
+		flag2 = !rot(b);
+		if (flag1 && flag2)
+			return (0);
+	}
+	if (!test)
+		ft_printf("%s\n", f);
 	// print_stack(a[0], b[0]);
 	// ft_printf("-----------------------------\n");
 	// ft_printf("TOTAL: %d\n", ++g_c);
@@ -48,103 +66,92 @@ int	run_inst(char *f, t_stack *a, t_stack *b)
 	return (1);
 }
 
-static t_instdata	*move_top_inst(int index, t_stack *a, char *rx, char *rrx)
-{
-	int		i;
-	int		len;
-	char	**res;
+// static t_list	*combine_inst(t_list *a, t_list *b, int (*cmp)())
+// {
+// 	t_list	*temp;
+// 	t_list	*res;
+// 	int		flag;
 
-	if (index <= (a->size / 2))
-		len = index;
-	else
-		len = a->size - index + 1;
-	res = (char **)ft_calloc(sizeof(char *), len + 1);
-	if (!res)
-		return (0);
-	if (index <= (a->size / 2))
+// 	res = NULL;
+// 	while (b)
+// 	{
+// 		flag = 0;
+// 		temp = a;
+// 		while (temp)
+// 		{
+// 			if (!cmp(b->content, "rrb", 3) && !cmp(temp->content, "rra", 3))
+// 			{
+// 				ft_lstadd_back(&res, ft_lstnew(ft_strdup("rrr")));
+// 				flag = 1;
+// 				break ;
+// 			}
+// 			else if (!cmp(b->content, "rb", 2) && !cmp(temp->content, "ra", 2))
+// 			{
+// 				ft_lstadd_back(&res, ft_lstnew(ft_strdup("rr")));
+// 				flag = 1;
+// 				break ;
+// 			}
+// 			temp = temp->next;
+// 		}
+// 		if (flag)
+// 			a = temp->next;
+// 		else
+// 			ft_lstadd_back(&res, ft_lstnew(ft_strdup(b->content)));
+// 		b = b->next;
+// 	}
+// 	return (res);
+// }
+
+static void	run_inst_buff(t_list *buff, t_stack *a, t_stack *b)
+{
+	while (buff)
 	{
-		i = 0;
-		while (i < index)
-			res[i++] = ft_strdup(rx);
-		res[i] = NULL;
-		return (res);
+		run_inst(buff->content, a, b, 0);
+		// ft_printf("a: ");
+		// print_numarr(*a);
+		// ft_printf("b: ");
+		// print_numarr(*b);
+		buff = buff->next;
 	}
-	i = a->size - 1;
-	while (i >= index)
-	{
-		res[i - index] = ft_strdup(rrx);
-		i--;
-	}
-	res[i - index] = NULL;
-	return (res);
+	// ft_printf("\n");
 }
 
-static void	freeinst(t_inst	*buff)
+void	run_multi_inst(int aindex, int bsize, t_stack *a, t_stack *b)
 {
-	int	i;
+	t_list	*abuff;
+	// t_list	*bbuff;
+	// t_list	*cbuff;
 
-	i = 0;
-	while (buff->a[i])
-		free(buff->a[i++]);
-	i = 0;
-	while (buff->b[i])
-		free(buff->b[i++]);
-}
-
-void	run_multi_inst(int aindex, int bindex, t_stack *a, t_stack *b)
-{
-	int				i;
-	int				j;
-	static t_inst	inst;
-	t_inst			buff;
-
-	buff.a = move_top_inst(aindex, a, "ra", "rra");
-	buff.b = move_top_inst(bindex, b, "rb", "rrb");
-	i = 0;
-	j = 0;
-	while (buff.a[i])
+	abuff = move_top_inst(aindex, a, "ra", "rra");
+	if (bsize > 1)
 	{
-		if (buff.b[j] && ft_strncmp(buff.a[i], "ra", 2) && ft_strncmp(buff.b[j], "rb", 2))
+		if (b->value[0] < b->value[1])
 		{
-			run_inst("rr", a, b);
-			j++;
+			run_inst("sb", a, b, 0);
+			run_inst("rb", a, b, 0);
 		}
-		else if (buff.b[j] && ft_strncmp(buff.a[i], "rra", 3) && ft_strncmp(buff.b[j], "rrb", 3))
-		{
-			run_inst("rrr", a, b);
-			j++;
-		}
-		else
-			run_inst(buff.a[i], a, b);
-		i++;
 	}
-	freeinst(&buff);
-}
+	// bbuff = swap_sort_inst(b, bsize);
 
-void	move_top_stack(int index, t_stack *a, t_stack *b, int onB)
-{
-	int		i;
-	char	*rx;
-	char	*rrx;
-	t_stack	*temp;
+	// ft_printf("---------------------------\n");
+	// ft_printf("a: ");
+	// print_inst(abuff);
+	// ft_printf("b: ");
+	// print_inst(bbuff);
 
-	rx = "ra";
-	rrx = "rra";
-	temp = a;
-	if (onB)
-	{
-		rx = "rb";
-		rrx = "rrb";
-		temp = b;
-	}
-	if (index <= (temp->size / 2))
-	{
-		i = 0;
-		while (i++ < index)
-			run_inst(rx, a, b);
-		return ;
-	}
-	i = temp->size - 1;
-	while (i-- >= index)
-		run_inst(rrx, a, b);
+	// cbuff = combine_inst(abuff, bbuff, ft_strncmp);
+
+	// ft_printf("c: ");
+	// print_inst(cbuff);
+	// ft_printf("---------------------------\n");
+
+	run_inst_buff(abuff, a, b);
+
+	// ft_printf("after b: ");
+	// print_numarr(*b);
+	// ft_printf("---------------------------\n");
+
+	ft_lstclear(&abuff, del_lst);
+	// ft_lstclear(&bbuff, del_lst);
+	// ft_lstclear(&cbuff, del_lst);
 }

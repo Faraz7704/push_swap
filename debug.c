@@ -6,11 +6,24 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:57:52 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/05 14:27:58 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/01 21:17:36 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	print_inst(t_list *abuff)
+{
+	t_list	*curr_buff;
+
+	curr_buff = abuff;
+	while (curr_buff)
+	{
+		ft_printf("%s ", curr_buff->content);
+		curr_buff = curr_buff->next;
+	}
+	ft_printf("\n");
+}
 
 void	print_sets(t_sset *sets, int *sort, int set_size)
 {
