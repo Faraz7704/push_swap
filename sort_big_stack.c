@@ -6,67 +6,45 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/03 12:40:33 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/19 19:36:39 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	sort_set(t_sset *set, t_stack *a, t_stack *b)
+static int	partition(t_stack *a, t_stack *b, int forA)
 {
-	int		i;
-	int		min_index;
-	// int		max_index;
+	int	i;
+	int	*sorta;
 
 	i = 0;
-	while (i < set->size)
+	while (i < a->size)
 	{
-		min_index = min_moves_stack(set);
-		min_index = set->index[min_index];
-		// if (set->id > 1)
-		// {
-		// 	max_index = max_index_stack(b->value, 0, b->size);
-		// 	run_multi_inst(min_index, max_index, a, b);
-		// }
-		// else
-		// move_top_stack(min_index, a, b, 0);
-		run_multi_inst(min_index, i, a, b);
-		// min_index = min_moves_stack(set);
-		// min_index = set->index[min_index];
-		// move_top_stack(min_index, a, b, 0);
-		run_inst("pb", a, b, 0);
-		cal_set(set, a);
-		i++;
+		sorta = ft_numdup(a->value, a->size);
+		quicksort(sorta, 0, a->size - 1);
 	}
-	set->used = 1;
 }
 
-void	sort_big(t_stack *a, t_stack *b, int *sort, int set_size)
+static void	midpoint(t_stack *a, t_stack *b, int start, int end)
 {
-	int		i;
-	int		max_index;
-	int		actual_set_size;
-	t_sset	*sets;
+	int	pivot;
+	int	*sorta;
 
-	sets = create_sets(a, sort, set_size, &actual_set_size);
-	// print_sets(sets, sort, actual_set_size);
-	i = 0;
-	while (i < actual_set_size)
+	while (a->size > 2)
 	{
-		// ft_printf("set selected: %d\n", min_set->id);
-		sort_set(&sets[i], a, b);
-		// ft_printf("\nb: ");
-		// print_numarr(*b);
-		cal_sets(sets, a, actual_set_size);
-		// print_sets(sets, sort, actual_set_size);
-		i++;
+		sorta = ft_numdup(a->value, a->size);
+		quicksort(sorta, 0, a->size - 1);
+		pivot = sorta[a->size / 2];
 	}
-	// ft_printf("*****************************\n");
-	while (b->size)
-	{
-		max_index = max_index_stack(b->value, 0, b->size);
-		move_top_stack(max_index, a, b, 1);
-		run_inst("pa", a, b, 0);
-	}
-	free_sets(sets, actual_set_size);
+}
+
+void	sort_big(t_stack *a, t_stack *b)
+{
+	int		*sort;
+	t_sset	*sets;
+	int		set_size;
+
+	sort = ft_numdup(a->value, a->size);
+	quicksort(sort, 0, a->size - 1);
+	sets = create_sets(a, sort, &set_size);
 }

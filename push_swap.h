@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/01 22:41:09 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/19 19:35:05 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void		del_last_lst(t_list *lst);
 int			run_inst(char *inst, t_stack *a, t_stack *b, int test);
 // void		run_multi_inst(int aindex, int bindex, t_stack *a, t_stack *b);
 // void		swap_sort_stack(t_stack *a, t_stack *b, int n);
-void		run_multi_inst(int aindex, int bsize, t_stack *a, t_stack *b);
+void		run_multi_inst(int aindex, t_stack *a, t_stack *b);
 
 // move_stack_utils
 void		move_top_stack(int index, t_stack *a, t_stack *b, int onB);
@@ -74,7 +74,7 @@ int			rrot(t_stack *a);
 void		sort_stack(t_stack *a, t_stack *b);
 
 // sort_big_stack
-void		sort_big(t_stack *a, t_stack *b, int *sort, int set_size);
+void		sort_big(t_stack *a, t_stack *b);
 
 // sort_stack_utils
 int			find_index_stack(int *a, int value, int n);
@@ -84,7 +84,7 @@ int			min_moves_stack(t_sset *set);
 int			max_moves_stack(t_sset *set);
 
 // stack_set
-t_sset		*create_sets(t_stack *a, int *sort, int set_size, int *reflen);
+t_sset		*create_sets(t_stack *a, int *sort, int *reflen);
 int			find_min_set(t_sset *sets, int set_size, t_sset **res);
 
 // stack_set_utils

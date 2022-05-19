@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/01 21:03:41 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/19 19:34:56 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,21 @@ static int	init_set(t_sset	*set, int id, int size)
 	return (1);
 }
 
-t_sset	*create_sets(t_stack *a, int *sort, int set_size, int *reflen)
+static int	get_set_size(int size)
+{
+	if (size <= 0)
+		return (0);
+	return (get_set_size(size / 2) + 1);
+}
+
+t_sset	*create_sets(t_stack *a, int *sort, int *reflen)
 {
 	int		i;
 	int		temp;
 	int		index;
 	t_sset	*sets;
 
-	*reflen = set_size;
-	if (a->size % set_size)
-		*reflen += 1;
+	*reflen = get_set_size(a->size);
 	sets = malloc(sizeof(t_sset) * *reflen);
 	if (!sets)
 		return (0);
@@ -44,9 +49,9 @@ t_sset	*create_sets(t_stack *a, int *sort, int set_size, int *reflen)
 	i = 0;
 	while (i < *reflen)
 	{
-		temp = a->size / set_size;
-		if (i == *reflen - 1 && a->size % set_size)
-			temp = a->size % set_size;
+		temp = a->size / *reflen;
+		if (i == *reflen - 1 && a->size % *reflen)
+			temp = a->size % *reflen;
 		if (!init_set(&sets[i], i + 1, temp))
 			return (0);
 		sets[i].values = &sort[index];
