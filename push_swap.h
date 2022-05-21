@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/19 19:35:05 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/21 16:57:42 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct sset
 	int		*moves;
 	int		total_moves;
 	int		size;
-	int		used;
+	int		in_b;
 }	t_sset;
 
 // utils
@@ -54,12 +54,10 @@ void		del_last_lst(t_list *lst);
 
 // push_swap_stack
 int			run_inst(char *inst, t_stack *a, t_stack *b, int test);
-// void		run_multi_inst(int aindex, int bindex, t_stack *a, t_stack *b);
-// void		swap_sort_stack(t_stack *a, t_stack *b, int n);
 void		run_multi_inst(int aindex, t_stack *a, t_stack *b);
 
 // move_stack_utils
-void		move_top_stack(int index, t_stack *a, t_stack *b, int onB);
+void		move_top_stack(int index, t_stack *a, t_stack *b, int on_b);
 t_list		*move_top_inst(int index, t_stack *a, char *rx, char *rrx);
 t_list		*swap_sort_inst(t_stack *b, int n);
 
@@ -85,11 +83,10 @@ int			max_moves_stack(t_sset *set);
 
 // stack_set
 t_sset		*create_sets(t_stack *a, int *sort, int *reflen);
-int			find_min_set(t_sset *sets, int set_size, t_sset **res);
 
 // stack_set_utils
 int			get_moves(t_stack *a, int index);
-void		cal_sets(t_sset *sets, t_stack *a, int set_size);
+void		cal_sets(t_sset *sets, t_stack *a, t_stack *b, int set_size);
 void		cal_set(t_sset *set, t_stack *a);
 void		free_sets(t_sset *sets, int set_size);
 

@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/06 14:32:14 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/21 16:52:07 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@ int	get_moves(t_stack *a, int index)
 	return (a->size - index);
 }
 
-void	cal_sets(t_sset *sets, t_stack *a, int set_size)
+void	cal_sets(t_sset *sets, t_stack *a, t_stack *b, int set_size)
 {
 	int	i;
 
 	i = 0;
 	while (i < set_size)
 	{
-		if (!sets[i].used)
+		if (sets[i].in_b)
+			cal_set(&sets[i], b);
+		else
 			cal_set(&sets[i], a);
 		i++;
 	}

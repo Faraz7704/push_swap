@@ -6,13 +6,13 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/03 12:34:53 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/21 16:57:29 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	move_top_stack(int index, t_stack *a, t_stack *b, int onB)
+void	move_top_stack(int index, t_stack *a, t_stack *b, int on_b)
 {
 	int		i;
 	char	*rx;
@@ -22,7 +22,7 @@ void	move_top_stack(int index, t_stack *a, t_stack *b, int onB)
 	rx = "ra";
 	rrx = "rra";
 	temp = a;
-	if (onB)
+	if (on_b)
 	{
 		rx = "rb";
 		rrx = "rrb";
