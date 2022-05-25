@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/19 18:53:14 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/25 14:27:33 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ static void	sort_five(t_stack *a, t_stack *b)
 void	sort_stack(t_stack *a, t_stack *b)
 {
 	if (a->size == 2)
-		run_inst("sa", a, b, 0);
+	{
+		if (a->value[0] > a->value[1])
+			run_inst("sa", a, b, 0);
+	}
 	else if (a->size == 3)
 		sort_three(a, b);
 	else if (a->size <= 5)

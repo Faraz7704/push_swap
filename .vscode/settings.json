@@ -23,6 +23,17 @@
         "__bit_reference": "c",
         "deque": "c",
         "queue": "c",
-        "iterator": "c"
+        "iterator": "c",
+        "__functional_base": "c",
+        "__node_handle": "c",
+        "__memory": "c",
+        "functional": "c",
+        "limits": "c",
+        "memory": "c",
+        "optional": "c",
+        "system_error": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "set": "c"
     }
 }
