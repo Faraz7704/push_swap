@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/21 16:34:53 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/28 14:06:19 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,36 @@ t_sset	*create_sets(t_stack *a, int *sort, int *reflen)
 	}
 	return (sets);
 }
+
+// t_sset	*create_sets(t_stack *a, int *sort, int set_size, int *reflen)
+// {
+// 	int		i;
+// 	int		temp;
+// 	int		index;
+// 	t_sset	*sets;
+
+// 	*reflen = set_size;
+// 	if (a->size % set_size)
+// 		*reflen += 1;
+// 	sets = malloc(sizeof(t_sset) * *reflen);
+// 	if (!sets)
+// 		return (0);
+// 	index = 0;
+// 	i = 0;
+// 	while (i < *reflen)
+// 	{
+// 		temp = a->size / set_size;
+// 		if (i == *reflen - 1 && a->size % set_size)
+// 			temp = a->size % set_size;
+// 		if (!init_set(&sets[i], i + 1, temp))
+// 			return (0);
+// 		sets[i].values = &sort[index];
+// 		cal_set(&sets[i], a);
+// 		index += sets[i].size;
+// 		i++;
+// 	}
+// 	return (sets);
+// }
 
 // int	find_min_set(t_sset *s, int set_size, t_sset **res)
 // {

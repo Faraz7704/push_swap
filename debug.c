@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:57:52 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/01 21:17:36 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/28 15:56:57 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	print_inst(t_list *abuff)
 	ft_printf("\n");
 }
 
-void	print_sets(t_sset *sets, int *sort, int set_size)
+void	print_sets(t_sset *sets, int set_size)
 {
 	int		i;
 	int		j;
@@ -39,7 +39,7 @@ void	print_sets(t_sset *sets, int *sort, int set_size)
 		j = 0;
 		while (j < sets[i].size)
 		{
-			ft_printf("(%d) %d, ", sets[i].index[j], sort[c]);
+			ft_printf("(%d) %d, ", sets[i].index[j], sets[i].values[j]);
 			j++;
 			c++;
 		}

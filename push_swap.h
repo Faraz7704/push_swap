@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/21 16:57:42 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/28 15:57:03 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int			issorted(int *a, int n);
 
 // debug
 void		print_inst(t_list *abuff);
-void		print_sets(t_sset *sets, int *sort, int set_size);
+void		print_sets(t_sset *sets, int set_size);
 void		print_stack(t_stack a, t_stack b);
 void		print_numarr(t_stack a);
 

@@ -6,24 +6,68 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/26 15:02:08 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/28 16:30:21 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+static void	midpoint_b(int pivot, t_stack *a, t_stack *b)
+{
+	if (b->size < 2)
+		return ;
+	if (b->value[0] < pivot)
+		run_inst("rb", a, b, 0);
+	// else if (b->value[0] < b->value[1])
+	// 	run_inst("sb", a, b, 0);
+}
+
+int	min_index_set(t_sset *set, int start, int n)
+{
+	int	i;
+	int	min;
+
+	i = start;
+	min = start;
+	while (i < n && set->index[min] == -1)
+		min++;
+	i = start + 1;
+	while (i < n)
+	{
+		if (set->index[i] != -1 && set->index[i] < set->index[min])
+			min = i;
+		i++;
+	}
+	return (min);
+}
+
 static void	sort_sets_a(t_sset *set, t_stack *a, t_stack *b)
 {
 	int	i;
+	// int	j;
 	int	index;
+	int	*sort;
+	int	pivot;
 
+	sort = ft_numdup(set->values, set->size);
+	quicksort(sort, 0, set->size - 1);
+	pivot = sort[set->size / 2];
 	i = 0;
 	while (i < set->size)
 	{
-		index = set->index[min_moves_stack(set)];
+		// index = set->index[min_moves_stack(set)];
+		index = min_index_set(set, 0, set->size);
+		// j = 0;
+		// while (j < set->size)
+		// 	ft_printf("%d ", set->index[j++]);
+		// ft_printf("\n");
+		// ft_printf("index: %d\n", index);
+		index = set->index[index];
 		move_top_stack(index, a, b, 0);
 		run_inst("pb", a, b, 0);
 		cal_set(set, a);
+		if (set->id == 1)
+			midpoint_b(pivot, a, b);
 		i++;
 	}
 	set->in_b = 1;

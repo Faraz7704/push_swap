@@ -34,6 +34,7 @@
         "system_error": "c",
         "tuple": "c",
         "type_traits": "c",
-        "set": "c"
+        "set": "c",
+        "unordered_set": "c"
     }
 }
