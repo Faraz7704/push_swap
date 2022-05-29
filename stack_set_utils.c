@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/21 16:52:07 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/29 11:58:47 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,25 @@ void	cal_set(t_sset *set, t_stack *a)
 			set->moves[i] = 0;
 		i++;
 	}
+}
+
+int	min_index_set(t_sset *set, int start, int n)
+{
+	int	i;
+	int	min;
+
+	i = start;
+	min = start;
+	while (i < n && set->index[min] == -1)
+		min++;
+	i = start + 1;
+	while (i < n)
+	{
+		if (set->index[i] != -1 && set->index[i] < set->index[min])
+			min = i;
+		i++;
+	}
+	return (min);
 }
 
 void	free_sets(t_sset *sets, int set_size)

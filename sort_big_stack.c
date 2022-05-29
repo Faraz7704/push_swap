@@ -6,135 +6,125 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/28 16:30:21 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/29 17:41:45 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	midpoint_b(int pivot, t_stack *a, t_stack *b)
-{
-	if (b->size < 2)
-		return ;
-	if (b->value[0] < pivot)
-		run_inst("rb", a, b, 0);
-	// else if (b->value[0] < b->value[1])
-	// 	run_inst("sb", a, b, 0);
-}
-
-int	min_index_set(t_sset *set, int start, int n)
-{
-	int	i;
-	int	min;
-
-	i = start;
-	min = start;
-	while (i < n && set->index[min] == -1)
-		min++;
-	i = start + 1;
-	while (i < n)
-	{
-		if (set->index[i] != -1 && set->index[i] < set->index[min])
-			min = i;
-		i++;
-	}
-	return (min);
-}
-
 static void	sort_sets_a(t_sset *set, t_stack *a, t_stack *b)
 {
 	int	i;
-	// int	j;
 	int	index;
 	int	*sort;
 	int	pivot;
 
-	sort = ft_numdup(set->values, set->size);
-	quicksort(sort, 0, set->size - 1);
+	sort = new_quicksort(set->values, set->size);
 	pivot = sort[set->size / 2];
 	i = 0;
 	while (i < set->size)
 	{
-		// index = set->index[min_moves_stack(set)];
 		index = min_index_set(set, 0, set->size);
-		// j = 0;
-		// while (j < set->size)
-		// 	ft_printf("%d ", set->index[j++]);
-		// ft_printf("\n");
-		// ft_printf("index: %d\n", index);
 		index = set->index[index];
 		move_top_stack(index, a, b, 0);
 		run_inst("pb", a, b, 0);
 		cal_set(set, a);
-		if (set->id == 1)
-			midpoint_b(pivot, a, b);
+		if (set->id == 1 && b->size > 1 && b->value[0] < pivot)
+			run_inst("rb", a, b, 0);
 		i++;
 	}
 	set->in_b = 1;
 }
 
-static int	sets_true_size(t_sset *set)
+static int	can_swap(t_stack *a)
+{
+	if (a->size < 2)
+		return (0);
+	if (a->value[0] > a->value[1])
+		return (1);
+	return (0);
+}
+
+static void	partition_b(t_sset *set, t_stack *a, t_stack *b, int pivot)
 {
 	int	i;
-	int	len;
+	int	*sort;
 
-	len = 0;
+	sort = new_quicksort(set->index, set->size);
 	i = 0;
 	while (i < set->size)
 	{
-		if (set->index[i] != -1)
-			len++;
+		if (sort[i] != -1 && b->value[sort[i]] > pivot)
+		{
+			move_top_stack(sort[i], a, b, 1);
+			run_inst("pa", a, b, 0);
+			cal_set(set, b);
+			if (can_swap(a))
+				run_inst("sa", a, b, 0);
+		}
 		i++;
 	}
-	return (len);
+	free(sort);
 }
 
-static void	partition(t_sset *set, t_stack *a, t_stack *b, int pivot)
+static void	partition_a(t_sset *set, t_stack *a, t_stack *b, int pivot)
+{
+	int	i;
+	int	*sort;
+
+	sort = new_quicksort(set->index, set->size);
+	i = 0;
+	while (i < set->size)
+	{
+		if (sort[i] != -1 && a->value[sort[i]] < pivot)
+		{
+			move_top_stack(sort[i], a, b, 0);
+			run_inst("pb", a, b, 0);
+			cal_set(set, a);
+			if (can_swap(b))
+				run_inst("sb", a, b, 0);
+		}
+		i++;
+	}
+	free(sort);
+}
+
+static int	is_valid_index(t_sset *set)
 {
 	int	i;
 
-	i = set->size - 1;
-	while (i >= 0)
+	i = 0;
+	while (i < set->size)
 	{
-		if (set->index[i] != -1 && set->values[i] > pivot)
-		{
-			move_top_stack(set->index[i], a, b, 1);
-			run_inst("pa", a, b, 0);
-			cal_set(set, b);
-		}
-		i--;
+		if (set->index[i] == -1)
+			return (0);
 	}
+	return (1);
 }
 
 static void	sort_sets_b(t_sset *set, t_stack *a, t_stack *b)
 {
-	int	i;
+    int i;
 	int	*sort;
 	int	pivot;
 	int	true_size;
 
-	sort = ft_numdup(set->values, set->size);
-	quicksort(sort, 0, set->size - 1);
-	true_size = sets_true_size(set);
-	while (set->total_moves && true_size > 2)
+    i = 0;
+	while (i < 30)
 	{
-		pivot = sort[true_size / 2];
-		partition(set, a, b, pivot);
+		sort = new_quicksort(set->values, set->size);
 		true_size = sets_true_size(set);
-	}
-	i = set->size - 1;
-	while (i >= 0)
-	{
-		if (set->index[i] != -1)
-		{
-			move_top_stack(set->index[i], a, b, 1);
-			run_inst("pa", a, b, 0);
-			cal_set(set, b);
-		}
-		i--;
+		pivot = sort[true_size / 2];
+		cal_set(set, b);
+		partition_b(set, a, b, pivot);
+		cal_set(set, a);
+		if (is_valid_index(set) && issorted(set->index, set->size))
+			break ;
+		partition_a(set, a, b, pivot);
+		free(sort);
+        i++;
 	}
 	set->in_b = 0;
-	free(sort);
 }
 
 void	sort_big(t_stack *a, t_stack *b)
@@ -144,8 +134,7 @@ void	sort_big(t_stack *a, t_stack *b)
 	t_sset	*sets;
 	int		set_size;
 
-	sort = ft_numdup(a->value, a->size);
-	quicksort(sort, 0, a->size - 1);
+	sort = new_quicksort(a->value, a->size);
 	sets = create_sets(a, sort, &set_size);
 	i = 0;
 	while (i < set_size - 1)

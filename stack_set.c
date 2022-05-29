@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/28 14:06:19 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/29 12:00:03 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,22 @@ static int	get_set_size(int size)
 	if (size <= 0)
 		return (0);
 	return (get_set_size(size / 2) + 1);
+}
+
+int	sets_true_size(t_sset *set)
+{
+	int	i;
+	int	len;
+
+	len = 0;
+	i = 0;
+	while (i < set->size)
+	{
+		if (set->index[i] != -1)
+			len++;
+		i++;
+	}
+	return (len);
 }
 
 t_sset	*create_sets(t_stack *a, int *sort, int *reflen)

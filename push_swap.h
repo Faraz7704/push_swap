@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/28 15:57:03 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/29 12:00:09 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,17 @@ int			max_moves_stack(t_sset *set);
 
 // stack_set
 t_sset		*create_sets(t_stack *a, int *sort, int *reflen);
+int			sets_true_size(t_sset *set);
 
 // stack_set_utils
 int			get_moves(t_stack *a, int index);
 void		cal_sets(t_sset *sets, t_stack *a, t_stack *b, int set_size);
 void		cal_set(t_sset *set, t_stack *a);
 void		free_sets(t_sset *sets, int set_size);
+int			min_index_set(t_sset *set, int start, int n);
 
 // quick_sort
+int			*new_quicksort(int *a, int n);
 void		quicksort(int *a, int start, int end);
 int			issorted(int *a, int n);
 
