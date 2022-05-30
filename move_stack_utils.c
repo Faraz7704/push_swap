@@ -6,11 +6,39 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/21 16:57:29 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/30 12:24:21 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	smart_move_stack(int index, t_stack *a, t_stack *b, int on_b)
+{
+	int		i;
+	char	*rx;
+	char	*rrx;
+	t_stack	*temp;
+
+	rx = "ra";
+	rrx = "rra";
+	temp = a;
+	if (on_b)
+	{
+		rx = "rb";
+		rrx = "rrb";
+		temp = b;
+	}
+	if (index <= (temp->size / 2))
+	{
+		i = 0;
+		while (i++ < index)
+			run_inst(rx, a, b, 0);
+		return ;
+	}
+	i = temp->size - 1;
+	while (i-- >= index)
+		run_inst(rrx, a, b, 0);
+}
 
 void	move_top_stack(int index, t_stack *a, t_stack *b, int on_b)
 {
@@ -110,13 +138,13 @@ t_list	*swap_sort_inst(t_stack *b, int n)
 	res = NULL;
 	ft_printf("---------------------------\n");
 	ft_printf("before b: ");
-	temp = init_stack(ft_numdup(b->value, b->size), b->size);
+	temp = init_stack(ft_numdup(b->values, b->size), b->size);
 	print_numarr(temp);
 	while (i > 0)
 	{
 		while (i < n)
 		{
-			if (temp.value[0] < temp.value[1])
+			if (temp.values[0] < temp.values[1])
 			{
 				ft_lstadd_back(&res, ft_lstnew(ft_strdup("sb")));
 				run_inst("sb", NULL, &temp, 1);
@@ -147,7 +175,7 @@ t_list	*swap_sort_inst(t_stack *b, int n)
 				ft_lstadd_back(&res, ft_lstnew(ft_strdup("rrb")));
 				run_inst("rrb", NULL, &temp, 1);
 			}
-			if (temp.value[0] < temp.value[1])
+			if (temp.values[0] < temp.values[1])
 				break ;
 		}
 	}

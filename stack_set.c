@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/29 12:00:03 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/30 17:21:36 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,9 @@ static int	init_set(t_sset	*set, int id, int size)
 {
 	set->id = id;
 	set->size = size;
-	set->in_b = 0;
 	set->total_moves = 0;
-	set->index = malloc(sizeof(int) * size);
-	if (!set->index)
-		return (0);
-	set->moves = malloc(sizeof(int) * size);
-	if (!set->moves)
+	set->items = malloc(sizeof(t_set_item) * size);
+	if (!set->items)
 		return (0);
 	return (1);
 }
@@ -43,19 +39,25 @@ int	sets_true_size(t_sset *set)
 	i = 0;
 	while (i < set->size)
 	{
-		if (set->index[i] != -1)
+		if (set->items[i].index != -1)
 			len++;
 		i++;
 	}
 	return (len);
 }
 
-t_sset	*create_sets(t_stack *a, int *sort, int *reflen)
+static void	fill_items()
+{
+	
+}
+
+t_sset	*create_sets(t_stack *a, int *reflen)
 {
 	int		i;
 	int		size;
 	int		index;
 	t_sset	*sets;
+	int		*sort;
 
 	*reflen = get_set_size(a->size);
 	sets = malloc(sizeof(t_sset) * *reflen);
@@ -71,7 +73,7 @@ t_sset	*create_sets(t_stack *a, int *sort, int *reflen)
 			size = a->size - index;
 		if (!init_set(&sets[i], i + 1, size))
 			return (0);
-		sets[i].values = &sort[index];
+		sets[i].items. = &sort[index];
 		cal_set(&sets[i], a);
 		index += sets[i].size;
 		i++;

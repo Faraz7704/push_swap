@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/29 11:58:47 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/30 13:59:23 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,17 @@ void	cal_sets(t_sset *sets, t_stack *a, t_stack *b, int set_size)
 
 void	cal_set(t_sset *set, t_stack *a)
 {
-	int	i;
+	int			i;
+	t_list		curr;
+	t_set_item	item;
 
 	i = 0;
 	set->total_moves = 0;
+	curr = i;
 	while (i < set->size)
 	{
-		set->index[i] = find_index_stack(a->value, set->values[i], a->size);
+		item = set->items[i];
+		item.index = find_index_stack(a->lst, set->values[i], a->size);
 		if (set->index[i] >= 0)
 		{
 			set->moves[i] = get_moves(a, set->index[i]);

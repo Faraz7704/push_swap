@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/29 12:00:09 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/30 17:21:28 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,33 @@
 # include "lib/libft/libft.h"
 # include "lib/ft_printf.h"
 
+typedef enum e_stack
+{
+	A,
+	B
+}	t_e_stack;
+
 typedef struct stack
 {
-	int	*value;
-	int	size;
+	t_list		*lst;
+	int			size;
+	t_e_stack	stack_type;
 }	t_stack;
+
+typedef struct set_item
+{
+	int			index;
+	int			value;
+	int			moves;
+	t_e_stack	stack_type;
+}	t_set_item;
 
 typedef struct sset
 {
-	int		id;
-	int		*index;
-	int		*values;
-	int		*moves;
-	int		total_moves;
-	int		size;
-	int		in_b;
+	int			id;
+	t_set_item	*items;
+	int			total_moves;
+	int			size;
 }	t_sset;
 
 // utils
@@ -52,21 +64,18 @@ void		del_lst(void *content);
 t_list		*del_first_lst(t_list **lst);
 void		del_last_lst(t_list *lst);
 
-// push_swap_stack
+// stack
+t_stack		init_stack(int *a, int n, e_stack type);
 int			run_inst(char *inst, t_stack *a, t_stack *b, int test);
-void		run_multi_inst(int aindex, t_stack *a, t_stack *b);
 
 // move_stack_utils
 void		move_top_stack(int index, t_stack *a, t_stack *b, int on_b);
-t_list		*move_top_inst(int index, t_stack *a, char *rx, char *rrx);
-t_list		*swap_sort_inst(t_stack *b, int n);
 
-// push_swap_stack_utils
-t_stack		init_stack(int *a, int n);
-int			swap(t_stack *a);
-int			push(t_stack *a, t_stack *b);
-int			rot(t_stack *a);
-int			rrot(t_stack *a);
+// stack_instructions
+int			swap_stack(t_stack *a);
+int			push_stack(t_stack *a, t_stack *b);
+int			rot_stack(t_stack *a);
+int			rrot_stack(t_stack *a);
 
 // sort_stack
 void		sort_stack(t_stack *a, t_stack *b);
@@ -82,7 +91,7 @@ int			min_moves_stack(t_sset *set);
 int			max_moves_stack(t_sset *set);
 
 // stack_set
-t_sset		*create_sets(t_stack *a, int *sort, int *reflen);
+t_sset		*create_sets(t_stack *a, int *reflen);
 int			sets_true_size(t_sset *set);
 
 // stack_set_utils

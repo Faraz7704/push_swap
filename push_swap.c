@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/26 15:06:06 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/30 17:13:45 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ static void	push_swap(int *a, int n)
 	b = ft_calloc(sizeof(int), n);
 	if (!b)
 		return ;
-	stacka = init_stack(a, n);
-	stackb = init_stack(b, 0);
+	stacka = init_stack(a, n, A);
+	stackb = init_stack(b, 0, B);
 	// print_stack(stacka, stackb);
 	sort_stack(&stacka, &stackb);
 	// print_stack(stacka, stackb);
