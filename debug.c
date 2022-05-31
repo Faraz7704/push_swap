@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:57:52 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/28 15:56:57 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/31 14:10:00 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@ void	print_inst(t_list *abuff)
 
 void	print_sets(t_sset *sets, int set_size)
 {
-	int		i;
-	int		j;
-	int		c;
+	int			i;
+	int			j;
+	int			c;
+	t_set_item	item;
 
 	c = 0;
 	i = 0;
@@ -39,7 +40,8 @@ void	print_sets(t_sset *sets, int set_size)
 		j = 0;
 		while (j < sets[i].size)
 		{
-			ft_printf("(%d) %d, ", sets[i].index[j], sets[i].values[j]);
+			item = sets[i].items[j];
+			ft_printf("(%d) %d, ", item.index, item.value);
 			j++;
 			c++;
 		}
@@ -51,17 +53,30 @@ void	print_sets(t_sset *sets, int set_size)
 void	print_stack(t_stack a, t_stack b)
 {
 	ft_printf("a: ");
-	print_numarr(a);
+	print_stackarr(a);
 	ft_printf("b: ");
-	print_numarr(b);
+	print_stackarr(b);
 }
 
-void	print_numarr(t_stack a)
+void	print_numarr(int *a, int n)
 {
 	int	i;
 
 	i = 0;
-	while (i < a.size)
-		ft_printf("%-5d", a.value[i++]);
+	while (i < n)
+		ft_printf("%-5d", a[i++]);
+	ft_printf("\n");
+}
+
+void	print_stackarr(t_stack a)
+{
+	t_list	*curr;
+
+	curr = a.lst;
+	while (curr)
+	{
+		ft_printf("%-5d", *(int *)curr->content);
+		curr = curr->next;
+	}
 	ft_printf("\n");
 }

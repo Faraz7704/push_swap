@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/29 11:35:21 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/31 13:17:27 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ void	quicksort(int *a, int start, int end)
 	quicksort(a, pivot + 1, end);
 }
 
-int	*new_quicksort(int *a, int n)
+int	*new_quicksort(t_list *a, int n)
 {
 	int	*sort;
 
 	if (!a || n <= 0)
 		return (0);
-	sort = ft_numdup(a, n);
+	sort = ft_lstdup(a, n);
 	quicksort(sort, 0, n - 1);
 	return (sort);
 }
@@ -61,7 +61,8 @@ int	issorted(int *a, int n)
 	int	i;
 	int	*sort;
 
-	sort = new_quicksort(a, n);
+	sort = ft_numdup(a, n);
+	quicksort(sort, 0, n - 1);
 	i = 0;
 	while (i < n)
 	{

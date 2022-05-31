@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/01 23:11:57 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/31 14:07:13 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,24 @@ void	del_last_lst(t_list *lst)
 	last = ft_lstlast(lst);
 	ft_lstdelone(last, del_lst);
 	slast->next = NULL;
+}
+
+int	*ft_lstdup(t_list *lst, int n)
+{
+	int		*new;
+	int		i;
+	t_list	*curr;
+
+	new = malloc(sizeof(int) * n);
+	if (!new)
+		return (0);
+	curr = lst;
+	i = 0;
+	while (i < n)
+	{
+		new[i] = (int)curr->content;
+		curr = curr->next;
+		i++;
+	}
+	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/30 17:21:36 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/31 13:22:54 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,7 @@ static int	init_set(t_sset	*set, int id, int size)
 	return (1);
 }
 
-static int	get_set_size(int size)
-{
-	if (size <= 0)
-		return (0);
-	return (get_set_size(size / 2) + 1);
-}
-
-int	sets_true_size(t_sset *set)
+int	set_type_size(t_sset *set, t_e_stack type)
 {
 	int	i;
 	int	len;
@@ -39,16 +32,31 @@ int	sets_true_size(t_sset *set)
 	i = 0;
 	while (i < set->size)
 	{
-		if (set->items[i].index != -1)
+		if (set->items[i].stack_type == type)
 			len++;
 		i++;
 	}
 	return (len);
 }
 
-static void	fill_items()
+static void	fill_items(t_set_item *items, t_stack *a, int *value, int n)
 {
-	
+	int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		items[i].value = value[i];
+		items[i].stack_type = a->stack_type;
+		i++;
+	}
+}
+
+static int	get_set_size(int size)
+{
+	if (size <= 0)
+		return (0);
+	return (get_set_size(size / 2) + 1);
 }
 
 t_sset	*create_sets(t_stack *a, int *reflen)
@@ -59,6 +67,7 @@ t_sset	*create_sets(t_stack *a, int *reflen)
 	t_sset	*sets;
 	int		*sort;
 
+	sort = new_quicksort(a->lst, a->size);
 	*reflen = get_set_size(a->size);
 	sets = malloc(sizeof(t_sset) * *reflen);
 	if (!sets)
@@ -73,9 +82,9 @@ t_sset	*create_sets(t_stack *a, int *reflen)
 			size = a->size - index;
 		if (!init_set(&sets[i], i + 1, size))
 			return (0);
-		sets[i].items. = &sort[index];
-		cal_set(&sets[i], a);
-		index += sets[i].size;
+		fill_items(sets[i].items, a, &sort[index], size);
+		cal_set(&sets[i], a, NULL);
+		index += size;
 		i++;
 	}
 	return (sets);
