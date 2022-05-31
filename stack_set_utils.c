@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/31 13:26:28 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/31 17:25:20 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,23 @@ void	cal_set(t_sset *set, t_stack *a, t_stack *b)
 			item.move = 0;
 		i++;
 	}
+}
+
+int	*new_item_values(t_set_item *items, int n)
+{
+	int	i;
+	int	*values;
+
+	values = malloc(sizeof(int) * n);
+	if (!values)
+		return (0);
+	i = 0;
+	while (i < n)
+	{
+		values[i] = items[i].value;
+		i++;
+	}
+	return (values);
 }
 
 // int	min_index_set(t_sset *set, int start, int n)

@@ -6,40 +6,50 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/31 13:16:04 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/31 18:09:03 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// static void	put_set_in_b(t_sset *set, t_stack *a, t_stack *b)
-// {
-// 	int	i;
-// 	int	index;
-// 	int	*sort;
-// 	int	pivot;
+static int	*sort_values(t_set_item *items, int n)
+{
+	int	*values;
+	int	*sort;
 
-// 	sort = new_quicksort(set->values, set->size);
-// 	pivot = sort[set->size / 2];
-// 	i = 0;
-// 	while (i < set->size)
-// 	{
-// 		if (set->id == set->size && b->size > 1 && b->value[0] > pivot)
-// 		{
-// 			i++;
-// 			continue ;
-// 		}
-// 		index = min_index_set(set, 0, set->size);
-// 		index = set->index[index];
-// 		move_top_stack(index, a, b, 0);
-// 		run_inst("pb", a, b, 0);
-// 		cal_set(set, a);
-// 		if (set->id == 1 && b->size > 1 && b->value[0] < pivot)
-// 			run_inst("rb", a, b, 0);
-// 		i++;
-// 	}
-// 	set->in_b = 1;
-// }
+	values = new_item_values(items, n);
+	sort = new_quicksort(values, n);
+	free(values);
+	return (sort);
+}
+
+static void	set_to_b(t_sset *set, t_stack *a, t_stack *b)
+{
+	int			i;
+	int			index;
+	int			*sort;
+	int			pivot;
+
+	sort = sort_values(set->items, set->size);
+	pivot = sort[set->size / 2];
+	i = 0;
+	while (i < set->size)
+	{
+		if (set->id == set->size && b->size > 1 && set->items[0].value > pivot)
+		{
+			i++;
+			continue ;
+		}
+		index = min_index_stack(set, set->size);
+		index = set->items[index].index;
+		move_top_stack(index, a, b, 0);
+		run_inst("pb", a, b, 0);
+		cal_set(set, a, b);
+		if (set->id == 1 && b->size > 1 && *(int *)b->lst->content < pivot)
+			run_inst("rb", a, b, 0);
+		i++;
+	}
+}
 
 // static int	can_swap(t_stack *a)
 // {
@@ -129,21 +139,18 @@
 
 void	sort_big(t_stack *a, t_stack *b)
 {
-	print_stack(*a, *b);
-	// int		i;
-	// int		*sort;
-	// t_sset	*sets;
-	// int		set_size;
+	int		i;
+	t_sset	*sets;
+	int		set_size;
 
-	// sort = new_quicksort(a->value, a->size);
-	// sets = create_sets(a, sort, &set_size);
-	// i = 0;
-	// while (i < set_size - 1)
-	// {
-	// 	put_set_in_b(&sets[i], a, b);
-	// 	cal_sets(sets, a, b, set_size);
-	// 	i++;
-	// }
+	sets = create_sets(a, &set_size);
+	i = 0;
+	while (i < set_size - 1)
+	{
+		set_to_b(&sets[i], a, b);
+		cal_sets(sets, a, b, set_size);
+		i++;
+	}
 	// sort_stack(a, b);
 	// i = set_size - 2;
 	// while (i >= 0)
@@ -152,7 +159,5 @@ void	sort_big(t_stack *a, t_stack *b)
 	// 	cal_sets(sets, a, b, set_size);
 	// 	i--;
 	// }
-	// free_sets(sets, set_size);
-	// free(sort);
-	
+	free_sets(sets, set_size);
 }
