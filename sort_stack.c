@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/31 13:17:58 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/05/31 14:19:42 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	sort_two(t_stack *a, t_stack *b)
 {
-	if (a->lst->content > a->lst->next->content)
+	if (*(int *)a->lst->content > *(int *)a->lst->next->content)
 		run_inst("sa", a, b, 0);
 }
 
