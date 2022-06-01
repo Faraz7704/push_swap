@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/31 13:22:54 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/06/01 12:37:39 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_sset	*create_sets(t_stack *a, int *reflen)
 	t_sset	*sets;
 	int		*sort;
 
-	sort = new_quicksort(a->lst, a->size);
+	sort = lstnew_quicksort(a->lst, a->size);
 	*reflen = get_set_size(a->size);
 	sets = malloc(sizeof(t_sset) * *reflen);
 	if (!sets)

@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/31 17:25:44 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/06/01 14:37:43 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void		cal_sets(t_sset *sets, t_stack *a, t_stack *b, int set_size);
 void		cal_set(t_sset *set, t_stack *a, t_stack *b);
 void		free_sets(t_sset *sets, int set_size);
 int			*new_item_values(t_set_item *items, int n);
+int			min_index_set(t_set_item *items, t_e_stack type, int n);
 
 // quick_sort
 int			*new_quicksort(int *a, int n);
@@ -112,6 +113,7 @@ int			issorted(int *a, int n);
 // debug
 void		print_inst(t_list *abuff);
 void		print_sets(t_sset *sets, int set_size);
+void		print_set(t_sset set);
 void		print_stack(t_stack a, t_stack b);
 void		print_numarr(int *a, int n);
 void		print_stackarr(t_stack a);

@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/31 14:10:37 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/06/01 14:35:27 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_stack	init_stack(int *a, int n, t_e_stack type)
 	t_list	*lst;
 	t_stack	new;
 
-	if (n > 0)
+	if (n > 0 && a)
 	{
 		lst = ft_lstnew(&a[0]);
 		i = 1;

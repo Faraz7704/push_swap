@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/31 18:09:03 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/06/01 15:01:33 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	*sort_values(t_set_item *items, int n)
 	return (sort);
 }
 
-static void	set_to_b(t_sset *set, t_stack *a, t_stack *b)
+static void	set_to_b(t_sset *set, int set_size, t_stack *a, t_stack *b)
 {
 	int			i;
 	int			index;
@@ -33,14 +33,21 @@ static void	set_to_b(t_sset *set, t_stack *a, t_stack *b)
 	sort = sort_values(set->items, set->size);
 	pivot = sort[set->size / 2];
 	i = 0;
+	// ft_printf("set id: %d, size: %d, item value: %d, pivot: %d\n", set->id, set->size, set->items[0].value, pivot);
 	while (i < set->size)
 	{
-		if (set->id == set->size && b->size > 1 && set->items[0].value > pivot)
+		if (set->id == set_size - 1 && b->size > 1 && set->items[0].value > pivot)
 		{
 			i++;
 			continue ;
 		}
-		index = min_index_stack(set, set->size);
+		index = min_index_set(set->items, A_STACK, set->size);
+		if (index == -1)
+		{
+			i++;
+			continue ;
+		}
+		set->items[index].stack_type = B_STACK;
 		index = set->items[index].index;
 		move_top_stack(index, a, b, 0);
 		run_inst("pb", a, b, 0);
@@ -147,7 +154,7 @@ void	sort_big(t_stack *a, t_stack *b)
 	i = 0;
 	while (i < set_size - 1)
 	{
-		set_to_b(&sets[i], a, b);
+		set_to_b(&sets[i], set_size, a, b);
 		cal_sets(sets, a, b, set_size);
 		i++;
 	}

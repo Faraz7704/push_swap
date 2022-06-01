@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/31 14:11:21 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/06/01 13:09:46 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,14 @@ static int	*parse_arg(char **av, int n, int *reflen)
 
 static void	push_swap(int *a, int n)
 {
-	int		*b;
-	t_stack	stacka;
-	t_stack	stackb;
+	t_stack	stack_a;
+	t_stack	stack_b;
 
 	if (issorted(a, n))
 		return ;
-	b = ft_calloc(sizeof(int), n);
-	if (!b)
-		return ;
-	stacka = init_stack(a, n, A_STACK);
-	stackb = init_stack(b, 0, B_STACK);
-	sort_stack(&stacka, &stackb);
-	// print_stack(stacka, stackb);
-	free(b);
+	stack_a = init_stack(a, n, A_STACK);
+	stack_b = init_stack(NULL, 0, B_STACK);
+	sort_stack(&stack_a, &stack_b);
 }
 
 int	main(int ac, char **av)
