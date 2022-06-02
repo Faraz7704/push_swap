@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/06/01 14:35:27 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/06/02 14:40:23 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	run_inst(char *f, t_stack *a, t_stack *b, int debug)
 		return (0);
 	else if (!ft_strncmp(f, "rrr", 3) && !(rrot_stack(a) && rrot_stack(b)))
 		return (0);
-	else if (!ft_strncmp(f, "rr", 2) && !(rot_stack(a) && rot_stack(b)))
+	else if (!ft_strncmp(f, "rr", ft_strlen(f)) && !(rot_stack(a) && rot_stack(b)))
 		return (0);
 	if (!debug)
 		ft_printf("%s\n", f);

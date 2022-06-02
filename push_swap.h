@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/06/01 14:37:43 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/06/02 19:50:36 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int			*new_quicksort(int *a, int n);
 int			*lstnew_quicksort(t_list *a, int n);
 void		quicksort(int *a, int start, int end);
 int			issorted(int *a, int n);
+int			lst_issorted(t_list *lst, int n);
 
 // debug
 void		print_inst(t_list *abuff);

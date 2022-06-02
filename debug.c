@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:57:52 by fkhan             #+#    #+#             */
-/*   Updated: 2022/06/01 12:02:28 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/06/02 16:14:09 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	print_sets(t_sset *sets, int set_size)
 	i = 0;
 	while (i < set_size)
 	{
-		ft_printf("id: %d total_moves: %d\n", sets[i].id, sets[i].total_moves);
+		ft_printf("id: %d size: %d total_moves: %d\n", sets[i].id, sets[i].size, sets[i].total_moves);
 		print_set(sets[i]);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/06/01 15:03:37 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/06/01 18:44:51 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,28 @@ void	move_top_stack(int index, t_stack *a, t_stack *b, int on_b)
 {
 	int		i;
 	char	*rx;
-	// char	*rrx;
-	// t_stack	*temp;
+	char	*rrx;
+	t_stack	*temp;
 
 	rx = "ra";
-	// rrx = "rra";
-	// temp = a;
+	rrx = "rra";
+	temp = a;
 	if (on_b)
 	{
 		rx = "rb";
-		// rrx = "rrb";
-		// temp = b;
+		rrx = "rrb";
+		temp = b;
 	}
-	// if (index <= (temp->size / 2))
-	// {
+	if (index <= (temp->size / 2))
+	{
 		i = 0;
 		while (i++ < index)
 			run_inst(rx, a, b, 0);
-		// return ;
-	// }
-	// i = temp->size - 1;
-	// while (i-- > index)
-	// 	run_inst(rrx, a, b, 0);
+		return ;
+	}
+	i = temp->size - 1;
+	while (i-- > index)
+		run_inst(rrx, a, b, 0);
 }
 
 // t_list	*move_top_inst(int index, t_stack *a, char *rx, char *rrx)

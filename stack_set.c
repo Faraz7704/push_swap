@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/06/01 12:37:39 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/06/02 16:17:33 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	fill_items(t_set_item *items, t_stack *a, int *value, int n)
 
 static int	get_set_size(int size)
 {
-	if (size <= 0)
+	if (size < 12)
 		return (0);
 	return (get_set_size(size / 2) + 1);
 }

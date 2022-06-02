@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/06/01 14:58:40 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/06/02 14:32:43 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,5 @@ int	rrot_stack(t_stack *a)
 	last->next = a->lst;
 	a->lst = last;
 	second_last->next = NULL;
-	// ft_printf("------------------------||||||||");
-	// print_stackarr(*a);
 	return (1);
 }
