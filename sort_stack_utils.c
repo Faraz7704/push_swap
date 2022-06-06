@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/06/01 11:47:10 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/06/06 13:24:06 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	find_index_stack(t_list *lst, int value, int n)
 	int		i;
 	t_list	*curr;
 
+	if (!lst || n <= 0)
+		return (-1);
 	i = 0;
 	curr = lst;
 	while (i < n)
@@ -36,6 +38,8 @@ int	min_index_stack(t_list *lst, int n)
 	t_list	*min;
 	int		index;
 
+	if (!lst || n <= 0)
+		return (-1);
 	i = 1;
 	curr = lst->next;
 	min = lst;
@@ -60,6 +64,8 @@ int	max_index_stack(t_list *lst, int n)
 	t_list	*max;
 	int		index;
 
+	if (!lst || n <= 0)
+		return (-1);
 	i = 1;
 	curr = lst->next;
 	max = lst;

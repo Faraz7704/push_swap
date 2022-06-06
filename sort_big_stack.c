@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/06/05 21:05:47 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/06/06 19:56:18 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,19 @@ static int	sort_in_a(int *values, int n, t_stack *a, t_stack *b)
 	{
 		index = min_index_stack(a->lst, a->size);
 		len = get_moves(a, index);
-		ft_printf("index: %d size: %d\n", index, a->size);
+		if (!len)
+		{
+			run_inst("pb", a, b, 0);
+			record++;
+			if (b->size > 1 && *(int *)b->lst->content < *(int *)b->lst->next->content)
+				run_inst("sb", a, b, 0);
+			// ft_printf("index: %d lst content: %d\n", index, ft_lstindex(a->lst, index));
+			if (lst_issorted(a->lst, a->size))
+			{
+				free(sort);
+				return (record);
+			}
+		}
 		while (len--)
 		{
 			if (index <= a->size / 2)
@@ -109,6 +121,12 @@ static int	sort_in_a(int *values, int n, t_stack *a, t_stack *b)
 				len--;
 				if (b->size > 1 && *(int *)b->lst->content < *(int *)b->lst->next->content)
 					run_inst("sb", a, b, 0);
+				index = min_index_stack(a->lst, a->size);
+				if (*(int *)a->lst->content == *(int *)(ft_lstindex(a->lst, index)->content))
+				{
+					i--;
+					break ;
+				}
 			}
 			if (lst_issorted(a->lst, a->size))
 			{
@@ -122,7 +140,82 @@ static int	sort_in_a(int *values, int n, t_stack *a, t_stack *b)
 	return (record);
 }
 
-static void	sort_midpoint(t_sset *set, t_stack *a, t_stack *b)
+static int	find_index_item(t_set_item *items, int value, int n)
+{
+	int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		if (items[i].value == value)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+static int	sort_in_b(t_sset *set, t_stack *a, t_stack *b)
+{
+	int	i;
+	int	index;
+	int	*sort;
+	int	first_index;
+	int	second_index;
+	int	record;
+	int	len;
+	int	flag;
+	int	n;
+
+	sort = sort_values(set->items, set->size);
+	n = set_type_size(set, B_STACK);
+	i = 0;
+	record = 0;
+	flag = 1;
+	index = max_index_stack(b->lst, b->size);
+	while (index != -1 && find_index_item(set->items, *(int *)ft_lstindex(b->lst, index)->content, n))
+	{
+		len = get_moves(b, index);
+		if (!len)
+		{
+			run_inst("pa", a, b, 0);
+			record++;
+			if (a->size > 1 && *(int *)a->lst->content > *(int *)a->lst->next->content)
+				run_inst("sa", a, b, 0);
+		}
+		while (len--)
+		{
+			if (index <= b->size / 2)
+				run_inst("rb", a, b, 0);
+			else
+				run_inst("rrb", a, b, 0);
+			first_index = find_index_arr(sort, *(int *)b->lst->content, n);
+			second_index = find_index_arr(sort, *(int *)b->lst->next->content, n);
+			if (first_index == second_index - 1)
+				run_inst("sb", a, b, 0);
+			if ((flag && first_index >= n - record + 2) || (!flag && first_index >= n - record + 1))
+			{
+				flag = first_index == n - 1;
+				run_inst("pa", a, b, 0);
+				record++;
+				len--;
+				if (a->size > 1 && *(int *)a->lst->content > *(int *)a->lst->next->content)
+					run_inst("sa", a, b, 0);
+				index = max_index_stack(b->lst, b->size);
+				if (*(int *)b->lst->content == *(int *)(ft_lstindex(b->lst, index)->content))
+				{
+					i--;
+					break ;
+				}
+			}
+		}
+		i++;
+		index = max_index_stack(b->lst, b->size);
+	}
+	free(sort);
+	return (record);
+}
+
+static void	sort_midpoint(t_sset *set, t_stack *a, t_stack *b, int for_b)
 {
 	// int	i;
 	int	*sort;
@@ -131,19 +224,22 @@ static void	sort_midpoint(t_sset *set, t_stack *a, t_stack *b)
 	int	record;
 
 	sort = sort_values(set->items, set->size);
-	true_size = set_type_size(set, A_STACK);
 	// pivot = sort[true_size / 2];
 	// i = 0;
 	// while (i < 6)
 	// {
+	if (!for_b)
+	{
+		true_size = set_type_size(set, A_STACK);
 		record = sort_in_a(sort, true_size, a, b);
-		if (lst_issorted(a->lst, a->size))
-		{
-			while (record--)
-				run_inst("pa", a, b, 0);
-			free (sort);
-			return ;
-		}
+	}
+	else
+	{
+		true_size = set_type_size(set, B_STACK);
+		record = true_size - sort_in_b(set, a, b);
+	}
+	while (record--)
+		run_inst("pa", a, b, 0);
 	// 	i++;
 	// }
 	free (sort);
@@ -166,7 +262,14 @@ void	sort_big(t_stack *a, t_stack *b)
 	i = set_size - 1;
 	// while (i >= 0)
 	// {
-		sort_midpoint(&sets[i], a, b);
+		sort_midpoint(&sets[i--], a, b, 0);
+		sort_midpoint(&sets[i--], a, b, 1);
+		i = sets[i].size / 2 - 1;
+		while (i >= 0)
+		{
+			run_inst("pa", a, b, 0);
+			i--;
+		}
 	// 	i++;
 	// }
 	free_sets(sets, set_size);

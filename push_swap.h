@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/06/02 19:50:36 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/06/06 12:58:56 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int			ft_arglen(char **args);
 char		**ft_argjoin(char **s1, char **s2);
 char		**ft_argsplit(char **args, int n, char sep);
 void		ft_freearg(char **args);
+t_list		*ft_lstindex(t_list *lst, int index);
 
 // list_utils
 void		del_lst(void *content);

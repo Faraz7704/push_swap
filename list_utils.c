@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/06/01 11:21:51 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/06/06 12:56:41 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,19 @@ int	*ft_lstdup(t_list *lst, int n)
 		i++;
 	}
 	return (new);
+}
+
+t_list	*ft_lstindex(t_list *lst, int index)
+{
+	int		i;
+
+	i = 0;
+	while (lst)
+	{
+		if (i == index)
+			return (lst);
+		i++;
+		lst = lst->next;
+	}
+	return (0);
 }

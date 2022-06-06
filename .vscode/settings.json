@@ -35,6 +35,7 @@
         "tuple": "c",
         "type_traits": "c",
         "set": "c",
-        "unordered_set": "c"
+        "unordered_set": "c",
+        "__string": "c"
     }
 }
