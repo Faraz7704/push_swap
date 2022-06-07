@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/06/06 19:56:18 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/06/07 19:09:01 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ static int	sort_in_a(int *values, int n, t_stack *a, t_stack *b)
 			record++;
 			if (b->size > 1 && *(int *)b->lst->content < *(int *)b->lst->next->content)
 				run_inst("sb", a, b, 0);
-			// ft_printf("index: %d lst content: %d\n", index, ft_lstindex(a->lst, index));
 			if (lst_issorted(a->lst, a->size))
 			{
 				free(sort);
@@ -154,7 +153,7 @@ static int	find_index_item(t_set_item *items, int value, int n)
 	return (0);
 }
 
-static int	sort_in_b(t_sset *set, t_stack *a, t_stack *b)
+static int	sort_in_b(t_sset *set, int *values, int n, t_stack *a, t_stack *b)
 {
 	int	i;
 	int	index;
@@ -164,10 +163,8 @@ static int	sort_in_b(t_sset *set, t_stack *a, t_stack *b)
 	int	record;
 	int	len;
 	int	flag;
-	int	n;
 
-	sort = sort_values(set->items, set->size);
-	n = set_type_size(set, B_STACK);
+	sort = new_quicksort(values, n);
 	i = 0;
 	record = 0;
 	flag = 1;
@@ -215,34 +212,94 @@ static int	sort_in_b(t_sset *set, t_stack *a, t_stack *b)
 	return (record);
 }
 
+static int	**split_set(t_sset *set, t_stack *a, t_stack *b)
+{
+	int	i[3];
+	int	pivot;
+	int	*sort;
+	int	**split;
+	int	true_size;
+
+	sort = sort_values(set->items, set->size);
+	true_size = set_type_size(set, B_STACK);
+	pivot = sort[true_size / 2];
+	free (sort);
+	split = (int **)malloc(sizeof(int *) * 2);
+	if (!split)
+		return (0);
+	split[0] = malloc(sizeof(int) * true_size - (true_size / 2));
+	if (!split[0])
+		return (0);
+	split[1] = malloc(sizeof(int) * true_size / 2);
+	if (!split[1])
+		return (0);
+	i[0] = 0;
+	i[1] = 0;
+	i[2] = 0;
+	while (i[0] < true_size)
+	{
+		if (*(int *)b->lst->content > pivot)
+		{
+			split[0][i[1]] = *(int *)b->lst->content;
+			run_inst("pa", a, b, 0);
+			i[1]++;
+		}
+		else
+		{
+			split[1][i[2]] = *(int *)b->lst->content;
+			i[2]++;
+			run_inst("rb", a, b, 0);
+		}
+		i[0]++;
+	}
+	while (i[2]--)
+		run_inst("rrb", a, b, 0);
+	return (split);
+}
+
 static void	sort_midpoint(t_sset *set, t_stack *a, t_stack *b, int for_b)
 {
-	// int	i;
 	int	*sort;
-	// int	pivot;
+	int	**split;
 	int	true_size;
 	int	record;
 
-	sort = sort_values(set->items, set->size);
-	// pivot = sort[true_size / 2];
-	// i = 0;
-	// while (i < 6)
-	// {
-	if (!for_b)
+	if (for_b == 2)
 	{
-		true_size = set_type_size(set, A_STACK);
-		record = sort_in_a(sort, true_size, a, b);
+		true_size = set_type_size(set, B_STACK);
+		split = split_set(set, a, b);
+		record = sort_in_a(split[0], true_size / 2, a, b);
+		while (record--)
+		{
+			run_inst("pa", a, b, 0);
+			if (a->size > 1 && *(int *)a->lst->content > *(int *)a->lst->next->content)
+				run_inst("sa", a, b, 0);
+		}
+		record = (true_size - (true_size / 2)) - sort_in_b(set, split[1], true_size - (true_size / 2), a, b);
+		while (record--)
+			run_inst("pa", a, b, 0);
+		free(split[0]);
+		free(split[1]);
+		free(split);
+	}
+	else if (for_b == 1)
+	{
+		sort = sort_values(set->items, set->size);
+		true_size = set_type_size(set, B_STACK);
+		record = true_size - sort_in_b(set, sort, true_size, a, b);
+		while (record--)
+			run_inst("pa", a, b, 0);
+		free (sort);
 	}
 	else
 	{
-		true_size = set_type_size(set, B_STACK);
-		record = true_size - sort_in_b(set, a, b);
+		sort = sort_values(set->items, set->size);
+		true_size = set_type_size(set, A_STACK);
+		record = sort_in_a(sort, true_size, a, b);
+		while (record--)
+			run_inst("pa", a, b, 0);
+		free (sort);
 	}
-	while (record--)
-		run_inst("pa", a, b, 0);
-	// 	i++;
-	// }
-	free (sort);
 }
 
 void	sort_big(t_stack *a, t_stack *b)
@@ -264,12 +321,8 @@ void	sort_big(t_stack *a, t_stack *b)
 	// {
 		sort_midpoint(&sets[i--], a, b, 0);
 		sort_midpoint(&sets[i--], a, b, 1);
-		i = sets[i].size / 2 - 1;
-		while (i >= 0)
-		{
-			run_inst("pa", a, b, 0);
-			i--;
-		}
+		sort_midpoint(&sets[i--], a, b, 2);
+		sort_midpoint(&sets[i--], a, b, 2);
 	// 	i++;
 	// }
 	free_sets(sets, set_size);
