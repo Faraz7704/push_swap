@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/06/07 19:09:01 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/06/08 18:09:04 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,48 +212,77 @@ static int	sort_in_b(t_sset *set, int *values, int n, t_stack *a, t_stack *b)
 	return (record);
 }
 
-static int	**split_set(t_sset *set, t_stack *a, t_stack *b)
+static void	push_half(int *sort, int n, t_stack *a, t_stack *b)
+{
+	int	i;
+	int	j;
+	int	pivot;
+
+	pivot = sort[n / 2];
+	i = 0;
+	j = 0;
+	while (i < n)
+	{
+		if (*(int *)b->lst->content > pivot)
+			run_inst("pa", a, b, 0);
+		else
+		{
+			run_inst("rb", a, b, 0);
+			j++;
+		}
+		i++;
+	}
+	while (j--)
+		run_inst("rrb", a, b, 0);
+}
+
+static int	**split_set(t_sset *set, t_stack *a, t_stack *b, int count)
 {
 	int	i[3];
 	int	pivot;
 	int	*sort;
 	int	**split;
 	int	true_size;
+	int	temp;
 
 	sort = sort_values(set->items, set->size);
 	true_size = set_type_size(set, B_STACK);
-	pivot = sort[true_size / 2];
-	free (sort);
-	split = (int **)malloc(sizeof(int *) * 2);
+	split = (int **)malloc(sizeof(int *) * count);
 	if (!split)
 		return (0);
-	split[0] = malloc(sizeof(int) * true_size - (true_size / 2));
-	if (!split[0])
-		return (0);
-	split[1] = malloc(sizeof(int) * true_size / 2);
-	if (!split[1])
-		return (0);
 	i[0] = 0;
-	i[1] = 0;
-	i[2] = 0;
-	while (i[0] < true_size)
+	while (i[0] < count)
 	{
-		if (*(int *)b->lst->content > pivot)
-		{
-			split[0][i[1]] = *(int *)b->lst->content;
-			run_inst("pa", a, b, 0);
-			i[1]++;
-		}
+		if (i[0] == count - 1)
+			split[i[0]] = malloc(sizeof(int) * true_size - (true_size / count));
 		else
-		{
-			split[1][i[2]] = *(int *)b->lst->content;
-			i[2]++;
-			run_inst("rb", a, b, 0);
-		}
+			split[i[0]] = malloc(sizeof(int) * true_size / count);
+		if (!split[i[0]])
+			return (0);
 		i[0]++;
 	}
-	while (i[2]--)
-		run_inst("rrb", a, b, 0);
+	i[2] = 0;
+	while (i[2] < count)
+	{
+		i[0] = 0;
+		i[1] = 0;
+		while (i[0] < true_size)
+		{
+			pivot = sort[(true_size / count) * (i[0] + 1)];
+			temp = *(int *)ft_lstindex(b->lst, i[1] * (i[2] + 1))->content;
+			if (temp < pivot)
+			{
+				split[0][i[1]] = temp;
+				i[1]++;
+			}
+			i[0]++;
+		}
+		i[2]++;
+	}
+	if (true_size > 2)
+		true_size = (true_size / count) * 2;
+	push_half(sort, true_size, a, b);
+	free (sort);
 	return (split);
 }
 
@@ -264,10 +293,28 @@ static void	sort_midpoint(t_sset *set, t_stack *a, t_stack *b, int for_b)
 	int	true_size;
 	int	record;
 
-	if (for_b == 2)
+	if (for_b == 3)
 	{
 		true_size = set_type_size(set, B_STACK);
-		split = split_set(set, a, b);
+		split = split_set(set, a, b, 2);
+		record = sort_in_a(split[0], true_size / 2, a, b);
+		while (record--)
+		{
+			run_inst("pa", a, b, 0);
+			if (a->size > 1 && *(int *)a->lst->content > *(int *)a->lst->next->content)
+				run_inst("sa", a, b, 0);
+		}
+		record = (true_size - (true_size / 2)) - sort_in_b(set, split[1], true_size - (true_size / 2), a, b);
+		while (record--)
+			run_inst("pa", a, b, 0);
+		free(split[0]);
+		free(split[1]);
+		free(split);
+	}
+	else if (for_b == 2)
+	{
+		true_size = set_type_size(set, B_STACK);
+		split = split_set(set, a, b, 2);
 		record = sort_in_a(split[0], true_size / 2, a, b);
 		while (record--)
 		{
@@ -322,7 +369,7 @@ void	sort_big(t_stack *a, t_stack *b)
 		sort_midpoint(&sets[i--], a, b, 0);
 		sort_midpoint(&sets[i--], a, b, 1);
 		sort_midpoint(&sets[i--], a, b, 2);
-		sort_midpoint(&sets[i--], a, b, 2);
+		sort_midpoint(&sets[i--], a, b, 3);
 	// 	i++;
 	// }
 	free_sets(sets, set_size);
