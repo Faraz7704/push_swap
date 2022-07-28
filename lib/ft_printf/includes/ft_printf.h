@@ -6,15 +6,15 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 12:17:08 by fkhan             #+#    #+#             */
-/*   Updated: 2022/04/25 16:21:14 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/06/19 14:40:01 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include "libft/libft.h"
-# include "stdarg.h"
+# include "libft.h"
+# include <stdarg.h>
 
 struct s_data
 {

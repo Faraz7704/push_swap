@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/06/06 12:58:56 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/07/28 15:21:52 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define PUSH_SWAP_H
 
 # include <unistd.h>
-# include "lib/libft/libft.h"
-# include "lib/ft_printf.h"
+# include "libft.h"
+# include "ft_printf.h"
 
 typedef enum e_stack
 {

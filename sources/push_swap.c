@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/06/08 18:35:19 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/07/28 15:24:49 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int ac, char **av)
 
 	if (ac < 2)
 		return (0);
-	lst = parse_arg(av[1], ac - 1, &len);
+	lst = parse_arg(&av[1], ac - 1, &len);
 	if (!lst)
 	{
 		ft_printf("Error\n");
