@@ -7,11 +7,12 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                // "${file}",
                 "*.c",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
-                "lib/libftprintf.a"
+                "${fileDirname}/../lib/libft/libft.a",
+                "${fileDirname}/../lib/ft_printf/libft_printf.a",
+                "-I${fileDirname}/../includes/ -I${fileDirname}/../lib/libft/includes -I${fileDirname}/../lib/ft_printf/includes"
             ],
             "options": {
                 "cwd": "${fileDirname}"
