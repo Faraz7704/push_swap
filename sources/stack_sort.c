@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/08/27 18:15:02 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/08/29 19:48:29 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	stack_sort_five(t_psinfo *info)
 		move_top_stack(min_index, info, 0);
 		run_inst("pb", info, 0);
 	}
-	sort_three(info);
+	stack_sort_three(info);
 	i = 0;
 	while (i++ < len)
 		run_inst("pa", info, 0);

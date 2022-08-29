@@ -36,6 +36,8 @@
         "type_traits": "c",
         "set": "c",
         "unordered_set": "c",
-        "__string": "c"
+        "__string": "c",
+        "istream": "c",
+        "locale": "c"
     }
 }

@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/06/02 19:51:46 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/08/29 19:47:55 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	*lstnew_quicksort(t_list *a, int n)
 
 	if (!a || n <= 0)
 		return (0);
-	sort = ft_lstdup(a, n);
+	sort = ft_lst_to_arr(a, n);
 	quicksort(sort, 0, n - 1);
 	return (sort);
 }

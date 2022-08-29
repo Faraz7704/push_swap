@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/08/27 17:54:08 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/08/29 16:26:47 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,32 @@ t_st_item	*max_move_stack(t_set *set, t_e_stack type)
 		i++;
 	}
 	return (max);
+}
+
+void	move_top_stack(int index, t_psinfo *info, int on_b)
+{
+	int		i;
+	char	*rx;
+	char	*rrx;
+	t_stack	temp;
+
+	rx = "ra";
+	rrx = "rra";
+	temp = info->a;
+	if (on_b)
+	{
+		rx = "rb";
+		rrx = "rrb";
+		temp = info->b;
+	}
+	if (index <= (temp.size / 2))
+	{
+		i = 0;
+		while (i++ < index)
+			run_inst(rx, info, 0);
+		return ;
+	}
+	i = temp.size - 1;
+	while (i-- > index)
+		run_inst(rrx, info, 0);
 }

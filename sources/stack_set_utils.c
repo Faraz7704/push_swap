@@ -6,49 +6,49 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/08/27 17:52:28 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/08/29 16:39:19 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	get_moves(t_stack *a, int index)
+int	get_moves(t_stack a, int index)
 {
-	if (index < 0 || index >= a->size)
+	if (index < 0 || index >= a.size)
 		return (0);
-	if (index <= a->size / 2)
+	if (index <= a.size / 2)
 		return (index);
-	return (a->size - index);
+	return (a.size - index);
 }
 
-void	cal_sets(t_set *sets, t_stack *a, t_stack *b, int set_size)
+void	cal_sets(t_set *sets, t_psinfo *info, int set_size)
 {
 	int	i;
 
 	i = 0;
 	while (i < set_size)
 	{
-		cal_set(&sets[i], a, b);
+		cal_set(&sets[i], info);
 		i++;
 	}
 }
 
-void	cal_set(t_set *set, t_stack *a, t_stack *b)
+void	cal_set(t_set *set, t_psinfo *info)
 {
 	int			i;
 	t_st_item	*item;
-	t_stack		*temp;
+	t_stack		temp;
 
 	i = 0;
 	set->total_moves = 0;
 	while (i < set->size)
 	{
 		item = &set->items[i];
-		if (item->stack_type == A_STACK || !b)
-			temp = a;
+		if (item->stack_type == A_STACK)
+			temp = info->a;
 		else
-			temp = b;
-		item->index = find_index_stack(temp->lst, item->value, temp->size);
+			temp = info->b;
+		item->index = find_index_stack(temp.lst, item->value, temp.size);
 		if (item->index >= 0)
 		{
 			item->move = get_moves(temp, item->index);
@@ -60,50 +60,32 @@ void	cal_set(t_set *set, t_stack *a, t_stack *b)
 	}
 }
 
-int	*new_item_values(t_st_item *items, int n)
+int	type_size_set(t_set *set, t_e_stack type)
 {
 	int	i;
-	int	*values;
+	int	len;
 
-	values = malloc(sizeof(int) * n);
-	if (!values)
-		return (0);
+	len = 0;
 	i = 0;
-	while (i < n)
+	while (i < set->size)
 	{
-		values[i] = items[i].value;
+		if (set->items[i].stack_type == type)
+			len++;
 		i++;
 	}
-	return (values);
+	return (len);
 }
 
-int	min_index_set(t_st_item *items, t_e_stack type, int n)
-{
-	int	i;
-	int	min;
-	int	allowed;
-
-	i = 0;
-	min = -1;
-	while (i < n)
-	{
-		allowed = (type == ALL_STACK || items[i].stack_type == type);
-		if (allowed && (min == -1 || items[i].index < items[min].index))
-			min = i;
-		i++;
-	}
-	return (min);
-}
-
-void	free_sets(t_set *sets, int set_size)
+void	free_sets(t_setinfo *info)
 {
 	int	i;
 
 	i = 0;
-	while (i < set_size)
+	while (i < info->size)
 	{
-		free(sets[i].items);
+		free(info->sets[i].items);
 		i++;
 	}
-	free(sets);
+	free(info->sets);
+	free(info);
 }
