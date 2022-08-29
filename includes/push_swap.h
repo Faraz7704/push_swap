@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/07/28 15:21:52 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/08/27 18:13:37 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,27 @@ typedef struct stack
 	t_e_stack	stack_type;
 }	t_stack;
 
-typedef struct set_item
+typedef struct st_item
 {
 	int			index;
 	int			value;
 	int			move;
 	t_e_stack	stack_type;
-}	t_set_item;
+}	t_st_item;
 
 typedef struct s_set
 {
 	int			id;
-	t_set_item	*items;
+	t_st_item	*items;
 	int			total_moves;
 	int			size;
-}	t_sset;
+}	t_set;
+
+typedef struct psinfo
+{
+	t_stack	a;
+	t_stack	b;
+}	t_psinfo;
 
 // utils
 int			ft_numncmp(const int *num, int c, int n);
@@ -62,29 +68,27 @@ void		ft_freearg(char **args);
 t_list		*ft_lstindex(t_list *lst, int index);
 
 // list_utils
-void		del_lst(void *content);
-t_list		*del_first_lst(t_list **lst);
-void		del_last_lst(t_list *lst);
-int			*ft_lstdup(t_list *lst, int n);
+void		ft_lstdel(void *content);
+int			*ft_lst_to_arr(t_list *lst, int n);
 
 // stack
 t_stack		init_stack(int *a, int n, t_e_stack type);
-int			run_inst(char *f, t_stack *a, t_stack *b, int debug);
+void		free_stack(t_stack *stack);
 
-// move_stack_utils
-void		move_top_stack(int index, t_stack *a, t_stack *b, int on_b);
+// stack_inst
+int			run_inst(char *f, t_psinfo *info, int debug);
 
-// stack_instructions
+// stack_inst_utils
 int			swap_stack(t_stack *a);
 int			push_stack(t_stack *a, t_stack *b);
 int			rot_stack(t_stack *a);
 int			rrot_stack(t_stack *a);
 
 // sort_stack
-void		sort_stack(t_stack *a, t_stack *b);
+void		stack_sort(t_psinfo *info);
 
 // sort_big_stack
-void		sort_big(t_stack *a, t_stack *b);
+void		stack_bigsort(t_psinfo *info);
 
 // sort_stack_utils
 int			find_index_stack(t_list *lst, int value, int n);

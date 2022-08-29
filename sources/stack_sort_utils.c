@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_stack_utils.c                                 :+:      :+:    :+:   */
+/*   stack_sort_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/06/06 13:24:06 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/08/27 17:54:08 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,11 @@ int	max_index_stack(t_list *lst, int n)
 	return (index);
 }
 
-t_set_item	*min_move_stack(t_sset *set, t_e_stack type)
+t_st_item	*min_move_stack(t_set *set, t_e_stack type)
 {
 	int			i;
-	t_set_item	*min;
-	t_set_item	item;
+	t_st_item	*min;
+	t_st_item	item;
 	int			allowed;
 
 	i = 0;
@@ -103,11 +103,11 @@ t_set_item	*min_move_stack(t_sset *set, t_e_stack type)
 	return (min);
 }
 
-t_set_item	*max_move_stack(t_sset *set, t_e_stack type)
+t_st_item	*max_move_stack(t_set *set, t_e_stack type)
 {
 	int			i;
-	t_set_item	*max;
-	t_set_item	item;
+	t_st_item	*max;
+	t_st_item	item;
 	int			allowed;
 
 	i = 0;

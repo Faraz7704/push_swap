@@ -1,69 +1,71 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_stack.c                                       :+:      :+:    :+:   */
+/*   stack_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/05/31 14:19:42 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/08/27 18:15:02 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	sort_two(t_stack *a, t_stack *b)
+static void	stack_sort_two(t_psinfo *info)
 {
-	if (*(int *)a->lst->content > *(int *)a->lst->next->content)
-		run_inst("sa", a, b, 0);
+	if (*(int *)info->a.lst->content > *(int *)info->a.lst->next->content)
+		run_inst("sa", info, 0);
 }
 
-static void	sort_three(t_stack *a, t_stack *b)
+static void	stack_sort_three(t_psinfo *info)
 {
 	int	*lst;
 
-	lst = ft_lstdup(a->lst, a->size);
+	lst = ft_lst_to_arr(info->a.lst, info->a.size);
 	if (lst[0] > lst[1] && lst[1] < lst[2] && lst[2] > lst[0])
-		run_inst("sa", a, b, 0);
+		run_inst("sa", info, 0);
 	else if (lst[0] < lst[1] && lst[1] > lst[2] && lst[2] > lst[0])
-		run_inst("sa", a, b, 0);
+		run_inst("sa", info, 0);
 	else if (lst[0] > lst[1] && lst[1] > lst[2] && lst[2] < lst[0])
-		run_inst("sa", a, b, 0);
+		run_inst("sa", info, 0);
 	if (lst[0] < lst[1] && lst[1] > lst[2] && lst[2] < lst[0])
-		run_inst("rra", a, b, 0);
+		run_inst("rra", info, 0);
 	else if (lst[0] > lst[1] && lst[1] < lst[2] && lst[2] < lst[0])
-		run_inst("ra", a, b, 0);
+		run_inst("ra", info, 0);
 	free(lst);
 }
 
-static void	sort_five(t_stack *a, t_stack *b)
+static void	stack_sort_five(t_psinfo *info)
 {
 	int	i;
 	int	len;
 	int	min_index;
 
 	i = 0;
-	len = a->size - 3;
+	len = info->a.size - 3;
 	while (i++ < len)
 	{
-		min_index = min_index_stack(a->lst, a->size);
-		move_top_stack(min_index, a, b, 0);
-		run_inst("pb", a, b, 0);
+		min_index = min_index_stack(info->a.lst, info->a.size);
+		move_top_stack(min_index, info, 0);
+		run_inst("pb", info, 0);
 	}
-	sort_three(a, b);
+	sort_three(info);
 	i = 0;
 	while (i++ < len)
-		run_inst("pa", a, b, 0);
+		run_inst("pa", info, 0);
 }
 
-void	sort_stack(t_stack *a, t_stack *b)
+void	stack_sort(t_psinfo	*info)
 {
-	if (a->size == 2)
-		sort_two(a, b);
-	else if (a->size == 3)
-		sort_three(a, b);
-	else if (a->size <= 5)
-		sort_five(a, b);
+	if (info->a.size < 2)
+		return ;
+	if (info->a.size == 2)
+		stack_sort_two(info);
+	else if (info->a.size == 3)
+		stack_sort_three(info);
+	else if (info->a.size <= 5)
+		stack_sort_five(info);
 	else
-		sort_big(a, b);
+		stack_bigsort(info);
 }

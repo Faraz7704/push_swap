@@ -1,0 +1,92 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory `/Users/faraz/Documents/Documents/42/cursus/push_swap'
+echo "push_swap: \033[0;32mCreating ./lib/ft_printf/libft_printf.a...\033[0m"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -sC ./lib/ft_printf/
+ 
+make[1]: Entering directory `/Users/faraz/Documents/Documents/42/cursus/push_swap/lib/ft_printf'
+mkdir -p objects/
+echo "libft_printf.a: \033[0;32mobjects/ was created\033[0m"
+ 
+gcc -Wall -Werror -Wextra -I./includes/ -I../libft/includes/ -c sources/ft_printf.c -o objects/ft_printf.o
+echo ".\c"
+gcc -Wall -Werror -Wextra -I./includes/ -I../libft/includes/ -c sources/ft_printf_flags.c -o objects/ft_printf_flags.o
+echo ".\c"
+ 
+gcc -Wall -Werror -Wextra -I./includes/ -I../libft/includes/ -c sources/pf_putlchar_fd.c -o objects/pf_putlchar_fd.o
+echo ".\c"
+ 
+gcc -Wall -Werror -Wextra -I./includes/ -I../libft/includes/ -c sources/pf_putlstr_fd.c -o objects/pf_putlstr_fd.o
+echo ".\c"
+gcc -Wall -Werror -Wextra -I./includes/ -I../libft/includes/ -c sources/pf_putlnbr_fd.c -o objects/pf_putlnbr_fd.o
+echo ".\c"
+ 
+gcc -Wall -Werror -Wextra -I./includes/ -I../libft/includes/ -c sources/ft_digitlen.c -o objects/ft_digitlen.o
+ 
+echo ".\c"
+ 
+gcc -Wall -Werror -Wextra -I./includes/ -I../libft/includes/ -c sources/pf_putlhex_fd.c -o objects/pf_putlhex_fd.o
+echo ".\c"
+ 
+gcc -Wall -Werror -Wextra -I./includes/ -I../libft/includes/ -c sources/pf_putlunbr_fd.c -o objects/pf_putlunbr_fd.o
+echo ".\c"
+ 
+gcc -Wall -Werror -Wextra -I./includes/ -I../libft/includes/ -c sources/pf_putlptr_fd.c -o objects/pf_putlptr_fd.o
+echo ".\c"
+ 
+gcc -Wall -Werror -Wextra -I./includes/ -I../libft/includes/ -c sources/pf_width.c -o objects/pf_width.o
+echo ".\c"
+ 
+gcc -Wall -Werror -Wextra -I./includes/ -I../libft/includes/ -c sources/ft_puthex.c -o objects/ft_puthex.o
+echo ".\c"
+ 
+gcc -Wall -Werror -Wextra -I./includes/ -I../libft/includes/ -c sources/ft_hexlen.c -o objects/ft_hexlen.o
+echo ".\c"
+cp ../libft/libft.a .
+mv libft.a libft_printf.a
+ar -rcs libft_printf.a objects/ft_printf.o objects/ft_printf_flags.o objects/pf_putlchar_fd.o objects/pf_putlstr_fd.o objects/pf_putlnbr_fd.o objects/ft_digitlen.o objects/pf_putlhex_fd.o objects/pf_putlunbr_fd.o objects/pf_putlptr_fd.o objects/pf_width.o objects/ft_puthex.o objects/ft_hexlen.o
+echo "\nlibft_printf.a: \033[0;32mobject files were created\033[0m"
+echo "libft_printf.a: \033[0;32mlibft_printf.a was created\033[0m"
+make[1]: Leaving directory `/Users/faraz/Documents/Documents/42/cursus/push_swap/lib/ft_printf'
+ 
+mkdir -p objects/
+echo "push_swap: \033[0;32mobjects/ was created\033[0m"
+gcc -Wall -Werror -Wextra -c -I./includes/ -I./lib/libft/includes/ -I./lib/ft_printf/includes/ sources/main.c -o objects/main.o
+echo ".\c"
+gcc -Wall -Werror -Wextra -c -I./includes/ -I./lib/libft/includes/ -I./lib/ft_printf/includes/ sources/utils.c -o objects/utils.o
+ 
+echo ".\c"
+gcc -Wall -Werror -Wextra -c -I./includes/ -I./lib/libft/includes/ -I./lib/ft_printf/includes/ sources/arg_utils.c -o objects/arg_utils.o
+echo ".\c"
+ 
+gcc -Wall -Werror -Wextra -c -I./includes/ -I./lib/libft/includes/ -I./lib/ft_printf/includes/ sources/list_utils.c -o objects/list_utils.o
+echo ".\c"
+ 
+gcc -Wall -Werror -Wextra -c -I./includes/ -I./lib/libft/includes/ -I./lib/ft_printf/includes/ sources/stack.c -o objects/stack.o
+echo ".\c"
+ 
+gcc -Wall -Werror -Wextra -c -I./includes/ -I./lib/libft/includes/ -I./lib/ft_printf/includes/ sources/stack_inst.c -o objects/stack_inst.o
+echo ".\c"
+ 
+gcc -Wall -Werror -Wextra -c -I./includes/ -I./lib/libft/includes/ -I./lib/ft_printf/includes/ sources/stack_inst_utlis.c -o objects/stack_inst_utlis.o
+echo ".\c"
+ 
+gcc -Wall -Werror -Wextra -c -I./includes/ -I./lib/libft/includes/ -I./lib/ft_printf/includes/ sources/stack_set.c -o objects/stack_set.o
+echo ".\c"
+ 
+gcc -Wall -Werror -Wextra -c -I./includes/ -I./lib/libft/includes/ -I./lib/ft_printf/includes/ sources/stack_set_utils.c -o objects/stack_set_utils.o
+echo ".\c"
+ 
+gcc -Wall -Werror -Wextra -c -I./includes/ -I./lib/libft/includes/ -I./lib/ft_printf/includes/ sources/quick_sort.c -o objects/quick_sort.o
+echo ".\c"
+ 
+gcc -Wall -Werror -Wextra -c -I./includes/ -I./lib/libft/includes/ -I./lib/ft_printf/includes/ sources/stack_sort.c -o objects/stack_sort.o
+echo ".\c"
+ 
+make: *** No rule to make target `objects/stack_sort_utils.o', needed by `push_swap'.
+
+gcc -Wall -Werror -Wextra -c -I./includes/ -I./lib/libft/includes/ -I./lib/ft_printf/includes/ sources/stack_bigsort.c -o objects/stack_bigsort.o
+echo ".\c"
+gcc -Wall -Werror -Wextra -c -I./includes/ -I./lib/libft/includes/ -I./lib/ft_printf/includes/ sources/debug.c -o objects/debug.o
+echo ".\c"
+make: Leaving directory `/Users/faraz/Documents/Documents/42/cursus/push_swap'
+ 

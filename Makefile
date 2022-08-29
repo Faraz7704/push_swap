@@ -6,7 +6,7 @@
 #    By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/07 11:40:15 by fkhan             #+#    #+#              #
-#    Updated: 2022/07/28 15:25:03 by fkhan            ###   ########.fr        #
+#    Updated: 2022/08/27 17:41:47 by fkhan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,10 +33,13 @@ HEADERS_LIST 		= push_swap.h
 HEADERS 			= $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
 SOURCES_DIRECTORY 	= ./sources/
-SOURCES_LIST 		= push_swap.c sort_big_stack.c quick_sort.c sort_stack.c \
-						stack.c stack_set.c stack_set_utils.c \
-						push_swap_utils.c sort_stack_utils.c arg_utils.c \
-						stack_instructions.c move_stack_utils.c list_utils.c \
+SOURCES_LIST 		= main.c utils.c arg_utils.c list_utils.c \
+						stack.c \
+						stack_inst.c stack_inst_utlis.c \
+						stack_set.c stack_set_utils.c \
+						quick_sort.c \
+						stack_sort.c stack_sort_utils.c \
+						stack_bigsort.c \
 						debug.c
 SOURCES 			= $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 

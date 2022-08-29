@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/06/01 12:24:52 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/08/27 17:52:28 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	get_moves(t_stack *a, int index)
 	return (a->size - index);
 }
 
-void	cal_sets(t_sset *sets, t_stack *a, t_stack *b, int set_size)
+void	cal_sets(t_set *sets, t_stack *a, t_stack *b, int set_size)
 {
 	int	i;
 
@@ -33,10 +33,10 @@ void	cal_sets(t_sset *sets, t_stack *a, t_stack *b, int set_size)
 	}
 }
 
-void	cal_set(t_sset *set, t_stack *a, t_stack *b)
+void	cal_set(t_set *set, t_stack *a, t_stack *b)
 {
 	int			i;
-	t_set_item	*item;
+	t_st_item	*item;
 	t_stack		*temp;
 
 	i = 0;
@@ -60,7 +60,7 @@ void	cal_set(t_sset *set, t_stack *a, t_stack *b)
 	}
 }
 
-int	*new_item_values(t_set_item *items, int n)
+int	*new_item_values(t_st_item *items, int n)
 {
 	int	i;
 	int	*values;
@@ -77,7 +77,7 @@ int	*new_item_values(t_set_item *items, int n)
 	return (values);
 }
 
-int	min_index_set(t_set_item *items, t_e_stack type, int n)
+int	min_index_set(t_st_item *items, t_e_stack type, int n)
 {
 	int	i;
 	int	min;
@@ -95,26 +95,7 @@ int	min_index_set(t_set_item *items, t_e_stack type, int n)
 	return (min);
 }
 
-// int	min_index_set(t_sset *set, int start, int n)
-// {
-// 	int	i;
-// 	int	min;
-
-// 	i = start;
-// 	min = start;
-// 	while (i < n && set->index[min] == -1)
-// 		min++;
-// 	i = start + 1;
-// 	while (i < n)
-// 	{
-// 		if (set->index[i] != -1 && set->index[i] < set->index[min])
-// 			min = i;
-// 		i++;
-// 	}
-// 	return (min);
-// }
-
-void	free_sets(t_sset *sets, int set_size)
+void	free_sets(t_set *sets, int set_size)
 {
 	int	i;
 

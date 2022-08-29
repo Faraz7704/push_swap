@@ -1,63 +1,81 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
+/*   Updated: 2022/08/27 17:45:11 by fkhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// #include <stdio.h>
-// #include <stdlib.h>
+#include "push_swap.h"
 
-// typedef struct item
-// {
-// 	int	value;
-// 	int	move;
-// }	t_item;
+static int	isnumber(int num, char *str)
+{
+	if (num == 0 && !ft_isdigit(str[0]))
+		return (0);
+	if ((num == -1 || num == 0) && ft_strlen(str) >= 10)
+		return (0);
+	return (1);
+}
 
-// typedef struct map
-// {
-// 	t_item	*items;
-// 	int		index;
-// }	t_map;
+static int	*parse_arg(char **av, int n, int *reflen)
+{
+	int		i;
+	char	**args;
+	int		*lst;
 
-// static int	init(t_map **map, int map_size, int item_size)
-// {
-// 	int		i;
-// 	int		j;
-// 	int		gap;
+	args = ft_argsplit(av, n, ' ');
+	i = 0;
+	*reflen = ft_arglen(args);
+	lst = ft_calloc(sizeof(int), *reflen + 1);
+	if (!lst)
+		return (0);
+	i = 0;
+	while (i < *reflen)
+	{
+		lst[i] = ft_atoi(args[i]);
+		if (!isnumber(lst[i], args[i]) || ft_numncmp(lst, lst[i], i))
+		{
+			ft_freearg(args);
+			free(lst);
+			return (0);
+		}
+		i++;
+	}
+	ft_freearg(args);
+	return (lst);
+}
 
-// 	*map = malloc(sizeof(t_map) * map_size);
-// 	if (!*map)
-// 		return (0);
-// 	i = 0;
-// 	gap = 0;
-// 	while (i < map_size)
-// 	{
-// 		map[0][i].index = -1;
-// 		map[0][i].items = malloc(sizeof(t_item) * item_size);
-// 		if (!map[0][i].items)
-// 			return (0);
-// 		j = 0;
-// 		while (j < item_size)
-// 		{
-// 			map[0][i].items[j].value = j + gap;
-// 			map[0][i].items[j].move = -1;
-// 			j++;
-// 		}
-// 		gap += item_size;
-// 		i++;
-// 	}
-// 	return (1);
-// }
+static void	push_swap(int *a, int n)
+{
+	t_psinfo	info;
 
-// int	main(void)
-// {
-// 	int		*values;
-// 	t_map	*map;
+	if (issorted(a, n))
+		return ;
+	info.a = init_stack(a, n, A_STACK);
+	info.b = init_stack(NULL, 0, B_STACK);
+	stack_sort(&info);
+	free_stack(&info.a);
+	free_stack(&info.b);
+}
 
-// 	if (!init(&map, 3, 3))
-// 		return (0);
-// 	values = &map[0].items[0].value;
-// 	printf("[%p] %d\n", values, values[0]);
-// 	values += sizeof(t_map) / 2;
-// 	printf("[%p] %d\n", values, values[0]);
-// 	values += sizeof(t_map) / 2;
-// 	printf("[%p] %d\n", values, values[0]);
-// 	values += sizeof(t_map) / 2;
-// 	printf("[%p] %d\n", values, values[0]);
-// 	return (0);
-// }
+int	main(int ac, char **av)
+{
+	int	*lst;
+	int	len;
+
+	if (ac < 2)
+		return (0);
+	lst = parse_arg(&av[1], ac - 1, &len);
+	if (!lst)
+	{
+		ft_printf("Error\n");
+		return (0);
+	}
+	push_swap(lst, len);
+	free(lst);
+	return (0);
+}
