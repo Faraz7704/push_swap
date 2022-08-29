@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/08/29 19:44:00 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/08/29 20:20:31 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int			*ft_lst_to_arr(t_list *lst, int n);
 
 // stack
 t_stack		init_stack(int *a, int n, t_e_stack type);
-void		free_stack(t_stack *stack);
 
 // stack_inst
 int			run_inst(char *f, t_psinfo *info, int debug);

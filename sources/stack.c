@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/08/27 18:16:39 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/08/29 20:20:14 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,4 @@ t_stack	init_stack(int *a, int n, t_e_stack type)
 	new.size = n;
 	new.stack_type = type;
 	return (new);
-}
-
-void	free_stack(t_stack *stack)
-{
-	ft_lstclear(&stack->lst, ft_lstdel);
 }
