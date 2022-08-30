@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/08/29 20:15:03 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/08/30 18:37:55 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	*ft_lst_to_arr(t_list *lst, int n)
 	int		i;
 	t_list	*curr;
 
-	new = malloc(sizeof(int) * n);
+	new = malloc(sizeof(int *) * n);
 	if (!new)
 		return (0);
 	curr = lst;

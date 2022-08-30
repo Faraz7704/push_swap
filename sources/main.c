@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/08/29 20:20:36 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/08/30 16:02:25 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static void	push_swap(int *a, int n)
 	info.a = init_stack(a, n, A_STACK);
 	info.b = init_stack(NULL, 0, B_STACK);
 	stack_sort(&info);
-	print_stack(info.a, info.b);
 }
 
 int	main(int ac, char **av)
