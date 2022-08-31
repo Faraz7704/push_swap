@@ -38,6 +38,7 @@
         "unordered_set": "c",
         "__string": "c",
         "istream": "c",
-        "locale": "c"
+        "locale": "c",
+        "ios": "c"
     }
 }

@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/08/31 17:09:50 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/08/31 21:48:42 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void	add_set(t_psinfo *info, t_set *set)
 	j = 0;
 	while (i < info->a.size && j < set->size)
 	{
-		if (*(int *)info->a.lst->content <= pivot)
+		if (*(int *)info->a.lst->content < pivot)
 		{
 			run_inst("pb", info, 0);
 			set->items[j].value = *(int *)info->b.lst->content;
@@ -113,7 +113,7 @@ static void	quicksort_to_b(t_psinfo *info, t_set *set, int last_set_id)
 static int	get_set_size(int size, int min_size)
 {
 	if (size < min_size)
-		return (0);
+		return (1);
 	return (get_set_size(size / 2, min_size) + 1);
 }
 
@@ -130,11 +130,19 @@ static t_setinfo	*create_sets(t_psinfo *info, int min_set_size)
 	return (new);
 }
 
+static void	insertsort(t_psinfo *info, t_set *set)
+{
+	int	*sorted;
+
+	sorted = lstnew_quicksort(in->lst, in->size);
+	if (!sorted)
+		exit(1);
+	free(sorted);
+}
+
 static void	insertsort_to_a(t_psinfo *info, t_setinfo *setinfo)
 {
-	(void)info;
-	(void)setinfo;
-	// TODO: implement
+	insertsort(&info->a, &info->b, );
 }
 
 void	stack_bigsort(t_psinfo *info)
