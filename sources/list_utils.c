@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/08/30 18:37:55 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/08/31 16:48:50 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	ft_lstdel(void *content)
 {
-	free(content);
+	(void)content;
+	// free(content);
 }
 
 int	*ft_lst_to_arr(t_list *lst, int n)

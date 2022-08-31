@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/08/30 19:01:57 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/08/31 17:09:50 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ static t_set	*init_sets(int size, int set_size)
 	while (i < size)
 	{
 		set_size /= 2;
-		ft_printf("size: %d\n", set_size);
-		init_set(&sets[i], i + 1, set_size);
+		// ft_printf("size: %d\n", set_size);
+		if (!init_set(&sets[i], i + 1, set_size))
+			exit(1);
 		i++;
 	}
 	return (sets);
@@ -55,11 +56,12 @@ static int	get_pivot(t_list *a, int size, int index)
 	return (pivot);
 }
 
-static void	optimize_b(t_psinfo *info, t_set *set, int set_size)
+static void	optimize_b(t_psinfo *info, t_set *set)
 {
 	int	pivot;
 
-	pivot = get_pivot(info->b.lst, info->b.size, set_size);
+	pivot = get_pivot(info->b.lst, info->b.size, info->b.size / 2);
+	// ft_printf("n: %d < p: %d\n", *(int *)info->b.lst->content, pivot);
 	if (set->id == 1)
 	{
 		if (*(int *)info->b.lst->content < pivot)
@@ -73,41 +75,39 @@ static void	optimize_b(t_psinfo *info, t_set *set, int set_size)
 		run_inst("sb", info, 0);
 }
 
-static void	stack_subset(t_psinfo *info, t_set *set, int min_set_size)
+static void	add_set(t_psinfo *info, t_set *set)
 {
 	int	i;
 	int	j;
 	int	pivot;
-	int	set_size;
 
-	set_size = set->size;
-	pivot = get_pivot(info->a.lst, info->a.size, set_size);
+	pivot = get_pivot(info->a.lst, info->a.size, set->size);
 	i = 0;
 	j = 0;
-	ft_printf("size: %d, set_size: %d\n", info->a.size, set_size);
-	while (i < info->a.size && j < set_size)
+	while (i < info->a.size && j < set->size)
 	{
 		if (*(int *)info->a.lst->content <= pivot)
 		{
 			run_inst("pb", info, 0);
-			set->items[i].value = *(int *)info->b.lst->content;
-			set->items[i].stack_type = info->b.stack_type;
-			optimize_b(info, set, set_size);
+			set->items[j].value = *(int *)info->b.lst->content;
+			set->items[j].stack_type = info->b.stack_type;
+			optimize_b(info, set);
 			j++;
 		}
 		else
+		{
 			run_inst("ra", info, 0);
-		i++;
-		// ft_printf("i: %d, j: %d\n", i, j);
+			i++;
+		}
 	}
+}
+
+static void	quicksort_to_b(t_psinfo *info, t_set *set, int last_set_id)
+{
+	add_set(info, set);
 	cal_set(set, info);
-	set_size /= 2;
-	ft_printf("********************************************\n");
-	if (set_size >= min_set_size)
-	{
-		set++;
-		stack_subset(info, set, min_set_size);
-	}
+	if (set->id < last_set_id)
+		quicksort_to_b(info, ++set, last_set_id);
 }
 
 static int	get_set_size(int size, int min_size)
@@ -117,7 +117,7 @@ static int	get_set_size(int size, int min_size)
 	return (get_set_size(size / 2, min_size) + 1);
 }
 
-static t_setinfo	*quicksort_to_b(t_psinfo *info, int min_set_size)
+static t_setinfo	*create_sets(t_psinfo *info, int min_set_size)
 {
 	t_setinfo	*new;
 
@@ -126,7 +126,7 @@ static t_setinfo	*quicksort_to_b(t_psinfo *info, int min_set_size)
 		exit(1);
 	new->size = get_set_size(info->a.size, min_set_size);
 	new->sets = init_sets(new->size, info->a.size);
-	stack_subset(info, new->sets, min_set_size);
+	quicksort_to_b(info, new->sets, new->size);
 	return (new);
 }
 
@@ -141,8 +141,10 @@ void	stack_bigsort(t_psinfo *info)
 {
 	t_setinfo	*setinfo;
 
-	print_stack(info->a, info->b);
-	setinfo = quicksort_to_b(info, 15);
+	// print_stack(info->a, info->b);
+	setinfo = create_sets(info, 15);
 	insertsort_to_a(info, setinfo);
+	// print_sets(setinfo->sets, setinfo->size);
+	// print_stack(info->a, info->b);
 	free_sets(setinfo);
 }
