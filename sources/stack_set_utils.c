@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/08/31 16:43:21 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/01 20:21:23 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,60 @@ int	type_size_set(t_set *set, t_e_stack type)
 		i++;
 	}
 	return (len);
+}
+
+int	*items_to_arr(t_st_item *items, int size)
+{
+	int	i;
+	int	*new;
+
+	new = malloc(sizeof(t_st_item) * size);
+	if (!new)
+		exit(1);
+	i = 0;
+	while (i < size)
+	{
+		new[i] = items[i].value;
+		i++;
+	}
+	return (new);
+}
+
+int	*set_sort(t_set *set)
+{
+	int	*values;
+	int	*sorted;
+
+	values = items_to_arr(set->items, set->size);
+	sorted = new_quicksort(values, set->size);
+	if (!sorted)
+		exit(1);
+	free(values);
+	return (sorted);
+}
+
+int	*set_rsort(t_set *set)
+{
+	int	i;
+	int	j;
+	int	*values;
+	int	*sorted;
+	int	*rsorted;
+
+	values = items_to_arr(set->items, set->size);
+	sorted = new_quicksort(values, set->size);
+	if (!sorted)
+		exit(1);
+	rsorted = malloc(sizeof(int *) * set->size);
+	if (!rsorted)
+		exit(1);
+	i = set->size - 1;
+	j = 0;
+	while (i >= 0)
+		rsorted[j++] = sorted[i--];
+	free(values);
+	free(sorted);
+	return (rsorted);
 }
 
 void	free_sets(t_setinfo *info)

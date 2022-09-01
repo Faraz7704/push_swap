@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/08/31 16:45:20 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/01 20:30:41 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,9 @@ int			get_moves(t_stack a, int index);
 void		cal_sets(t_set *sets, t_psinfo *info, int set_size);
 void		cal_set(t_set *set, t_psinfo *info);
 int			type_size_set(t_set *set, t_e_stack type);
+int			*items_to_arr(t_st_item *items, int size);
+int			*set_sort(t_set *set);
+int			*set_rsort(t_set *set);
 void		free_sets(t_setinfo *info);
 
 // quick_sort
