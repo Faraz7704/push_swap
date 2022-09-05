@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 15:04:26 by faraz             #+#    #+#             */
-/*   Updated: 2022/03/15 15:16:13 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/06 00:00:34 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,31 @@ static int	strdigitlen(const char *str)
 	return (i);
 }
 
+static int	check(const char *str, char *range)
+{
+	int		i;
+	int		len;
+
+	len = strdigitlen(str);
+	if (len > 10)
+		return (1);
+	if (len < 10)
+		return (0);
+	i = 0;
+	while (i < len)
+	{
+		if (str[i] < range[i])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	ft_atoi(const char *str)
 {
 	int		i;
 	int		sign;
 	int		result;
-	int		len;
-	char	c;
 
 	i = 0;
 	sign = 1;
@@ -48,11 +66,9 @@ int	ft_atoi(const char *str)
 		sign = -1;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
-	len = strdigitlen(&str[i]);
-	c = str[i + len - 1];
-	if (sign > 0 && (len > 10 || (len == 10 && str[i] > '1' && c > '7')))
+	if (sign > 0 && check(&str[i], "2147483647"))
 		return (-1);
-	else if (sign < 0 && (len > 10 || (len == 10 && str[i] > '1' && c > '8')))
+	else if (sign < 0 && check(&str[i], "2147483648"))
 		return (0);
 	while (str[i] != '\0' && ft_isdigit(str[i]))
 		result = (result * 10) + (str[i++] - '0');

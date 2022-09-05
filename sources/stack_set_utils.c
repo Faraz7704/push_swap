@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/09/01 20:21:23 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/04 19:05:35 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,35 @@ int	*set_sort(t_set *set)
 		exit(1);
 	free(values);
 	return (sorted);
+}
+
+int	*num_sort(int *a, int n)
+{
+	int	*sorted;
+
+	sorted = new_quicksort(a, n);
+	if (!sorted)
+		exit(1);
+	return (sorted);
+}
+
+int	*num_rsort(int *a, int n)
+{
+	int	i;
+	int	j;
+	int	*sorted;
+	int	*rsorted;
+
+	sorted = num_sort(a, n);
+	rsorted = malloc(sizeof(int *) * n);
+	if (!rsorted)
+		exit(1);
+	i = n - 1;
+	j = 0;
+	while (i >= 0)
+		rsorted[j++] = sorted[i--];
+	free(sorted);
+	return (rsorted);
 }
 
 int	*set_rsort(t_set *set)

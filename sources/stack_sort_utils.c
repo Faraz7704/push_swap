@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/08/29 16:26:47 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/05 15:55:07 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,45 @@ int	find_index_stack(t_list *lst, int value, int n)
 		i++;
 	}
 	return (-1);
+}
+
+int	find_index_arr(int *a, int value, int n)
+{
+	int		i;
+
+	if (!a || n <= 0)
+		return (-1);
+	i = 0;
+	while (i < n)
+	{
+		if (a[i] == value)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+int	min_index_arr(int *a, int n)
+{
+	int		i;
+	int		min;
+	int		index;
+
+	if (n <= 0)
+		return (-1);
+	i = 1;
+	min = a[0];
+	index = 0;
+	while (i < n)
+	{
+		if (a[i] != -1 && (a[i] < min || min == -1))
+		{
+			min = a[i];
+			index = i;
+		}
+		i++;
+	}
+	return (index);
 }
 
 int	min_index_stack(t_list *lst, int n)

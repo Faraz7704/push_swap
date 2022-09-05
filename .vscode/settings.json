@@ -39,6 +39,8 @@
         "__string": "c",
         "istream": "c",
         "locale": "c",
-        "ios": "c"
+        "ios": "c",
+        "numeric": "c",
+        "variant": "c"
     }
 }
