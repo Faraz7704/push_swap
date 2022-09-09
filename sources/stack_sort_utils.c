@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/09/05 15:55:07 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/09 23:56:46 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,6 @@ void	move_top_stack(int index, t_psinfo *info, int on_b)
 		return ;
 	}
 	i = temp.size - 1;
-	while (i-- > index)
+	while (i-- >= index)
 		run_inst(rrx, info, 0);
 }

@@ -41,6 +41,7 @@
         "locale": "c",
         "ios": "c",
         "numeric": "c",
-        "variant": "c"
+        "variant": "c",
+        "push_swap.h": "c"
     }
 }

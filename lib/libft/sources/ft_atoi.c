@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 15:04:26 by faraz             #+#    #+#             */
-/*   Updated: 2022/09/06 00:00:34 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/09 23:25:36 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static int	strdigitlen(const char *str)
 static int	check(const char *str, char *range)
 {
 	int		i;
+	int		flag;
 	int		len;
 
 	len = strdigitlen(str);
@@ -42,13 +43,16 @@ static int	check(const char *str, char *range)
 	if (len < 10)
 		return (0);
 	i = 0;
+	flag = 0;
 	while (i < len)
 	{
 		if (str[i] < range[i])
 			return (0);
+		else if (!flag && str[i] > range[i])
+			flag = 1;
 		i++;
 	}
-	return (1);
+	return (flag);
 }
 
 int	ft_atoi(const char *str)

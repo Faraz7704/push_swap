@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/06/08 18:34:27 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/09 21:50:44 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,17 @@ char	**ft_argsplit(char **args, int n, char sep)
 {
 	int		i;
 	char	**res;
+	char	**split;
 	char	**temp;
 
 	res = NULL;
 	i = 0;
 	while (i < n)
 	{
-		temp = ft_argjoin(res, ft_split(args[i], sep));
+		split = ft_split(args[i], sep);
+		temp = ft_argjoin(res, split);
 		ft_freearg(res);
+		ft_freearg(split);
 		res = temp;
 		i++;
 	}

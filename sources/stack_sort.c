@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/08/29 19:48:29 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/10 00:01:27 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,15 @@ static void	stack_sort_three(t_psinfo *info)
 	if (lst[0] > lst[1] && lst[1] < lst[2] && lst[2] > lst[0])
 		run_inst("sa", info, 0);
 	else if (lst[0] < lst[1] && lst[1] > lst[2] && lst[2] > lst[0])
+	{
+		run_inst("rra", info, 0);
 		run_inst("sa", info, 0);
+	}
 	else if (lst[0] > lst[1] && lst[1] > lst[2] && lst[2] < lst[0])
+	{
+		run_inst("ra", info, 0);
 		run_inst("sa", info, 0);
+	}
 	if (lst[0] < lst[1] && lst[1] > lst[2] && lst[2] < lst[0])
 		run_inst("rra", info, 0);
 	else if (lst[0] > lst[1] && lst[1] < lst[2] && lst[2] < lst[0])
