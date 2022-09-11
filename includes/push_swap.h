@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/09/04 23:03:21 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/11 16:54:21 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void		stack_sort(t_psinfo *info);
 
 // stack_bigsort
 void		stack_bigsort(t_psinfo *info);
+void 		divide_conquer_a(t_psinfo *info, int *sorted, int size, int min_size);
+void 		divide_conquer_b(t_psinfo *info, int *sorted, int size, int min_size);
 
 // stack_sort_utils
 int			find_index_stack(t_list *lst, int value, int n);

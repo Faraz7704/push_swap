@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/09/09 21:59:02 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/11 19:16:36 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ static void	quicksort_to_b(t_psinfo *info, t_set *set, int last_set_id)
 
 static int	get_set_size(int size, int min_size)
 {
-	if (size < min_size)
+	if (size <= min_size)
 		return (2);
 	return (get_set_size(size / 2, min_size) + 1);
 }
@@ -321,59 +321,184 @@ static void	insertsort_on_b(t_psinfo *info, int *sorted, int size)
 	}
 }
 
-static void	divide_on_b(t_psinfo *info, int *sorted, int set_size)
+static int	divide_on_b(t_psinfo *info, int *sorted, int set_size, int mid_index)
 {
-	int	i;
-	int	j;
+	int	i[3];
 	int	pivot;
-	int	size;
 
-	size = set_size / 2;
-	pivot = sorted[size];
-	i = 0;
-	j = 0;
-	while (i < set_size && j < size)
+	pivot = sorted[mid_index];
+	i[0] = 0;
+	i[1] = 0;
+	i[2] = 0;
+	while (i[0] < set_size && i[1] < mid_index)
 	{
 		if (*(int *)info->b.lst->content > pivot)
 		{
 			run_inst("pa", info, 0);
-			j++;
+			i[1]++;
 		}
 		else
+		{
 			run_inst("rb", info, 0);
-		i++;
+			i[2]++;
+		}
+		i[0]++;
 	}
+	return (i[2]);
 }
 
-static void divide_conquer(t_psinfo *info, t_set *set)
+static int	divide_on_a(t_psinfo *info, int *sorted, int set_size, int mid_index)
 {
-	int		*sorted;
-	int		*rsorted;
-	int		mid_index;
-	int		size;
+	int	i[3];
+	int	pivot;
 
-	size = set->size;
-	sorted = set_sort(set);
-	// ft_printf("size: %d, counter: %d\n", size, counter);
-	// print_numarr(sorted, set->size);
-	// print_stackarr(info->b);
-	// print_numarr(&sorted, size_temp);
-	divide_on_b(info, sorted, size);
-	mid_index = (size / 2) + 1;
-	// print_numarr(&sorted[mid_index], size_temp - (mid_index % size));
-	// print_stackarr(info->a);
-	// print_stackarr(info->b);
-	insertsort_on_a(info, &sorted[mid_index], size - (mid_index % size));
-	rsorted = num_rsort(sorted, (mid_index % size));
-	// print_numarr(rsorted, (mid_index % size));
-	// print_stackarr(info->b);
-	// ft_printf("---------");
-	insertsort_on_b(info, rsorted, (mid_index % size));
-	free(rsorted);
-	free(sorted);
+	pivot = sorted[mid_index];
+	i[0] = 0;
+	i[1] = 0;
+	i[2] = 0;
+	while (i[0] < set_size && i[1] < mid_index)
+	{
+		if (*(int *)info->a.lst->content < pivot)
+		{
+			run_inst("pb", info, 0);
+			i[1]++;
+		}
+		else
+		{
+			run_inst("ra", info, 0);
+			i[2]++;
+		}
+		i[0]++;
+	}
+	return (i[2]);
 }
 
-static void	insertsort(t_psinfo *info, t_setinfo *setinfo)
+void divide_conquer_a(t_psinfo *info, int *sorted, int size, int min_size)
+{
+	int	mid_index;
+	int	i;
+	int	moves;
+
+	// ft_printf("----------- A -----------\nsize: %d\n\n", size);
+	// print_numarr(sorted, size);
+	if (size <= min_size)
+		return ;
+	mid_index = (size / 2);
+	moves = divide_on_a(info, sorted, size, mid_index);
+
+	if (size - mid_index > min_size)
+	{
+		i = 0;
+		while (i < moves)
+		{
+			run_inst("rra", info, 0);
+			i++;
+		}
+	}
+
+	// print_stack(info->a, info->b);
+	// ft_printf("\n");
+	// print_numarr(&sorted[mid_index], size - mid_index);
+	// ft_printf("\n");
+	// print_numarr(sorted, mid_index);
+
+	divide_conquer_a(info, &sorted[mid_index], size - mid_index, min_size);
+
+	// print_stack(info->a, info->b);
+	// ft_printf("--------------------------------------- \n");
+
+	insertsort_on_a(info, &sorted[mid_index], size - mid_index);
+
+	// print_stack(info->a, info->b);
+	// ft_printf("####################################### \n");
+
+	divide_conquer_b(info, sorted, mid_index, min_size);
+}
+
+void divide_conquer_b(t_psinfo *info, int *sorted, int size, int min_size)
+{
+	int	i;
+	int	mid_index;
+	int	*rsorted;
+	int	moves;
+
+	// ft_printf("----------- B -----------\nsize: %d\n\n", size);
+	// print_numarr(sorted, size);
+	if (size <= min_size)
+	{
+		rsorted = num_rsort(sorted, size);
+		insertsort_on_b(info, rsorted, size);
+		free(rsorted);
+		return ;
+	}
+	mid_index = (size / 2) + 1;
+	moves = divide_on_b(info, sorted, size, mid_index - 1);
+
+	// print_stack(info->a, info->b);
+	// ft_printf("\n");
+	// print_numarr(&sorted[mid_index], size - mid_index);
+	// ft_printf("\n");
+	// print_numarr(sorted, mid_index);
+
+	divide_conquer_a(info, &sorted[mid_index], size - mid_index, min_size);
+	insertsort_on_a(info, &sorted[mid_index], size - mid_index);
+
+	// print_stack(info->a, info->b);
+	if (size - mid_index > min_size)
+	{
+		i = 0;
+		while (i < moves)
+		{
+			run_inst("rrb", info, 0);
+			i++;
+		}
+	}
+	// print_stack(info->a, info->b);
+
+	divide_conquer_b(info, sorted, mid_index, min_size);
+}
+
+// static void divide_conquer(t_psinfo *info, int *sorted, int size, int min_size)
+// {
+// 	int		*rsorted;
+// 	int		mid_index;
+
+// 	ft_printf("--------\n");
+// 	print_stack(info->a, info->b);
+// 	print_numarr(sorted, size);
+// 	ft_printf("--------\n");
+// 	mid_index = (size / 2);
+// 	if (size % 2 != 0)
+// 		mid_index++;
+// 	if (!lst_issorted(info->a.lst, info->a.size))
+// 	{
+// 		if (size > min_size)
+// 		{
+// 			divide_on_a(info, sorted, size);
+// 			divide_conquer(info, &sorted[mid_index], size - mid_index, min_size);
+// 			divide_conquer(info, sorted, mid_index, min_size);
+// 		}
+// 		else
+// 		{
+// 			insertsort_on_a(info, sorted, size);
+// 		}
+// 		return ;
+// 	}
+// 	if (size > min_size)
+// 	{
+// 		divide_on_b(info, sorted, size);
+// 		divide_conquer(info, &sorted[mid_index], size - mid_index, min_size);
+// 		divide_conquer(info, sorted, mid_index, min_size);
+// 	}
+// 	else
+// 	{
+// 		rsorted = num_rsort(sorted, size);
+// 		insertsort_on_b(info, rsorted, size);
+// 		free(rsorted);
+// 	}
+// }
+
+static void	insertsort(t_psinfo *info, t_setinfo *setinfo, int min_size)
 {
 	int		i;
 	int		*sorted;
@@ -393,7 +518,10 @@ static void	insertsort(t_psinfo *info, t_setinfo *setinfo)
 	while (i >= 0)
 	{
 		set = &setinfo->sets[i];
-		divide_conquer(info, set);
+		sorted = set_sort(set);
+		// ft_printf("************************************\n");
+		divide_conquer_b(info, sorted, set->size, min_size);
+		free(sorted);
 		i--;
 	}
 }
@@ -401,13 +529,13 @@ static void	insertsort(t_psinfo *info, t_setinfo *setinfo)
 void	stack_bigsort(t_psinfo *info)
 {
 	t_setinfo	*setinfo;
-	int			min_set_size;
+	int			min_size;
 
 	// print_stack(info->a, info->b);
-	min_set_size = 15;
-	setinfo = create_sets(info, min_set_size);
+	min_size = 15;
+	setinfo = create_sets(info, min_size);
 	// print_sets(setinfo->sets, setinfo->size);
-	insertsort(info, setinfo);
+	insertsort(info, setinfo, 20);
 	// print_stack(info->a, info->b);
 	free_sets(setinfo);
 }
