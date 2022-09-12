@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/08/31 16:46:05 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/12 15:43:17 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ t_stack	init_stack(int *a, int n, t_e_stack type)
 void	free_stack(t_stack *a)
 {
 	if (a->lst)
-		ft_lstclear(&a->lst, ft_lstdel);
+		ft_lstclear(&a->lst, ft_lstnumdel);
 }

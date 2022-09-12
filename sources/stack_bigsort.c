@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/09/11 19:16:36 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/12 19:13:46 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,12 @@ static int	get_pivot(t_list *a, int size, int index)
 	return (pivot);
 }
 
+static void	set_item(t_st_item *item, int value, t_e_stack type)
+{
+	item->value = value;
+	item->stack_type = type;
+}
+
 static void	add_one_set(t_psinfo *info, t_set *set)
 {
 	int	i;
@@ -80,18 +86,30 @@ static void	add_one_set(t_psinfo *info, t_set *set)
 	{
 		if (*(int *)info->a.lst->content < pivot)
 		{
-			run_inst("pb", info, 0);
-			set->items[j].value = *(int *)info->b.lst->content;
-			set->items[j].stack_type = info->b.stack_type;
+			run_buff_inst("pb", info, 1);
+			set_item(&set->items[j], *(int *)info->b.lst->content, B_STACK);
 			j++;
 		}
 		else
 		{
-			run_inst("ra", info, 0);
+			run_buff_inst("ra", info, 1);
 			i++;
 		}
 	}
 	cal_set(set, info);
+}
+
+static int	set_items(t_psinfo *info, t_st_item *item1,
+	t_st_item *item2, int midpivot)
+{
+	if (*(int *)info->b.lst->content < midpivot)
+	{
+		set_item(item1, *(int *)info->b.lst->content, B_STACK);
+		run_buff_inst("rb", info, 1);
+		return (1);
+	}
+	set_item(item2, *(int *)info->b.lst->content, B_STACK);
+	return (0);
 }
 
 static void	add_two_set(t_psinfo *info, t_set *set1, t_set *set2)
@@ -111,24 +129,15 @@ static void	add_two_set(t_psinfo *info, t_set *set1, t_set *set2)
 	{
 		if (*(int *)info->a.lst->content < pivot)
 		{
-			run_inst("pb", info, 0);
-			if (*(int *)info->b.lst->content < midpivot)
-			{
-				set1->items[i[1]].value = *(int *)info->b.lst->content;
-				set1->items[i[1]].stack_type = info->b.stack_type;
-				run_inst("rb", info, 0);
+			run_buff_inst("pb", info, 1);
+			if (set_items(info, &set1->items[i[1]], &set2->items[i[2]], midpivot))
 				i[1]++;
-			}
 			else
-			{
-				set2->items[i[2]].value = *(int *)info->b.lst->content;
-				set2->items[i[2]].stack_type = info->b.stack_type;
 				i[2]++;
-			}
 		}
 		else
 		{
-			run_inst("ra", info, 0);
+			run_buff_inst("ra", info, 1);
 			i[0]++;
 		}
 	}
@@ -145,8 +154,7 @@ static void add_set(t_psinfo *info, t_set *set)
 	curr = info->a.lst;
 	while (curr)
 	{
-		set->items[i].value = *(int *)curr->content;
-		set->items[i].stack_type = A_STACK;
+		set_item(&set->items[i], *(int *)curr->content, A_STACK);
 		curr = curr->next;
 		i++;
 	}
@@ -201,15 +209,15 @@ static void optimize_move_on_a(t_psinfo *info, int *sorted, int size, int index)
 
 	stack_size = info->a.size;
 	if (index < stack_size / 2)
-		run_inst("ra", info, 0);
+		run_buff_inst("ra", info, 1);
 	else
-		run_inst("rra", info, 0);
+		run_buff_inst("rra", info, 1);
 	if (size < 2)
 		return ;
 	first = find_index_arr(sorted, *(int *)info->a.lst->content, size);
 	second = find_index_arr(sorted, *(int *)info->a.lst->next->content, size);
 	if (first != -1 && second != -1 && first - 1 == second)
-		run_inst("sa", info, 0);
+		run_buff_inst("sa", info, 1);
 }
 
 static int	move_to_b(t_psinfo *info, int *sorted, int size, int index)
@@ -223,7 +231,7 @@ static int	move_to_b(t_psinfo *info, int *sorted, int size, int index)
 	{
 		if (size > 1 && *(int *)info->a.lst->content == sorted[1])
 		{
-			run_inst("pb", info, 0);
+			run_buff_inst("pb", info, 1);
 			counter++;
 		}
 		else
@@ -231,9 +239,9 @@ static int	move_to_b(t_psinfo *info, int *sorted, int size, int index)
 		if (lst_issorted(info->a.lst, info->a.size))
 			return (counter);
 	}
-	run_inst("pb", info, 0);
+	run_buff_inst("pb", info, 1);
 	if (counter)
-		run_inst("sb", info, 0);
+		run_buff_inst("sb", info, 1);
 	return (++counter);
 }
 
@@ -258,10 +266,10 @@ static void	insertsort_on_a(t_psinfo *info, int *sorted, int size)
 	i = 0;
 	while (i < add_size)
 	{
-		run_inst("pa", info, 0);
+		run_buff_inst("pa", info, 1);
 		if (info->a.size > 1 && *(int *)info->a.lst->content
 			> *(int *)info->a.lst->next->content)
-			run_inst("sa", info, 0);
+			run_buff_inst("sa", info, 1);
 		i++;
 	}
 }
@@ -274,15 +282,15 @@ static void optimize_move_on_b(t_psinfo *info, int *sorted, int size, int index)
 
 	stack_size = info->b.size;
 	if (index < stack_size / 2)
-		run_inst("rb", info, 0);
+		run_buff_inst("rb", info, 1);
 	else
-		run_inst("rrb", info, 0);
+		run_buff_inst("rrb", info, 1);
 	if (size < 2)
 		return ;
 	first = find_index_arr(sorted, *(int *)info->b.lst->content, size);
 	second = find_index_arr(sorted, *(int *)info->b.lst->next->content, size);
 	if (first != -1 && second != -1 && first - 1 == second)
-		run_inst("sb", info, 0);
+		run_buff_inst("sb", info, 1);
 }
 
 static int	move_to_a(t_psinfo *info, int *sorted, int size, int index)
@@ -296,15 +304,15 @@ static int	move_to_a(t_psinfo *info, int *sorted, int size, int index)
 	{
 		if (size > 1 && *(int *)info->b.lst->content == sorted[1])
 		{
-			run_inst("pa", info, 0);
+			run_buff_inst("pa", info, 1);
 			counter++;
 		}
 		else
 			optimize_move_on_b(info, sorted, size, index);
 	}
-	run_inst("pa", info, 0);
+	run_buff_inst("pa", info, 1);
 	if (counter)
-		run_inst("sa", info, 0);
+		run_buff_inst("sa", info, 1);
 	return (++counter);
 }
 
@@ -334,12 +342,12 @@ static int	divide_on_b(t_psinfo *info, int *sorted, int set_size, int mid_index)
 	{
 		if (*(int *)info->b.lst->content > pivot)
 		{
-			run_inst("pa", info, 0);
+			run_buff_inst("pa", info, 1);
 			i[1]++;
 		}
 		else
 		{
-			run_inst("rb", info, 0);
+			run_buff_inst("rb", info, 1);
 			i[2]++;
 		}
 		i[0]++;
@@ -360,12 +368,12 @@ static int	divide_on_a(t_psinfo *info, int *sorted, int set_size, int mid_index)
 	{
 		if (*(int *)info->a.lst->content < pivot)
 		{
-			run_inst("pb", info, 0);
+			run_buff_inst("pb", info, 1);
 			i[1]++;
 		}
 		else
 		{
-			run_inst("ra", info, 0);
+			run_buff_inst("ra", info, 1);
 			i[2]++;
 		}
 		i[0]++;
@@ -373,57 +381,40 @@ static int	divide_on_a(t_psinfo *info, int *sorted, int set_size, int mid_index)
 	return (i[2]);
 }
 
+static void	reverse_move(t_psinfo *info, char *f, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		run_buff_inst(f, info, 1);
+		i++;
+	}
+}
+
 void divide_conquer_a(t_psinfo *info, int *sorted, int size, int min_size)
 {
 	int	mid_index;
-	int	i;
 	int	moves;
 
-	// ft_printf("----------- A -----------\nsize: %d\n\n", size);
-	// print_numarr(sorted, size);
 	if (size <= min_size)
 		return ;
 	mid_index = (size / 2);
 	moves = divide_on_a(info, sorted, size, mid_index);
-
 	if (size - mid_index > min_size)
-	{
-		i = 0;
-		while (i < moves)
-		{
-			run_inst("rra", info, 0);
-			i++;
-		}
-	}
-
-	// print_stack(info->a, info->b);
-	// ft_printf("\n");
-	// print_numarr(&sorted[mid_index], size - mid_index);
-	// ft_printf("\n");
-	// print_numarr(sorted, mid_index);
-
+		reverse_move(info, "rra", moves);
 	divide_conquer_a(info, &sorted[mid_index], size - mid_index, min_size);
-
-	// print_stack(info->a, info->b);
-	// ft_printf("--------------------------------------- \n");
-
 	insertsort_on_a(info, &sorted[mid_index], size - mid_index);
-
-	// print_stack(info->a, info->b);
-	// ft_printf("####################################### \n");
-
 	divide_conquer_b(info, sorted, mid_index, min_size);
 }
 
 void divide_conquer_b(t_psinfo *info, int *sorted, int size, int min_size)
 {
-	int	i;
 	int	mid_index;
 	int	*rsorted;
 	int	moves;
 
-	// ft_printf("----------- B -----------\nsize: %d\n\n", size);
-	// print_numarr(sorted, size);
 	if (size <= min_size)
 	{
 		rsorted = num_rsort(sorted, size);
@@ -433,70 +424,12 @@ void divide_conquer_b(t_psinfo *info, int *sorted, int size, int min_size)
 	}
 	mid_index = (size / 2) + 1;
 	moves = divide_on_b(info, sorted, size, mid_index - 1);
-
-	// print_stack(info->a, info->b);
-	// ft_printf("\n");
-	// print_numarr(&sorted[mid_index], size - mid_index);
-	// ft_printf("\n");
-	// print_numarr(sorted, mid_index);
-
 	divide_conquer_a(info, &sorted[mid_index], size - mid_index, min_size);
 	insertsort_on_a(info, &sorted[mid_index], size - mid_index);
-
-	// print_stack(info->a, info->b);
 	if (size - mid_index > min_size)
-	{
-		i = 0;
-		while (i < moves)
-		{
-			run_inst("rrb", info, 0);
-			i++;
-		}
-	}
-	// print_stack(info->a, info->b);
-
+		reverse_move(info, "rrb", moves);
 	divide_conquer_b(info, sorted, mid_index, min_size);
 }
-
-// static void divide_conquer(t_psinfo *info, int *sorted, int size, int min_size)
-// {
-// 	int		*rsorted;
-// 	int		mid_index;
-
-// 	ft_printf("--------\n");
-// 	print_stack(info->a, info->b);
-// 	print_numarr(sorted, size);
-// 	ft_printf("--------\n");
-// 	mid_index = (size / 2);
-// 	if (size % 2 != 0)
-// 		mid_index++;
-// 	if (!lst_issorted(info->a.lst, info->a.size))
-// 	{
-// 		if (size > min_size)
-// 		{
-// 			divide_on_a(info, sorted, size);
-// 			divide_conquer(info, &sorted[mid_index], size - mid_index, min_size);
-// 			divide_conquer(info, sorted, mid_index, min_size);
-// 		}
-// 		else
-// 		{
-// 			insertsort_on_a(info, sorted, size);
-// 		}
-// 		return ;
-// 	}
-// 	if (size > min_size)
-// 	{
-// 		divide_on_b(info, sorted, size);
-// 		divide_conquer(info, &sorted[mid_index], size - mid_index, min_size);
-// 		divide_conquer(info, sorted, mid_index, min_size);
-// 	}
-// 	else
-// 	{
-// 		rsorted = num_rsort(sorted, size);
-// 		insertsort_on_b(info, rsorted, size);
-// 		free(rsorted);
-// 	}
-// }
 
 static void	insertsort(t_psinfo *info, t_setinfo *setinfo, int min_size)
 {
@@ -519,7 +452,6 @@ static void	insertsort(t_psinfo *info, t_setinfo *setinfo, int min_size)
 	{
 		set = &setinfo->sets[i];
 		sorted = set_sort(set);
-		// ft_printf("************************************\n");
 		divide_conquer_b(info, sorted, set->size, min_size);
 		free(sorted);
 		i--;
@@ -529,13 +461,9 @@ static void	insertsort(t_psinfo *info, t_setinfo *setinfo, int min_size)
 void	stack_bigsort(t_psinfo *info)
 {
 	t_setinfo	*setinfo;
-	int			min_size;
 
-	// print_stack(info->a, info->b);
-	min_size = 15;
-	setinfo = create_sets(info, min_size);
-	// print_sets(setinfo->sets, setinfo->size);
+	setinfo = create_sets(info, 15);
 	insertsort(info, setinfo, 20);
-	// print_stack(info->a, info->b);
+	print_combine_inst(info->inst_buff);
 	free_sets(setinfo);
 }

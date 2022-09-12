@@ -6,23 +6,33 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:57:52 by fkhan             #+#    #+#             */
-/*   Updated: 2022/09/10 00:01:32 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/12 15:41:41 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_inst(t_list *abuff)
+void	print_inst(t_list *lst)
 {
-	t_list	*curr_buff;
+	t_list	*curr;
 
-	curr_buff = abuff;
-	while (curr_buff)
+	curr = lst;
+	while (curr)
 	{
-		ft_printf("%s ", curr_buff->content);
-		curr_buff = curr_buff->next;
+		ft_printf("%s\n", (char *)curr->content);
+		curr = curr->next;
 	}
-	ft_printf("\n");
+}
+
+void	print_combine_inst(t_list *lst)
+{
+	t_list	*new;
+
+	new = combine_inst_lst(lst);
+	if (!new)
+		return ;
+	print_inst(new);
+	ft_lstclear(&new, ft_lstdel);
 }
 
 void	print_set(t_set set)

@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/09/11 16:54:21 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/12 16:16:50 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct psinfo
 {
 	t_stack	a;
 	t_stack	b;
+	t_list	*inst_buff;
 }	t_psinfo;
 
 // utils
@@ -74,8 +75,10 @@ void		ft_freearg(char **args);
 t_list		*ft_lstindex(t_list *lst, int index);
 
 // list_utils
+void		ft_lstnumdel(void *content);
 void		ft_lstdel(void *content);
 int			*ft_lst_to_arr(t_list *lst, int n);
+void		ft_lstdellast(t_list *lst);
 
 // stack
 t_stack		init_stack(int *a, int n, t_e_stack type);
@@ -83,6 +86,8 @@ void		free_stack(t_stack *a);
 
 // stack_inst
 int			run_inst(char *f, t_psinfo *info, int debug);
+int			run_buff_inst(char *f, t_psinfo *info, int debug);
+t_list		*combine_inst_lst(t_list *lst);
 
 // stack_inst_utils
 int			swap_stack(t_stack *a);
@@ -131,7 +136,8 @@ int			issorted(int *a, int n);
 int			lst_issorted(t_list *lst, int n);
 
 // debug
-void		print_inst(t_list *abuff);
+void		print_inst(t_list *lst);
+void		print_combine_inst(t_list *lst);
 void		print_sets(t_set *sets, int set_size);
 void		print_set(t_set set);
 void		print_stack(t_stack a, t_stack b);
