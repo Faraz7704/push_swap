@@ -1,46 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_bigsort.c                                    :+:      :+:    :+:   */
+/*   quick_sort_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/09/12 20:18:21 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/12 20:45:18 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_inst(t_list *lst)
+int	lst_issorted(t_list *lst, int n)
 {
+	int		i;
+	int		*sort;
 	t_list	*curr;
 
+	sort = lstnew_quicksort(lst, n);
+	i = 0;
 	curr = lst;
-	while (curr)
+	while (i < n)
 	{
-		ft_printf("%s\n", (char *)curr->content);
+		if (*(int *)curr->content != sort[i])
+		{
+			free(sort);
+			return (0);
+		}
+		i++;
 		curr = curr->next;
 	}
+	free(sort);
+	return (1);
 }
 
-void	print_combine_inst(t_list *lst)
+int	issorted(int *a, int n)
 {
-	t_list	*new;
+	int	i;
+	int	*sort;
 
-	new = combine_inst_lst(lst);
-	if (!new)
-		return ;
-	print_inst(new);
-	ft_lstclear(&new, ft_lstdel);
-}
-
-void	stack_bigsort(t_psinfo *info)
-{
-	t_setinfo	*setinfo;
-
-	setinfo = create_sets(info, 15);
-	divide_conquer(info, setinfo, 20);
-	print_combine_inst(info->inst_buff);
-	free_sets(setinfo);
+	sort = new_quicksort(a, n);
+	i = 0;
+	while (i < n)
+	{
+		if (a[i] != sort[i])
+		{
+			free(sort);
+			return (0);
+		}
+		i++;
+	}
+	free(sort);
+	return (1);
 }

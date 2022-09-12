@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/09/12 16:16:50 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/12 20:46:01 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,10 @@ typedef struct stack
 	t_e_stack	stack_type;
 }	t_stack;
 
-typedef struct st_item
-{
-	int			index;
-	int			value;
-	int			move;
-	t_e_stack	stack_type;
-}	t_st_item;
-
 typedef struct s_set
 {
 	int			id;
-	t_st_item	*items;
-	int			total_moves;
+	int			*values;
 	int			size;
 }	t_set;
 
@@ -55,9 +46,9 @@ typedef struct setinfo
 
 typedef struct psinfo
 {
-	t_stack	a;
-	t_stack	b;
-	t_list	*inst_buff;
+	t_stack		a;
+	t_stack		b;
+	t_list		*inst_buff;
 }	t_psinfo;
 
 // utils
@@ -99,45 +90,59 @@ int			rrot_stack(t_stack *a);
 void		stack_sort(t_psinfo *info);
 
 // stack_bigsort
+void		print_inst(t_list *lst);
+void		print_combine_inst(t_list *lst);
 void		stack_bigsort(t_psinfo *info);
-void 		divide_conquer_a(t_psinfo *info, int *sorted, int size, int min_size);
-void 		divide_conquer_b(t_psinfo *info, int *sorted, int size, int min_size);
+
+// stack_divide_conquer
+void		divide_conquer(t_psinfo *info, t_setinfo *setinfo, int min_size);
+void		divide_conquer_a(t_psinfo *info, int *sorted,
+				int size, int min_size);
+void		divide_conquer_b(t_psinfo *info, int *sorted,
+				int size, int min_size);
+
+// stack_divide_conquer_utils
+void		reverse_move(t_psinfo *info, char *f, int size);
+
+// stack_insertsort_a
+void		insertsort_on_a(t_psinfo *info, int *sorted, int size);
+
+// stack_insertsort_b
+void		insertsort_on_b(t_psinfo *info, int *sorted, int size);
 
 // stack_sort_utils
-int			find_index_stack(t_list *lst, int value, int n);
+int			find_index_arr(int *a, int value, int n);
 int			min_index_stack(t_list *lst, int n);
 int			max_index_stack(t_list *lst, int n);
-t_st_item	*min_move_stack(t_set *set, t_e_stack type);
-t_st_item	*max_move_stack(t_set *set, t_e_stack type);
 void		move_top_stack(int index, t_psinfo *info, int on_b);
-int			find_index_arr(int *a, int value, int n);
-int			min_index_arr(int *a, int n);
+int			get_pivot_stack(t_list *a, int size, int index);
 
 // stack_set
-// t_set		*create_sets(t_psinfo *info, int *set_size, int min_size);
+t_setinfo	*create_sets(t_psinfo *info, int min_set_size);
+int			*num_sort(int *values, int size);
+int			*num_rsort(int *values, int size);
 
 // stack_set_utils
-int			get_moves(t_stack a, int index);
-void		cal_sets(t_set *sets, t_psinfo *info, int set_size);
-void		cal_set(t_set *set, t_psinfo *info);
-int			type_size_set(t_set *set, t_e_stack type);
-int			*items_to_arr(t_st_item *items, int size);
-int			*set_sort(t_set *set);
-int			*set_rsort(t_set *set);
-int			*num_sort(int *a, int n);
-int			*num_rsort(int *a, int n);
+int			init_set(t_set	*set, int id, int size);
+t_set		*init_sets(int size, int set_size);
 void		free_sets(t_setinfo *info);
+
+// stack_set_utils2
+int			get_set_size(int size, int min_size);
+void		add_set(t_psinfo *info, t_set *set);
+void		add_one_set(t_psinfo *info, t_set *set);
+void		add_two_set(t_psinfo *info, t_set *set1, t_set *set2);
 
 // quick_sort
 int			*new_quicksort(int *a, int n);
 int			*lstnew_quicksort(t_list *a, int n);
 void		quicksort(int *a, int start, int end);
+
+// quick_sort_utils
 int			issorted(int *a, int n);
 int			lst_issorted(t_list *lst, int n);
 
 // debug
-void		print_inst(t_list *lst);
-void		print_combine_inst(t_list *lst);
 void		print_sets(t_set *sets, int set_size);
 void		print_set(t_set set);
 void		print_stack(t_stack a, t_stack b);

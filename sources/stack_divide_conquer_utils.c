@@ -1,46 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_bigsort.c                                    :+:      :+:    :+:   */
+/*   stack_divide_conquer_utils.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/09/12 20:18:21 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/12 20:11:01 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_inst(t_list *lst)
+void	reverse_move(t_psinfo *info, char *f, int size)
 {
-	t_list	*curr;
+	int	i;
 
-	curr = lst;
-	while (curr)
+	i = 0;
+	while (i < size)
 	{
-		ft_printf("%s\n", (char *)curr->content);
-		curr = curr->next;
+		run_buff_inst(f, info, 1);
+		i++;
 	}
-}
-
-void	print_combine_inst(t_list *lst)
-{
-	t_list	*new;
-
-	new = combine_inst_lst(lst);
-	if (!new)
-		return ;
-	print_inst(new);
-	ft_lstclear(&new, ft_lstdel);
-}
-
-void	stack_bigsort(t_psinfo *info)
-{
-	t_setinfo	*setinfo;
-
-	setinfo = create_sets(info, 15);
-	divide_conquer(info, setinfo, 20);
-	print_combine_inst(info->inst_buff);
-	free_sets(setinfo);
 }
