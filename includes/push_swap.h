@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/09/12 20:46:01 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/12 21:03:55 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int			find_index_arr(int *a, int value, int n);
 int			min_index_stack(t_list *lst, int n);
 int			max_index_stack(t_list *lst, int n);
 void		move_top_stack(int index, t_psinfo *info, int on_b);
-int			get_pivot_stack(t_list *a, int size, int index);
+int			get_pivot(t_list *a, int size, int index);
 
 // stack_set
 t_setinfo	*create_sets(t_psinfo *info, int min_set_size);

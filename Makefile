@@ -6,7 +6,7 @@
 #    By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/07 11:40:15 by fkhan             #+#    #+#              #
-#    Updated: 2022/09/12 20:25:38 by fkhan            ###   ########.fr        #
+#    Updated: 2022/09/12 20:55:48 by fkhan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SOURCES_LIST 		= main.c utils.c arg_utils.c list_utils.c \
 						stack_set.c stack_set_utils.c stack_set_utils2.c \
 						stack_divide_conquer.c stack_divide_conquer_utils.c \
 						stack_insertsort_a.c stack_insertsort_b.c \
-						quick_sort.c \
+						quick_sort.c quick_sort_utils.c \
 						stack_sort.c stack_sort_utils.c \
 						stack_bigsort.c \
 						debug.c
