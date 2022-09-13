@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/09/13 23:22:43 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/13 23:44:24 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,17 @@ typedef struct psinfo
 	t_list		*inst_buff;
 }	t_psinfo;
 
-// utils
+// num_utils
 int			ft_numncmp(const int *num, int c, int n);
 size_t		ft_numlen(const int *num);
 void		ft_numswap(int *a, int *b);
 void		ft_numlcpy(int *dest, const int *src, int n);
 int			*ft_numdup(const int *src, int n);
 
-// arg
+// parse_arg
 int			*parse_arg(char **av, int n, int *reflen);
 
-// arg_utils
+// parse_arg_utils
 int			ft_arglen(char **args);
 char		**ft_argjoin(char **s1, char **s2);
 char		**ft_argsplit(char **args, int n, char sep);

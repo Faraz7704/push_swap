@@ -6,7 +6,7 @@
 #    By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/07 11:40:15 by fkhan             #+#    #+#              #
-#    Updated: 2022/09/13 23:26:28 by fkhan            ###   ########.fr        #
+#    Updated: 2022/09/13 23:43:51 by fkhan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,15 +39,17 @@ HEADERS_LIST 		= push_swap.h
 HEADERS 			= $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
 SOURCES_DIRECTORY 	= ./sources/
-SOURCES_LIST 		= main.c utils.c arg.c arg_utils.c list_utils.c \
-						stack.c \
-						stack_inst.c stack_inst_combine.c stack_inst_utlis.c \
-						stack_set.c stack_set_utils.c stack_set_utils2.c \
-						stack_divide_conquer.c stack_divide_conquer_utils.c \
-						stack_insertsort_a.c stack_insertsort_b.c \
-						quick_sort.c quick_sort_utils.c \
-						stack_sort.c stack_sort_utils.c \
-						stack_bigsort.c \
+SOURCES_LIST 		= main.c \
+						utils/num_utils.c utils/list_utils.c \
+						parse_arg.c utils/parse_arg_utils.c \
+						stack/stack.c \
+						stack/stack_inst.c stack/stack_inst_combine.c utils/stack_inst_utils.c \
+						stack/stack_set.c utils/stack_set_utils.c utils/stack_set_utils2.c \
+						stack/sort/stack_divide_conquer.c utils/stack_divide_conquer_utils.c \
+						stack/sort/stack_insertsort_a.c stack/sort/stack_insertsort_b.c \
+						quick_sort.c utils/quick_sort_utils.c \
+						stack/sort/stack_sort.c utils/stack_sort_utils.c \
+						stack/sort/stack_bigsort.c \
 						debug.c
 SOURCES 			= $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
@@ -55,12 +57,14 @@ OBJECTS_DIRECTORY 	= objects/
 OBJECTS_LIST 		= $(patsubst %.c, %.o, $(SOURCES_LIST))
 OBJECTS				= $(addprefix $(OBJECTS_DIRECTORY), $(OBJECTS_LIST))
 
-BSOURCES_LIST 		= checker.c utils.c arg.c arg_utils.c list_utils.c \
-						stack.c \
-						stack_inst.c stack_inst_combine.c stack_inst_utlis.c \
-						stack_set.c stack_set_utils.c stack_set_utils2.c \
-						quick_sort.c quick_sort_utils.c \
-						stack_sort_utils.c \
+BSOURCES_LIST 		= checker.c \
+						utils/num_utils.c utils/list_utils.c \
+						parse_arg.c utils/parse_arg_utils.c \
+						stack/stack.c \
+						stack/stack_inst.c stack/stack_inst_combine.c utils/stack_inst_utils.c \
+						stack/stack_set.c utils/stack_set_utils.c utils/stack_set_utils2.c \
+						quick_sort.c utils/quick_sort_utils.c \
+						utils/stack_sort_utils.c \
 						debug.c
 BSOURCES 			= $(addprefix $(SOURCES_DIRECTORY), $(BSOURCES_LIST))
 
@@ -88,6 +92,9 @@ $(NAME): $(LIBFT) $(FT_PRINTF) $(GNL) $(OBJECTS_DIRECTORY) $(OBJECTS)
 
 $(OBJECTS_DIRECTORY):
 	@mkdir -p $(OBJECTS_DIRECTORY)
+	@mkdir -p $(OBJECTS_DIRECTORY)utils/
+	@mkdir -p $(OBJECTS_DIRECTORY)stack/
+	@mkdir -p $(OBJECTS_DIRECTORY)stack/sort
 	@echo "$(NAME): $(GREEN)$(OBJECTS_DIRECTORY) was created$(RESET)"
 
 $(OBJECTS_DIRECTORY)%.o : $(SOURCES_DIRECTORY)%.c $(HEADERS)
