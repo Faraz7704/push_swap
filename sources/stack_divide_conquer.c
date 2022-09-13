@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/09/12 20:23:39 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/13 16:12:45 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ void	divide_conquer(t_psinfo *info, t_setinfo *setinfo, int min_size)
 	insertsort_on_a(info, sorted, set->size);
 	free(sorted);
 	i--;
+	if (i < 0)
+		return ;
 	set = &setinfo->sets[i];
 	sorted = num_rsort(set->values, set->size);
 	insertsort_on_b(info, sorted, set->size);

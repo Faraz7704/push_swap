@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/09/12 20:22:00 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/13 16:11:10 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ t_setinfo	*create_sets(t_psinfo *info, int min_set_size)
 	if (!new)
 		exit(1);
 	new->size = get_set_size(info->a.size, min_set_size);
-	if (new->size < 3)
-		exit(1);
+	if (new->size > 1)
+		new->size++;
 	new->sets = init_sets(new->size, info->a.size);
 	quicksort_to_b(info, new->sets, new->size);
 	return (new);

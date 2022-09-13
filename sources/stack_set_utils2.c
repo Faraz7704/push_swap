@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/09/12 21:04:26 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/13 16:08:15 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	get_set_size(int size, int min_size)
 {
 	if (size <= min_size)
-		return (2);
+		return (1);
 	return (get_set_size(size / 2, min_size) + 1);
 }
 
