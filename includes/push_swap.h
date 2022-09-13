@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:23 by fkhan             #+#    #+#             */
-/*   Updated: 2022/09/12 21:03:55 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/13 23:22:43 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ void		ft_numswap(int *a, int *b);
 void		ft_numlcpy(int *dest, const int *src, int n);
 int			*ft_numdup(const int *src, int n);
 
+// arg
+int			*parse_arg(char **av, int n, int *reflen);
+
 // arg_utils
 int			ft_arglen(char **args);
 char		**ft_argjoin(char **s1, char **s2);
@@ -76,9 +79,15 @@ t_stack		init_stack(int *a, int n, t_e_stack type);
 void		free_stack(t_stack *a);
 
 // stack_inst
+int			run_inst_rots(char *f, t_psinfo *info);
+int			run_inst_rrots(char *f, t_psinfo *info);
+int			run_inst_push(char *f, t_psinfo *info);
+int			run_inst_swap(char *f, t_psinfo *info);
 int			run_inst(char *f, t_psinfo *info, int debug);
-int			run_buff_inst(char *f, t_psinfo *info, int debug);
+
+// stack_inst_combine
 t_list		*combine_inst_lst(t_list *lst);
+int			run_buff_inst(char *f, t_psinfo *info, int debug);
 
 // stack_inst_utils
 int			swap_stack(t_stack *a);

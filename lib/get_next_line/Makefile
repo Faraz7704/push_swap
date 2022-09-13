@@ -5,12 +5,12 @@
 #                                                     +:+ +:+         +:+      #
 #    By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/06/19 13:01:55 by fkhan             #+#    #+#              #
-#    Updated: 2022/09/13 21:09:57 by fkhan            ###   ########.fr        #
+#    Created: 2022/01/06 18:06:55 by faraz             #+#    #+#              #
+#    Updated: 2022/09/13 23:25:57 by fkhan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 				= libft_printf.a
+NAME 				= libgnl.a
 CC 					= gcc
 FLAGS 				= -Wall -Werror -Wextra
 LIB					= ar -rcs
@@ -23,17 +23,14 @@ LIBFT_DIRECTORY 	= $(LIB_DIRECTORY)libft/
 LIBFT_HEADERS 		= $(LIBFT_DIRECTORY)includes/
 
 HEADERS_DIRECTORY 	= ./includes/
-HEADERS_LIST 		= ft_printf.h
+HEADERS_LIST 		= get_next_line.h
 HEADERS 			= $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
 SOURCES_DIRECTORY 	= ./sources/
-SOURCES_LIST 		= ft_printf.c ft_printf_flags.c pf_putlchar_fd.c \
-				  		pf_putlstr_fd.c pf_putlnbr_fd.c ft_digitlen.c \
-				  		pf_putlhex_fd.c pf_putlunbr_fd.c pf_putlptr_fd.c \
-				  		pf_width.c ft_puthex.c ft_hexlen.c
+SOURCES_LIST 		= get_next_line.c utils.c
 SOURCES 			= $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
-OBJECTS_DIRECTORY 	= objects/
+OBJECTS_DIRECTORY 	= ./objects/
 OBJECTS_LIST 		= $(patsubst %.c, %.o, $(SOURCES_LIST))
 OBJECTS				= $(addprefix $(OBJECTS_DIRECTORY), $(OBJECTS_LIST))
 
