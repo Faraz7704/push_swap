@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/09/13 16:11:10 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/14 14:58:40 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	*num_rsort(int *values, int size)
 	int	*rsorted;
 
 	sorted = num_sort(values, size);
-	rsorted = malloc(sizeof(int *) * size);
+	rsorted = ft_calloc(sizeof(int *), size);
 	if (!rsorted)
 		exit(1);
 	i = size - 1;
