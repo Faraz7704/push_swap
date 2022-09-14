@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/09/12 20:15:41 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/14 23:12:08 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ void	insertsort_on_b(t_psinfo *info, int *sorted, int size)
 	while (i < size)
 	{
 		index = max_index_stack(info->b.lst, info->b.size);
-		i += move_to_a(info, &sorted[i], size, index);
+		i += move_to_a(info, &sorted[i], size - i, index);
 	}
 }

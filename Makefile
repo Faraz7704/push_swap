@@ -6,13 +6,13 @@
 #    By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/07 11:40:15 by fkhan             #+#    #+#              #
-#    Updated: 2022/09/13 23:43:51 by fkhan            ###   ########.fr        #
+#    Updated: 2022/09/14 22:48:52 by fkhan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 				= push_swap
 BONUS 				= checker
-CC 					= gcc
+CC 					= gcc -g
 FLAGS 				= -Wall -Werror -Wextra
 INCLUDES 			= -I$(HEADERS_DIRECTORY) -I$(LIBFT_HEADERS) \
 						-I$(FT_PRINTF_HEADERS) -I$(GNL_HEADERS)

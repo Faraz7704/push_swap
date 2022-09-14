@@ -6,7 +6,7 @@
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 12:24:09 by fkhan             #+#    #+#             */
-/*   Updated: 2022/09/12 20:16:14 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/14 23:11:50 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	insertsort_on_a(t_psinfo *info, int *sorted, int size)
 	while (i < size)
 	{
 		index = min_index_stack(info->a.lst, info->a.size);
-		temp = move_to_b(info, &sorted[i], size, index);
+		temp = move_to_b(info, &sorted[i], size - i, index);
 		add_size += temp;
 		if (lst_issorted(info->a.lst, info->a.size))
 			break ;
