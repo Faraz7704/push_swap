@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arg.c                                              :+:      :+:    :+:   */
+/*   parse_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fkhan <fkhan@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:39:47 by fkhan             #+#    #+#             */
-/*   Updated: 2022/09/13 17:06:59 by fkhan            ###   ########.fr       */
+/*   Updated: 2022/09/15 20:28:00 by fkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	*parse_arg(char **av, int n, int *reflen)
 
 	args = ft_argsplit(av, n, ' ');
 	*reflen = ft_arglen(args);
+	if (!*reflen)
+		return (0);
 	lst = ft_calloc(sizeof(int), *reflen + 1);
 	if (!lst)
 		exit(1);
